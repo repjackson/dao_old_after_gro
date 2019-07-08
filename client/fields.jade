@@ -290,8 +290,8 @@ template(name='html_view')
     if field_value
         div
         if icon
-            //- +i name=icon classes='ui avatar image'
-            i.icon(class=icon)
+            +i name=icon classes='ui avatar image'
+            //- i.icon(class=icon)
         //- if title
         //-     |#{title}
         //- else if key
@@ -956,14 +956,14 @@ template(name='multi_doc_edit')
     div
     .ui.small.inline.header(title=key)
         if icon
-            //- +i name=icon classes='ui avatar image'
-            i.icon(class=icon)
+            +i name=icon classes='ui avatar image'
+            //- i.icon(class=icon)
         |#{title} #{label}    
     each choices
         .ui.circular.compact.button.select_choice(class=choice_class)
             if icon
-                //- +i name=icon classes='ui avatar image'
-                i.grey.icon(class=icon)
+                +i name=icon classes='ui avatar image'
+                //- i.grey.icon(class=icon)
             //- |#{title} #{slug}
             |#{slug}
     //- .ui.sub.header 
@@ -986,21 +986,6 @@ template(name='multi_doc_edit')
     //-  //             |#{title}
 
     
-
-template(name='single_unit_edit')
-    .ui.header single unit lookup
-    
-    
-    
-    
-    
-    
-template(name='multiple_unit_edit')
-    .ui.header multiple unit lookup
-    
-    
-    
-
 template(name='multi_doc_view')
     if field_value
         div

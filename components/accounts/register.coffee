@@ -13,6 +13,28 @@ if Meteor.isClient
                     Session.set 'enter_mode', 'register'
 
 
+        'keyup .password2': (e,t)->
+            if e.which is 13
+                username = $('.username').val()
+                password = $('.password').val()
+                # if Session.equals 'enter_mode', 'register'
+                # if confirm "register #{username}?"
+                options = {
+                    username:username
+                    password:password
+                    }
+                Meteor.call 'create_user', options, (err,res)->
+                    Meteor.users.update res,
+                        $set: roles: ['user']
+                    Meteor.loginWithPassword username, password, (err,res)=>
+                        if err
+                            alert err.reason
+                            # if err.error is 403
+                            #     Session.set 'message', "#{username} not found"
+                            #     Session.set 'enter_mode', 'register'
+                            #     Session.set 'username', "#{username}"
+                        else
+                            Router.go "/user/#{username}/edit"
         'click .enter': (e,t)->
             username = $('.username').val()
             password = $('.password').val()

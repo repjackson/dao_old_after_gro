@@ -58,16 +58,6 @@ if Meteor.isClient
 
 
 
-    Template.user_healthclub.events
-        'click .generate_barcode': ->
-            current_user = Meteor.users.findOne username:Router.current().params.username
-            if current_user.healthclub_code
-                JsBarcode("#barcode", current_user.healthclub_code);
-            else
-                alert 'No healthclub code'
-
-
-
     Template.user_array_element_toggle.helpers
         user_array_element_toggle_class: ->
             # user = Meteor.users.findOne Router.current().params.username
@@ -171,36 +161,6 @@ if Meteor.isClient
 
 
 
-    Template.user_violations.onCreated ->
-        @autorun => Meteor.subscribe 'violations', Router.current().params.username
-        @editing_violation = new ReactiveVar null
-    Template.user_violations.helpers
-        violations: ->
-            Docs.find
-                model:'violation'
-
-        editing_violation: ->
-            Template.instance().editing_violation.get()
-
-        editing_violation_doc: ->
-            Docs.findOne Template.instance().editing_violation.get()
-
-    Template.user_violations.events
-        'click .add_inline_violation': ->
-            new_violation_id = Docs.insert
-                model:'violation'
-                username: Router.current().params.username
-            Template.instance().editing_violation.set new_violation_id
-
-        'click .edit_violation': ->
-            Template.instance().editing_violation.set @_id
-
-        'click .save_violation': ->
-            Template.instance().editing_violation.set null
-
-
-
-
     Template.user_transactions.onCreated ->
         @autorun => Meteor.subscribe 'user_confirmed_transactions', Router.current().params.username
     Template.user_transactions.helpers
@@ -221,46 +181,6 @@ if Meteor.isClient
 
 
 
-    Template.user_unit.onCreated ->
-        @autorun => Meteor.subscribe 'user_unit', Router.current().params.username
-    Template.user_unit.helpers
-        unit: ->
-            Docs.findOne
-                model:'unit'
-
-
-    # Template.user_unit.onCreated ->
-    #     @autorun => Meteor.subscribe 'user_unit', Router.current().params.username
-    Template.user_permit.helpers
-        permit_doc: ->
-            Docs.findOne
-                model:'parking_permit'
-
-
-    Template.user_guests.onCreated ->
-        @autorun => Meteor.subscribe 'user_guests', Router.current().params.username
-    Template.user_guests.helpers
-        guests: ->
-            user = Meteor.users.findOne username:Router.current().params.username
-            Docs.find
-                model:'guest'
-                _id:$in:user.guest_ids
-
-
-
-
-
-    Template.user_checkins.onCreated ->
-        @autorun => Meteor.subscribe 'healthclub_checkins', Router.current().params.username
-    Template.user_checkins.helpers
-        healthclub_checkins: ->
-            Docs.find
-                model:'healthclub_checkin'
-                resident_username:Router.current().params.username
-
-
-
-
     Template.user_log.onCreated ->
         @autorun => Meteor.subscribe 'user_log', Router.current().params.username
     Template.user_log.helpers
@@ -278,23 +198,6 @@ if Meteor.isClient
             Docs.find {
                 bookmark_ids:$in:[current_user._id]
             }, sort:_timestamp:-1
-
-
-
-    Template.membership_status.events
-        'click .email_rules_receipt': ->
-            Meteor.call 'send_rules_regs_receipt_email', @_id
-
-
-    Template.staff_verification.events
-        'click .verify': ->
-            if confirm 'verify user government id?'
-                current_user = Meteor.users.findOne username:Router.current().params.username
-                Meteor.users.update current_user._id,
-                    $set:
-                        staff_verifier:Meteor.user().username
-                        verification_timestamp:Date.now()
-
 
 
 

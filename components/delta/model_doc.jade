@@ -34,6 +34,7 @@ template(name='model_doc_view')
                         //- +i name=current_model.icon classes='ui mini inline image'
                         |#{current_model.title}
                     if can_edit
+                        +remove_button
                         div
                         a.ui.big.icon.basic.button(href="/m/#{current_model.slug}/#{_id}/edit" title='Edit')
                             i.pencil.icon

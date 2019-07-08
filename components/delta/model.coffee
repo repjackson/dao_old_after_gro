@@ -42,9 +42,9 @@ if Meteor.isClient
 
     Template.model_doc_edit.events
         'click #delete_doc': ->
-            if confirm 'Confirm delete doc'
-                Docs.remove @_id
-                Router.go "/m/#{@model}"
+            # if confirm 'Confirm delete doc'
+            Docs.remove @_id
+            Router.go "/m/#{@model}"
 
     Template.model_doc_view.events
         'click .back_to_model': ->

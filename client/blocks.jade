@@ -24,8 +24,8 @@ template(name='comments')
 template(name='goto_model')
     if is_staff
         a.ui.icon.basic.button.goto_model(href="/m/#{slug}" title="goto #{slug}")
-            i.external.icon
-            //- +ismall name='external-link'
+            //- i.external.icon
+            +ismall name='external-link'
 
 template(name='events_column')
     .ui.accordion
@@ -61,7 +61,7 @@ template(name='follow')
 
 template(name='toggle_edit')
     .ui.basic.button.toggle_edit
-        i.pencil.icon
+        +i name='pencil' classes='ui inline mini image'
 
 template(name='user_list_info')
     a.ui.basic.button.item(href="/user/#{user._id}/view")
@@ -72,7 +72,7 @@ template(name='user_list_info')
 
 template(name='view_full_button')
     a.ui.icon.basic.button(href="/view/#{_id}" class=classes data-tooltip='View Full')
-        i.double.icon
+        +i name='right chevron' classes='ui inline mini image'
         |View
 
 template(name='user_status')
@@ -95,19 +95,8 @@ template(name='user_card')
                     if image_id
                         img.ui.image(src="{{c.url image_id width=300 height=300 gravity='face' crop='fill'}}")
             .twelve.wide.column
-                unless is_staff
-                    .header #{first_name} #{last_name} 
-                if is_staff
-                    a.header(href="/user/#{username}") #{first_name} #{last_name} 
-                    .meta @#{username}
-                    +text_view key='address' direct=true label='Address'
-                    +text_view key='building_code' direct=true label='Building Code'
-                    +number_view key='unit_number' direct=true label='Unit #'
-                    +number_view key='building_number' direct=true label='Building #'
-                    if is_admin
-                        div
-                        +user_email
-                //- +emails_edit    
+                a.header(href="/user/#{username}") #{first_name} #{last_name} 
+                .meta @#{username}
         //- +user_status user
 
 
@@ -116,11 +105,11 @@ template(name='user_email')
     if email_verified
         .ui.green.label 
             i.checkmark.icon
-            |Verified
+            |verified
     else
         .ui.orange.label 
             i.ban.icon
-            |Unverified
+            |unverified
         
 
 template(name='big_user_card')
@@ -135,37 +124,8 @@ template(name='big_user_card')
                      |#{first_name} #{last_name} 
                     .meta @#{username}
                     //- +array_view key='tags' label='Tags' direct=true
-            if is_staff
-                .content
-                    +text_view key='address' label='address' direct=true
-                    +number_view key='building_number' label='building #' direct=true
-                    +number_view key='unit_number' label='apartment #' direct=true
-                    +text_view key='building_code' label='building code' direct=true
-                    //- +array_view key='tags' label='Tags'
-                    if user_is_resident
-                        +date_view key='start_date' label='start date' direct=true
-                        +date_view key='expiration_date' label='expiration date' direct=true
-                    +checkin_button
-                    +garden_key_checkout
-                    +unit_key_checkout
-                    +email_validation_check
-                    +lease_expiration_check
-                    +rules_and_regs_check
                     +array_view key='roles' direct=true
                         
-                    //- +i name='swimming-pool' classes='ui avatar image'
-                    //- +i name='weightlift' classes='ui avatar image'
-                    //- +i name='jacuzzi' classes='ui avatar image'
-                    //- +i name='shower' classes='ui avatar image'
-                    //- +i name='racquetball' classes='ui avatar image'
-                    //- +i name='water-steam' classes='ui avatar image'
-
-
-template(name='unit_key_checkout')
-    .ui.compact.button.unit_key_checkout
-        +i name='key' classes='ui mini inline image'
-        strong Checkout Unit Key
-
 
 template(name='user_info')
     a.ui.small.compact.basic.button(href="/user/#{user.username}/")
@@ -251,7 +211,7 @@ template(name='view_button')
 
 
 template(name='remove_button')
-    a.ui.icon.basic.button.remove_doc(title='delete')
+    a.ui.icon.large.button.remove_doc(title='delete')
         i.remove.red.icon
         //- |Delete
 

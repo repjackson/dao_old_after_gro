@@ -4,8 +4,8 @@ template(name='delta')
             .row
                 .five.wide.column
                     .ui.inline.header
-                        i.icon(class=icon)
-                        //- +i name=icon
+                        //- i.icon(class=icon)
+                        +i name=icon
                         | #{title}
                     unless is_loading
                         if currentUser
@@ -52,7 +52,7 @@ template(name='delta')
                     //-     |sort by
                     //- .ui.button
                     //- .ui.stackable.four.column.grid
-                    .ui.three.cards
+                    .ui.three.stackable.cards
                         each current_delta.result_ids
                             //- .column
                             +delta_result
@@ -66,8 +66,8 @@ template(name='facet')
         //-     .active.title
         .ui.grey.inline.header 
             if icon
-                i.small.icon(class=icon)
-                //- +i name=icon classes='ui mini inline image'   
+                //- i.small.icon(class=icon)
+                +i name=icon classes='ui mini inline image'   
             if title
                 |#{title}
             else 
@@ -124,6 +124,7 @@ template(name='delta_result')
                                     |Edit Model
                         else
                             if can_edit
+                                +remove_button
                                 a.ui.large.icon.basic.button(href="/m/#{current_model.slug}/#{_id}/edit" title='edit')
                                     i.pencil.large.icon
                                     //- |edit
