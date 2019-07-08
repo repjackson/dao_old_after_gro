@@ -1,8 +1,8 @@
 template(name='shop_edit')
     with current_doc
         .ui.stackable.padded.grid
-            .three.column.row
-                .column
+            .row
+                .four.wide.column
                     .ui.inline.header #{title}
                     a.ui.large.basic.icon.button(href="/shop/#{_id}/view")
                         i.big.green.checkmark.icon
@@ -15,13 +15,13 @@ template(name='shop_edit')
                     //- +boolean_edit key='active' icon='clock' label='active' direct=true
                     //- +text_edit key='model' icon='cube' label='model' direct=true
                     +number_edit key='inventory' icon='move-by-trolley' label='inventory' direct=true
-                    +date_edit key='date_available' icon='calendar' label='date available' direct=true
-                    +time_edit key='time_available' icon='clock' label='time available' direct=true
+                    //- +date_edit key='date_available' icon='calendar' label='date available' direct=true
+                    //- +time_edit key='time_available' icon='clock' label='time available' direct=true
                     +single_doc_edit key='shop_type' ref_model='shop_type' label='shop type' direct=true
                     //- +omega_edit model='shop_type'
                     if is_event
                         .ui.header 
-                            i.calendar.icon
+                            +i name='calendar'
                             |event
                         +date_edit key='date' label='date' direct=true
                         +time_edit key='start_time' label='start time' direct=true
@@ -43,21 +43,21 @@ template(name='shop_edit')
                         if rentable
                             +number_edit key='hourly_rate' label='hourly rate' icon='time-span' direct=true
                             +number_edit key='daily_rate' label='daily rate' icon='timetable' direct=true
-                .column
+                .eight.wide.column
                     +image_edit key='picture' direct=true
                     +html_edit key='description' direct=true
-                .column
+                .four.wide.column
                     .ui.header
-                        i.truck.grey.icon
+                        +i name='truck'
                         |delivery
                     +boolean_edit key='pickup_delivery' label='pickup' direct=true
                     +boolean_edit key='home_dropoff_delivery' label='home dropoff' direct=true
                     +boolean_edit key='building_dropoff_delivery' label='building dropoff' direct=true
-                    +boolean_edit key='healthclub_drop_off_delivery' label='health club drop off' direct=true
                     .ui.header 
-                        i.money.grey.icon
+                        +i name='money'
                         |pricing
-                    +boolean_edit key='cash_accepted' label='cash accepted' direct=true
+                    +boolean_edit key='cash_accepted' label='cash accepted' icon='cash' direct=true
+                    +boolean_edit key='venmo_accepted' label='venmo accepted' icon='mobile-payment' direct=true
                     +boolean_edit key='prepay' label='prepayment required' direct=true
                     +boolean_edit key='security_deposit_required' label='security deposit required' direct=true
                     if security_deposit_required
@@ -66,17 +66,14 @@ template(name='shop_edit')
                     if friend_discount
                         +number_edit key='security_deposit_amount' label='security deposit amount' icon='dollar'
                     .ui.header
-                        i.grey.eye.icon
+                        +i name='eye'
                         | visibility
                     +boolean_edit key='published' label='published' direct=true
-                    .ui.divider
-                    +boolean_edit key='visible_to_friends' label='visible to friends' direct=true
-                    +boolean_edit key='visible_to_building' label='visible to building' direct=true
-                    +boolean_edit key='visible_to_residents' label='visible to residents' direct=true
-                    +boolean_edit key='visible_to_public' label='visible to public' direct=true
+                    if published
+                        .ui.divider
+                        +boolean_edit key='visible_to_friends' label='visible to friends' direct=true
+                        +boolean_edit key='visible_to_public' label='visible to public' direct=true
                         
-                
-
 template(name='shop_view_layout')
     +nav
     //- a.ui.large.button(href="/m/shop")
@@ -87,41 +84,63 @@ template(name='shop_view_layout')
         .ui.stackable.padded.grid
             //- img.ui.large.rounded.image(src="{{c.url image width=500 height=500 gravity='face' crop='fill'}}")
             .row
+                .twelve.wide.column
+                    .ui.large.inline.header #{title}
+                    //- .ui.tiny.grey.statistic
+                    //-     .value #{views}
+                    //-     .label views
+                    //- .ui.tiny.grey.statistic
+                    //-     .value #{upvotes}
+                    //-     .label upvotes
+                    //- .ui.tiny.grey.statistic
+                    //-     .value #{downvotes}
+                    //-     .label downvotes
+                    //- .ui.tiny.grey.statistic
+                    //-     .value #{good_reviews}
+                    //-     .label good reviews
+                    //- .ui.tiny.grey.statistic
+                    //-     .value #{bad_reviews}
+                    //-     .label bad reviews
+                    //- .ui.tiny.grey.statistic
+                    //-     .value #{points}
+                    //-     .label points
+                    //- .ui.tiny.grey.statistic
+                    //-     .value #{transactions}
+                    //-     .label transactions
+                    //- .ui.tiny.grey.statistic
+                    //-     .value #{reservations}
+                    //-     .label future reservations
                 .four.wide.column
-                    .ui.large.header #{title}
+                    .ui.fluid.big.green.button
+                        |reserve
+            .row
+                .four.wide.column
                     if can_edit
-                        a.ui.fluid.button(href="/shop/#{_id}/edit")
-                            i.cog.grey.icon
-                            |edit
-                    .ui.large.vertical.fluid.menu
-                        a.item(href="/shop/#{_id}/info" class="{{isActiveRoute 'shop_info'}}")
-                            |info
-                            i.info.grey.icon
-                        if rentable
-                            a.item(href="/shop/#{_id}/rentals" class="{{isActiveRoute 'shop_rentals'}}")
-                                |rentals
-                                i.clock.grey.icon
-                        a.item(href="/shop/#{_id}/chat" class="{{isActiveRoute 'shop_chat'}}")
-                            |chat
-                            i.chat.grey.icon
-                        a.item(href="/shop/#{_id}/tasks" class="{{isActiveRoute 'shop_tasks'}}")
-                            |tasks
-                            i.tasks.grey.icon
-                        a.item(href="/shop/#{_id}/earnings" class="{{isActiveRoute 'shop_earnings'}}")
-                            |earnings
-                            i.money.grey.icon
-                        a.item(href="/shop/#{_id}/stats" class="{{isActiveRoute 'shop_stats'}}")
-                            |stats
-                            i.line.chart.grey.icon
-                        a.item(href="/shop/#{_id}/ownership" class="{{isActiveRoute 'product_ownership'}}")
-                            |ownership
-                            i.pie.chart.grey.icon
-                        a.item(href="/shop/#{_id}/projections" class="{{isActiveRoute 'shop_projections'}}")
-                            |projections
-                            i.line.chart.grey.icon
-                        a.item(href="/shop/#{_id}/ads" class="{{isActiveRoute 'shop_ads'}}")
-                            |ads
-                            i.bullhorn.grey.icon
+                        a.ui.icon.button(href="/shop/#{_id}/edit" title='edit')
+                            +i name='settings'
+                    a.ui.icon.button(href="/shop/#{_id}/info" class="{{isActiveRoute 'shop_info'}}" title='info')
+                        +i name='info'
+                    if rentable
+                        a.ui.icon.button(href="/shop/#{_id}/rentals" class="{{isActiveRoute 'shop_rentals'}}" title='rentals')
+                            +i name='clock'
+                    a.ui.icon.button(href="/shop/#{_id}/chat" class="{{isActiveRoute 'shop_chat'}}" title='chat')
+                        +i name='chat'
+                    //- a.ui.icon.button(href="/shop/#{_id}/tasks" class="{{isActiveRoute 'shop_tasks'}}")
+                    //-     |tasks
+                    //-     i.tasks.grey.icon
+                    a.ui.icon.button(href="/shop/#{_id}/earnings" class="{{isActiveRoute 'shop_earnings'}}" title='earnings')
+                        +i name='money'
+                    a.ui.icon.button(href="/shop/#{_id}/stats" class="{{isActiveRoute 'shop_stats'}}" title='stats')
+                        +i name='line-chart'
+                        //- a.item(href="/shop/#{_id}/ownership" class="{{isActiveRoute 'product_ownership'}}")
+                        //-     |ownership
+                        //-     i.pie.chart.grey.icon
+                        //- a.item(href="/shop/#{_id}/projections" class="{{isActiveRoute 'shop_projections'}}")
+                        //-     |projections
+                        //-     i.line.chart.grey.icon
+                        //- a.item(href="/shop/#{_id}/ads" class="{{isActiveRoute 'shop_ads'}}")
+                        //-     |ads
+                        //-     i.bullhorn.grey.icon
                     img.ui.centered.rounded.shadowed.image(src="{{c.url picture width=1000 height=400 crop='fit'}}")
                     .ui.header added by #{_author_username}
                     |#{when}
@@ -133,24 +152,16 @@ template(name='shop_view_layout')
 
                     +number_view key='inventory' label='inventory' icon='move-by-trolley' direct=true
                     //- +dollar_price_view key='dollar_price' icon='money' label='dollar price' direct=true
-                    if date_available
-                        +date_view key='date_available' label='date available' icon='calendar' direct=true
-                    if time_available
-                        +time_view key='time_available' label='time available' icon='clock' direct=true
-                    +product_adspace
-                    .ui.header 
-                        i.star.icon
+                    .ui.header
+                        i.yellow.star.icon
                         |reviews
                 .eight.wide.column
                     +yield
                 .four.wide.column
-                    .ui.header $#{past_earnings} past earnings 
-                    .ui.header $#{future_earnings} future earnings 
-                    .ui.header #{future_reservations} future reservations
-                    .ui.header #{past_reservations} past reservations
                     div
                     +product_location
-                    .ui.header available_inventory #{inventory_available}
+                    if inventory_available
+                        .ui.header available inventory #{inventory_available}
                     if for_sale
                         unless sold_out
                             .ui.big.green.fluid.button.add_to_cart 
@@ -160,77 +171,52 @@ template(name='shop_view_layout')
                             .ui.big.disabled.button
                                 i.ban.icon
                                 |sold out
-                    .scrolling
-                        +voting_full     
-                        .ui.basic.segment
-                            .ui.small.header
-                                i.grey.truck.icon
-                                |delivery instructions
-                            |#{delivery_instructions}      
-                        .ui.header
-                            i.truck.icon
-                            |delivery
-                        +boolean_view key='pickup_delivery' label='pickup' direct=true
-                        +boolean_view key='home_dropoff_delivery' label='home dropoff' direct=true
-                        +boolean_view key='building_dropoff_delivery' label='building dropoff' direct=true
-                        +boolean_view key='healthclub_drop_off_delivery' label='health club drop off' direct=true
-                        .ui.header pricing
-                        +boolean_view key='cash_accepted' label='cash accepted' direct=true
-                        +boolean_view key='prepay' label='prepayment required' direct=true
-                        +boolean_view key='security_deposit_required' label='security deposit required' direct=true
-                        if security_deposit_required
-                            +number_view key='security_deposit_amount' label='security deposit amount' icon='dollar'
-                        .ui.header pricing planning determination
-                        +boolean_view key='friend_discount' label='friend discount' direct=true
-                        if friend_discount
-                            +number_view key='security_deposit_amount' label='security deposit amount' icon='dollar'
-                        .ui.header
-                            i.grey.eye.icon
-                            | privacy
-                        .ui.small.header visibility
+                    +voting_full     
+                    .ui.header
+                        +i name='truck'
+                        |delivery
+                    |#{delivery_instructions}      
+                    +boolean_view key='pickup_delivery' label='pickup' direct=true
+                    +boolean_view key='home_dropoff_delivery' label='home dropoff' direct=true
+                    +boolean_view key='building_dropoff_delivery' label='building dropoff' direct=true
+                    +boolean_view key='healthclub_drop_off_delivery' label='health club drop off' direct=true
+                    .ui.header 
+                        +i name='money'
+                        |pricing
+                    +boolean_view key='cash_accepted' label='cash accepted' direct=true
+                    +boolean_view key='prepay' label='prepayment required' direct=true
+                    +boolean_view key='security_deposit_required' label='security deposit required' direct=true
+                    if security_deposit_required
+                        +number_view key='security_deposit_amount' label='security deposit amount' icon='dollar'
+                    .ui.header pricing planning determination
+                    +boolean_view key='friend_discount' label='friend discount' direct=true
+                    if friend_discount
+                        +number_view key='friend_discount_amount' label='friend deposit amount' icon='dollar'
+                    .ui.small.header 
+                        +i name='eye' 
+                        |visibility
+                    +boolean_view key='published' label='published' direct=true
+                    if published
                         +boolean_view key='visible_to_friends' label='visible to friends' direct=true
-                        +boolean_view key='visible_to_building' label='visible to building' direct=true
-                        +boolean_view key='visible_to_residents' label='visible to residents' direct=true
                         +boolean_view key='visible_to_public' label='visible to public' direct=true
-                        .ui.divider
-                        +boolean_view key='published' label='published' direct=true
     +footer
     
     
     
-template(name='product_adspace')
-    .ui.segment
-        .ui.header advertisement
-        if current_ad
-            .ui.header current ad
-            .ui.disabled.button buy now
-        else
-            .ui.button advertise
-    
-    
-    
-template(name='product_ads')
-    .ui.segment
-        .ui.header ads settings
-        .ui.segment
-            .ui.header ad 1
-        .ui.segment
-            .ui.header ad 2
-        if current_ad
-            .ui.header current ad
-            .ui.disabled.button buy now
-        else
-            .ui.button.create_product_ad advertise
-    
-    
-    
-    
-        
 template(name='shop_stats')
-    .ui.header admin actions
     .ui.button.calculate_transaction_count calculate transaction count
     .ui.button.advise_price advise price
     .ui.header sale price $#{dollar_price}
+    .ui.header $#{past_earnings} past earnings 
+    .ui.statistic
+        .value
+            +i name='payment-history'
+            |$#{future_earnings}
+        .label
+            |future earnings 
+    .ui.header #{future_reservations} future reservations
+    .ui.header #{past_reservations} past reservations
+    
     .ui.header transaction count #{transaction_count}
     .ui.header daily rate $#{daily_rate}
     .ui.header sales_total $#{sales_total}
@@ -242,8 +228,11 @@ template(name='shop_stats')
     //- +product_transactions
     
 template(name='product_location')
-    .ui.inline.header current location
+    .ui.inline.header 
+        +i name='location'
+        |current location
     i.refresh.link.icon.recheck_location
+    div
     |#{current_location}
     
     
@@ -342,8 +331,32 @@ template(name='shop_tasks')
     |none
                     
 template(name='shop_info')    
-    if rentable                    
-        +rentals    
+    //- if rentable                    
+    //-     +rentals    
+    .ui.mini.statistic
+        .value #{views}
+        .label views
+    .ui.mini.statistic
+        .value #{upvotes}
+        .label upvotes
+    .ui.mini.statistic
+        .value #{downvotes}
+        .label downvotes
+    .ui.mini.statistic
+        .value #{good_reviews}
+        .label good reviews
+    .ui.mini.statistic
+        .value #{bad_reviews}
+        .label bad reviews
+    .ui.mini.statistic
+        .value #{points}
+        .label points
+    .ui.mini.statistic
+        .value #{transactions}
+        .label transactions
+    .ui.mini.statistic
+        .value #{reservations}
+        .label future reservations
     +html_view key='description' direct=true
     .ui.grid
         .two.column.row

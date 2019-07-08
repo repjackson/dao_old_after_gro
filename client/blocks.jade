@@ -2,8 +2,7 @@ template(name='comments')
     .ui.fluid.accordion
         .active.title
             .ui.grey.header
-                i.chat.outline.icon
-                //- +i name='chat'
+                +i name='chat'
                 |comments
         .active.content
             if currentUser
@@ -184,15 +183,15 @@ template(name='voting')
 
 
 template(name='voting_full')
-    .ui.header voting
+    .ui.header 
+        +i name='elections'
+        |voting
     if points
         strong #{points}
-    .ui.basic.basic.button.upvote(class=upvote_class title='upvote')
-        i.thumbs.up.icon
-        |like
-    .ui.basic.basic.button.downvote(title='downvote' class=downvote_class)
-        i.thumbs.down.icon
-        |dislike
+    .ui.icon.button.upvote(class=upvote_class title='upvote')
+        +i name='thumb-up' classes='ui inline mini image'
+    .ui.icon.button.downvote(title='downvote' class=downvote_class)
+        +i name='thumbs-down' classes='ui inline mini image'
     if upvoter_ids
         .ui.small.header upvoters
         each upvoter_ids

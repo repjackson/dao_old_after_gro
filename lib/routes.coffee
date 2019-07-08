@@ -38,28 +38,28 @@ Router.route '/games', -> @render 'games'
 Router.route '/deliveries', -> @render 'deliveries'
 
 Router.route '/library', (->
-    @layout 'mlayout'
+    @layout 'layout'
     @render 'library'
     ), name:'library'
 
 Router.route '/food', (->
-    @layout 'mlayout'
+    @layout 'layout'
     @render 'food'
     ), name:'food'
 
 Router.route '/events', (->
-    @layout 'mlayout'
+    @layout 'layout'
     @render 'events'
     ), name:'events'
 
 Router.route "/shop", (->
-    @layout 'mlayout'
+    @layout 'layout'
     @render 'shop'
     ), name:'shop'
 
 
 Router.route "/shop_item_page/:doc_id", (->
-    @layout 'mlayout'
+    @layout 'layout'
     @render 'shop_item_page'
     ), name:'shop_item_page'
 
@@ -145,10 +145,6 @@ Router.route '/reset_password/:token', (->
     @render 'reset_password'
     ), name:'reset_password'
 
-Router.route '/download_rules_pdf/:username', (->
-    @render 'download_rules_pdf'
-    ), name: 'download_rules_pdf'
-
 
 Router.route "/meal/:doc_id/edit", (->
     @render 'meal_edit'
@@ -209,20 +205,21 @@ Router.route '/login', -> @render 'login'
 # Router.route '/', -> @redirect '/m/model'
 # Router.route '/', -> @redirect "/user/#{Meteor.user().username}"
 Router.route '/home', -> @render 'home'
+
 Router.route '/', (->
     @layout 'layout'
-    @render 'front'
+    @render 'shop'
     ), name:'front'
 
 
 Router.route '/healthclub', (->
-    @layout 'mlayout'
+    @layout 'layout'
     @render 'kiosk_container'
     ), name:'healthclub'
 
 
 Router.route '/healthclub_session/:doc_id', (->
-    @layout 'mlayout'
+    @layout 'layout'
     @render 'healthclub_session'
     ), name:'healthclub_session'
 

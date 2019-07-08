@@ -843,36 +843,6 @@ template(name='youtube_view')
 
 
 
-template(name='signature_edit')
-    .ui.segment
-        canvas(id="signature-pad" class="signature-pad" width='800' height='200')
-        .ui.grid
-            .middle.aligned.row
-                .fourteen.wide.column
-                    .ui.huge.basic.fluid.button.save(title='Save')
-                        i.checkmark.icon
-                        |save signature
-                .one.wide.column
-                    .ui.large.icon.basic.button.clear(title='Clear')
-                        i.remove.icon
-
-template(name='signature_view')
-    .ui.small.header
-        if icon
-            +i name=icon
-            //- i.icon(class=icon)
-        | #{title}    
-    img.ui.fluid.centered.rounded.image(src=field_value)
-    if is_admin
-        .ui.button.print_rules
-            i.download.icon
-            |Download PDF
-    //- .ui.icon.button.print_guest
-    //-     i.download.icon
-    //-     |Download Guest PDF
-
-
-
 template(name='boolean_edit')
     div
     .ui.small.inline.header
@@ -903,22 +873,23 @@ template(name='boolean_edit')
 
 template(name='boolean_view')
     div
-    .ui.small.inline.header
-        if icon
-            //- i.icon(class=icon)
-            +i name=icon classes='ui inline mini image'
-        if title
-            |#{title}
-        else if label
-            |#{label}
-        else if key
-            |#{key}
-        else
-            |#{this}
     if field_value
-        i.large.green.checkmark.icon
-    else
-        i.large.cancel.icon
+        .ui.small.inline.header
+            if icon
+                //- i.icon(class=icon)
+                +i name=icon classes='ui inline mini image'
+            if title
+                |#{title}
+            else if label
+                |#{label}
+            else if key
+                |#{key}
+            else
+                |#{this}
+        if field_value
+            i.large.green.checkmark.icon
+    //- else
+    //-     i.large.cancel.icon
 
 template(name='single_doc_view')
     div

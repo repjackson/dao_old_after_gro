@@ -1,6 +1,6 @@
 template(name='rentals')
     .ui.header 
-        i.clock.icon
+        +i name='clock'
         |rentals
     unless is_author
         +view_rental
@@ -10,7 +10,9 @@ template(name='rentals')
             each upcoming_days
                 .column
                     +upcoming_day data=this
-    .ui.small.header #{current_month} reservations
+    .ui.small.header 
+        +i name='clock'
+        |#{current_month} reservations
     .ui.celled.grid
         .seven.column.row
             .header.column sun

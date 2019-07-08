@@ -260,15 +260,22 @@ if Meteor.isClient
                 Docs.update @_id,
                     $pull: downvoter_ids:Meteor.userId()
                     $addToSet: upvoter_ids:Meteor.userId()
-                    $inc:points:2
+                    $inc:
+                        points:2
+                        upvotes:1
+                        downvotes:-1
             else if @upvoter_ids and Meteor.userId() in @upvoter_ids
                 Docs.update @_id,
                     $pull: upvoter_ids:Meteor.userId()
-                    $inc:points:-1
+                    $inc:
+                        points:-1
+                        upvotes:-1
             else
                 Docs.update @_id,
                     $addToSet: upvoter_ids:Meteor.userId()
-                    $inc:points:1
+                    $inc:
+                        upvotes:1
+                        points:1
             # Meteor.users.update @_author_id,
             #     $inc:karma:1
 
@@ -277,15 +284,22 @@ if Meteor.isClient
                 Docs.update @_id,
                     $pull: upvoter_ids:Meteor.userId()
                     $addToSet: downvoter_ids:Meteor.userId()
-                    $inc:points:-2
+                    $inc:
+                        points:-2
+                        downvotes:1
+                        upvotes:-1
             else if @downvoter_ids and Meteor.userId() in @downvoter_ids
                 Docs.update @_id,
                     $pull: downvoter_ids:Meteor.userId()
-                    $inc:points:1
+                    $inc:
+                        points:1
+                        downvotes:-1
             else
                 Docs.update @_id,
                     $addToSet: downvoter_ids:Meteor.userId()
-                    $inc:points:-1
+                    $inc:
+                        points:-1
+                        downvotes:1
             # Meteor.users.update @_author_id,
             #     $inc:karma:-1
 

@@ -1,5 +1,4 @@
 template(name='library')
-    img.ui.fluid.image.checkin_banner(src="{{c.url 'grfront' width=1000 height=1000 crop='crop'}}")
     .ui.padded.stackable.grid.header-wrapper
         .row
             .sixteen.wide.center.aligned.column
@@ -26,26 +25,25 @@ template(name='library_item')
 
 
 template(name='shop')
-    img.ui.fluid.image.checkin_banner(src="{{c.url 'grfront' width=1000 height=1000 crop='crop'}}")
     .ui.padded.stackable.grid.header-wrapper
         //- +Template.dynamic template=kiosk_view
         .row
             .sixteen.wide.column
-                a.ui.button(href='/healthclub')
-                    i.left.chevron.icon
-                    i.home.large.icon
-                h1.ui.massive.inline.center.aligned.header 
-                    //- i.shop.icon
-                    +i name='shop'
-                    |market
+                //- a.ui.button(href='/healthclub')
+                //-     i.left.chevron.icon
+                //-     i.home.large.icon
+                //- h1.ui.massive.inline.center.aligned.header 
+                //-     //- i.shop.icon
+                //-     +i name='shop'
+                //-     |market
                 +cloud filter='shop_item'
                 .scrolling
-                    .ui.centered.three.cards
+                    .ui.centered.five.cards
                         each shop_items
                             +shop_item
 template(name='shop_item')
     .ui.card.goto_shop_item_page
-        a(href="/shop_item_page/#{_id}")
+        a(href="/shop/#{_id}/view")
             img.ui.image(src="{{c.url image_id height=200 width=300 crop='lpad'}}")
         .content
             a.header(href="/shop_item_page/#{_id}") #{title}
@@ -59,7 +57,6 @@ template(name='shop_item')
                 .item #{negative_reviews} negative reviews
             
 template(name='shop_item_page')
-    img.ui.fluid.image.checkin_banner(src="{{c.url 'grfront' width=1000 height=1000 crop='crop'}}")
     .ui.padded.stackable.grid.header-wrapper
         .row
             .sixteen.wide.column
@@ -82,19 +79,14 @@ template(name='shop_item_page')
 
 
 template(name='events')
-    img.ui.fluid.image.checkin_banner(src="{{c.url 'grfront' width=1000 height=1000 crop='crop'}}")
     .ui.padded.stackable.grid.header-wrapper
         //- +Template.dynamic template=kiosk_view
         .row
-            .sixteen.wide.center.aligned.column
-                a.ui.big.button(href='/healthclub')
-                    i.left.chevron.icon
-                    i.home.large.icon
+            .four.wide.center.aligned.column
                 h1.ui.massive.inline.header 
                     +i name='calendar'
                     |events
-        .row
-            .sixteen.wide.column
+            .twelve.wide.column
                 .ui.centered.cards
                     each event_items
                         +event_item
