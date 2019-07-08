@@ -176,9 +176,6 @@ template(name='footer')
             .eight.wide.column
                 //- with currentUser
                 //-     +textarea_edit key='notes' direct=true
-                //- +health_club_info
-                if is_user
-                    +ads
                 //-     form(action='https://www.paypal.com/cgi-bin/webscr', method='post', target='_top')
                 //-         input(type='hidden', name='cmd', value='_s-xclick')
                 //-         input(type='hidden', name='hosted_button_id', value='AUVHGYNUW5LVE')

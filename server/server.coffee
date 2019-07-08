@@ -11,33 +11,6 @@ Cloudinary.config
     api_secret: Meteor.settings.private.cloudinary_secret
 
 
-# SyncedCron.add
-#     name: 'Update incident escalations'
-#     schedule: (parser) ->
-#         # parser is a later.parse object
-#         parser.text 'every 1 hour'
-#     job: ->
-#         Meteor.call 'update_escalation_statuses', (err,res)->
-#             # else
-
-
-SyncedCron.add({
-        name: 'check out members'
-        schedule: (parser) ->
-            parser.text 'every 2 hours'
-        job: ->
-            Meteor.call 'checkout_members', (err, res)->
-    },{
-        name: 'check leases'
-        schedule: (parser) ->
-            # parser is a later.parse object
-            parser.text 'every 24 hours'
-        job: ->
-            Meteor.call 'check_lease_status', (err, res)->
-    }
-)
-
-
 if Meteor.isProduction
     SyncedCron.start()
 

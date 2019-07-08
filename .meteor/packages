@@ -39,5 +39,7 @@ coffeescript
 ecmascript
 reywood:publish-composite
 lookback:emails
+percolate:synced-cron
 http
 modules
+mrgalaxy:stripe
