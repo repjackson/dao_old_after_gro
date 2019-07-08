@@ -3,7 +3,14 @@ if Meteor.isClient
         @autorun => Meteor.subscribe 'doc', Router.current().params.doc_id
     Template.shop_edit.onCreated ->
         @autorun => Meteor.subscribe 'doc', Router.current().params.doc_id
+    Template.shop_edit.onDestroyed ->
     Template.shop_view_layout.events
+        'click .reserve': ->
+            console.log @
+            new_res_id = Docs.insert
+                model:'reservation'
+                product_id:@_id
+            Router.go "/reservation/#{new_res_id}"
         'click .add_to_cart': ->
             console.log @
             Docs.insert

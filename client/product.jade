@@ -85,33 +85,35 @@ template(name='shop_view_layout')
             //- img.ui.large.rounded.image(src="{{c.url image width=500 height=500 gravity='face' crop='fill'}}")
             .row
                 .twelve.wide.column
-                    .ui.large.inline.header #{title}
-                    //- .ui.tiny.grey.statistic
+                    .ui.large.inline.header 
+                        img.ui.circular.medium.image(src="{{c.url picture width=400 height=400 crop='fit'}}")
+                        |#{title}
+                    //- .ui.tiny.blue.statistic
                     //-     .value #{views}
                     //-     .label views
-                    //- .ui.tiny.grey.statistic
+                    //- .ui.tiny.blue.statistic
                     //-     .value #{upvotes}
                     //-     .label upvotes
-                    //- .ui.tiny.grey.statistic
+                    //- .ui.tiny.blue.statistic
                     //-     .value #{downvotes}
                     //-     .label downvotes
-                    //- .ui.tiny.grey.statistic
+                    //- .ui.tiny.blue.statistic
                     //-     .value #{good_reviews}
                     //-     .label good reviews
-                    //- .ui.tiny.grey.statistic
+                    //- .ui.tiny.blue.statistic
                     //-     .value #{bad_reviews}
                     //-     .label bad reviews
-                    //- .ui.tiny.grey.statistic
+                    //- .ui.tiny.blue.statistic
                     //-     .value #{points}
                     //-     .label points
-                    //- .ui.tiny.grey.statistic
+                    //- .ui.tiny.blue.statistic
                     //-     .value #{transactions}
                     //-     .label transactions
-                    //- .ui.tiny.grey.statistic
+                    //- .ui.tiny.blue.statistic
                     //-     .value #{reservations}
                     //-     .label future reservations
                 .four.wide.column
-                    .ui.fluid.big.green.button
+                    .ui.fluid.big.green.button.reserve
                         |reserve
             .row
                 .four.wide.column
@@ -127,21 +129,20 @@ template(name='shop_view_layout')
                         +i name='chat'
                     //- a.ui.icon.button(href="/shop/#{_id}/tasks" class="{{isActiveRoute 'shop_tasks'}}")
                     //-     |tasks
-                    //-     i.tasks.grey.icon
+                    //-     i.tasks.blue.icon
                     a.ui.icon.button(href="/shop/#{_id}/earnings" class="{{isActiveRoute 'shop_earnings'}}" title='earnings')
                         +i name='money'
                     a.ui.icon.button(href="/shop/#{_id}/stats" class="{{isActiveRoute 'shop_stats'}}" title='stats')
                         +i name='line-chart'
                         //- a.item(href="/shop/#{_id}/ownership" class="{{isActiveRoute 'product_ownership'}}")
                         //-     |ownership
-                        //-     i.pie.chart.grey.icon
+                        //-     i.pie.chart.blue.icon
                         //- a.item(href="/shop/#{_id}/projections" class="{{isActiveRoute 'shop_projections'}}")
                         //-     |projections
-                        //-     i.line.chart.grey.icon
+                        //-     i.line.chart.blue.icon
                         //- a.item(href="/shop/#{_id}/ads" class="{{isActiveRoute 'shop_ads'}}")
                         //-     |ads
-                        //-     i.bullhorn.grey.icon
-                    img.ui.centered.rounded.shadowed.image(src="{{c.url picture width=1000 height=400 crop='fit'}}")
+                        //-     i.bullhorn.blue.icon
                     .ui.header added by #{_author_username}
                     |#{when}
                     with _author_id
@@ -188,7 +189,6 @@ template(name='shop_view_layout')
                     +boolean_view key='security_deposit_required' label='security deposit required' direct=true
                     if security_deposit_required
                         +number_view key='security_deposit_amount' label='security deposit amount' icon='dollar'
-                    .ui.header pricing planning determination
                     +boolean_view key='friend_discount' label='friend discount' direct=true
                     if friend_discount
                         +number_view key='friend_discount_amount' label='friend deposit amount' icon='dollar'
@@ -243,23 +243,23 @@ template(name='shop_rentals')
                         
 template(name='shop_earnings')
     .ui.header 
-        i.line.chart.icon
+        +i name='line-chart'
         |shop earnings
     .ui.segment
         .ui.small.header 
-            i.clock.grey.icon
+            i.clock.blue.icon
             |past reservations #{past_reservations}
         .ui.small.header 
-            i.clock.grey.icon
+            i.clock.blue.icon
             |future reservations #{future_reservations}
         .ui.small.header 
-            i.money.grey.icon
+            i.money.blue.icon
             |past earnings $#{past_earnings}
         .ui.small.header 
-            i.money.grey.icon
+            i.money.blue.icon
             |future earnings $#{future_earnings}
-        .ui.grey.icon.button.calculate_future_earnings 
-            i.refresh.grey.icon
+        .ui.blue.icon.button.calculate_future_earnings 
+            i.refresh.blue.icon
             //- calculate future earnings
     .ui.segment
         .ui.small.header total earnings
@@ -267,9 +267,7 @@ template(name='shop_earnings')
         .ui.button.calculate_total_earnings calculate total earnings
     .ui.segment
         .ui.small.header monthly earnings
-    .ui.segment
-        .ui.small.header ad earnings
-        +product_viewing    
+    +product_viewing    
                         
 template(name='shop_chat')                        
     +comments
@@ -330,7 +328,9 @@ template(name='shop_tasks')
     i.green.checkmark.icon
     |none
                     
-template(name='shop_info')    
+template(name='shop_info')  
+    img.ui.centered.rounded.shadowed.image(src="{{c.url picture width=1000 height=400 crop='fit'}}")
+  
     //- if rentable                    
     //-     +rentals    
     .ui.mini.statistic
@@ -381,9 +381,9 @@ template(name='shop_info')
                         +watson_view
             
 template(name='product_viewing')
-    .ui.secondary.segment
+    .ui.segment
         .ui.header
-            i.eye.icon
+            +i name='eye'
             | viewers
         if marked_read
             .ui.button.mark_unread 

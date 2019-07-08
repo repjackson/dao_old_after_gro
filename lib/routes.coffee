@@ -13,17 +13,11 @@ force_loggedin =  ()->
 Router.onBeforeAction(force_loggedin, {
   # only: ['admin']
   # except: ['register', 'forgot_password','reset_password','front','delta','doc_view','verify-email']
-  except: ['register','forgot_password','reset_password','delta','doc_view','verify-email','front','download_rules_pdf']
+  except: ['register','forgot_password','reset_password','delta','doc_view','verify-email','front']
 });
 
-
-Router.route "/add_guest/:new_guest_id", -> @render 'add_guest'
-
-Router.route '/units', -> @render 'units'
 Router.route '/add_karma', -> @render 'add_karma'
 Router.route '/credit', -> @render 'credit'
-Router.route '/alpha', -> @render 'alpha'
-Router.route '/omega', -> @render 'omega'
 Router.route '/transactions', -> @render 'transactions'
 Router.route '/my_transactions', -> @render 'my_transactions'
 Router.route '/chat', -> @render 'view_chats'
@@ -33,7 +27,6 @@ Router.route '/cart', -> @render 'cart'
 Router.route '/tab', -> @render 'tab'
 Router.route '/admin', -> @render 'admin'
 Router.route '/dashboard', -> @render 'dashboard'
-Router.route '/buildings', -> @render 'buildings'
 Router.route '/games', -> @render 'games'
 Router.route '/deliveries', -> @render 'deliveries'
 
@@ -57,16 +50,6 @@ Router.route "/shop", (->
     @render 'shop'
     ), name:'shop'
 
-
-Router.route "/shop_item_page/:doc_id", (->
-    @layout 'layout'
-    @render 'shop_item_page'
-    ), name:'shop_item_page'
-
-
-
-Router.route '/unit/:unit_id', -> @render 'unit'
-Router.route '/building/:building_code', -> @render 'building'
 
 Router.route '/shop/:product_id/daily_calendar/:month/:day/:year/', -> @render 'product_day'
 Router.route '/game/:game_slug', -> @render 'game'
@@ -111,11 +94,6 @@ Router.route '/m/:model_slug/:doc_id/view', (->
 Router.route '/model/edit/:doc_id', -> @render 'model_edit'
 
 # Router.route '/user/:username', -> @render 'user'
-Router.route '/omega_doc_edit/:doc_id', -> @render 'omega_doc_edit'
-Router.route '/edit/:doc_id', -> @render 'edit'
-Router.route '/view/:doc_id', -> @render 'view'
-Router.route '*', -> @render 'not_found'
-
 # Router.route '/user/:username/m/:type', -> @render 'profile_layout', 'user_section'
 Router.route '/add_resident', (->
     @layout 'layout'
@@ -123,18 +101,10 @@ Router.route '/add_resident', (->
     ), name:'add_resident'
 Router.route '/forgot_password', -> @render 'forgot_password'
 
-Router.route '/reddit', -> @render 'reddit'
-Router.route '/staff', -> @render 'staff'
-Router.route '/groups', -> @render 'groups'
-Router.route '/meals', -> @render 'meals'
-Router.route '/frontdesk', -> @render 'frontdesk'
 Router.route '/user/:username/edit', -> @render 'user_edit'
 Router.route '/p/:slug', -> @render 'page'
 Router.route '/settings', -> @render 'settings'
-Router.route '/sign_rules/:doc_id/:username', -> @render 'rules_signing'
-Router.route '/sign_guidelines/:doc_id/:username', -> @render 'guidelines_signing'
 # Router.route '/users', -> @render 'people'
-Router.route '/sign_waiver/:receipt_id', -> @render 'sign_waiver'
 # Router.route "/meal/:meal_id", -> @render 'meal_doc'
 
 Router.route "/meal/:doc_id/view", (->
@@ -149,6 +119,10 @@ Router.route '/reset_password/:token', (->
 Router.route "/meal/:doc_id/edit", (->
     @render 'meal_edit'
     ), name:'meal_edit'
+
+Router.route "/reservation/:doc_id/", (->
+    @render 'reservation'
+    ), name:'reservation'
 
 
 # Router.route "/shop", (->
@@ -211,24 +185,10 @@ Router.route '/', (->
     @render 'shop'
     ), name:'front'
 
-
-Router.route '/healthclub', (->
-    @layout 'layout'
-    @render 'kiosk_container'
-    ), name:'healthclub'
-
-
-Router.route '/healthclub_session/:doc_id', (->
-    @layout 'layout'
-    @render 'healthclub_session'
-    ), name:'healthclub_session'
-
-
 Router.route '/user/:username', (->
     @layout 'user_layout'
     @render 'user_about'
     ), name:'user_about'
-
 
 Router.route '/user/:username/karma', (->
     @layout 'user_layout'
@@ -244,10 +204,6 @@ Router.route '/user/:username/tags', (->
     @layout 'user_layout'
     @render 'user_tags'
     ), name:'user_tags'
-Router.route '/user/:username/residency', (->
-    @layout 'user_layout'
-    @render 'user_residency'
-    ), name:'user_residency'
 Router.route '/user/:username/transactions', (->
     @layout 'user_layout'
     @render 'user_transactions'
