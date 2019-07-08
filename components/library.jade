@@ -1,0 +1,109 @@
+template(name='library')
+    img.ui.fluid.image.checkin_banner(src="{{c.url 'grfront' width=1000 height=1000 crop='crop'}}")
+    .ui.padded.stackable.grid.header-wrapper
+        .row
+            .sixteen.wide.center.aligned.column
+                a.ui.big.circular.button(href='/healthclub')
+                    i.left.chevron.grey.icon
+                    i.home.large.icon
+                h1.ui.massive.inline.header 
+                    +i name='badminton-racquet'
+                    |equipment
+        .row
+            .sixteen.wide.column
+                .ui.large.center.aligned.header ask staff to borrow
+                .ui.centered.three.cards
+                    each library_items
+                        +library_item
+template(name='library_item')
+    .ui.card
+        img(src="{{c.url image_id height=200 width=300 crop='lpad'}}")
+        .content
+            .header #{title}
+
+
+
+
+
+template(name='shop')
+    img.ui.fluid.image.checkin_banner(src="{{c.url 'grfront' width=1000 height=1000 crop='crop'}}")
+    .ui.padded.stackable.grid.header-wrapper
+        //- +Template.dynamic template=kiosk_view
+        .row
+            .sixteen.wide.column
+                a.ui.button(href='/healthclub')
+                    i.left.chevron.icon
+                    i.home.large.icon
+                h1.ui.massive.inline.center.aligned.header 
+                    //- i.shop.icon
+                    +i name='shop'
+                    |market
+                +cloud filter='shop_item'
+                .scrolling
+                    .ui.centered.three.cards
+                        each shop_items
+                            +shop_item
+template(name='shop_item')
+    .ui.card.goto_shop_item_page
+        a(href="/shop_item_page/#{_id}")
+            img.ui.image(src="{{c.url image_id height=200 width=300 crop='lpad'}}")
+        .content
+            a.header(href="/shop_item_page/#{_id}") #{title}
+            .ui.tiny.statistic
+                .value
+                    |$#{price}
+            .ui.list
+                .item #{views} views
+                .item #{sales} sales
+                .item #{positive_reviews} positive reviews
+                .item #{negative_reviews} negative reviews
+            
+template(name='shop_item_page')
+    img.ui.fluid.image.checkin_banner(src="{{c.url 'grfront' width=1000 height=1000 crop='crop'}}")
+    .ui.padded.stackable.grid.header-wrapper
+        .row
+            .sixteen.wide.column
+                with doc
+                    a.ui.big.button(href='/shop')
+                        i.left.chevron.icon
+                        i.shop.icon
+                    h1.ui.inline.header #{title} $#{price}
+                    div
+                    each tags
+                        .ui.basic.label #{this}
+                    img.ui.centered.rounded.image(src="{{c.url image_id height=400 crop='fit'}}")
+                    .ui.center.aligned.header venmo $#{price} to this address and verify with staff to complete
+                    .ui.small.header #{views} views
+                    +comments
+                    img.ui.centered.large.image(src='/qr.png')
+
+
+
+
+
+template(name='events')
+    img.ui.fluid.image.checkin_banner(src="{{c.url 'grfront' width=1000 height=1000 crop='crop'}}")
+    .ui.padded.stackable.grid.header-wrapper
+        //- +Template.dynamic template=kiosk_view
+        .row
+            .sixteen.wide.center.aligned.column
+                a.ui.big.button(href='/healthclub')
+                    i.left.chevron.icon
+                    i.home.large.icon
+                h1.ui.massive.inline.header 
+                    +i name='calendar'
+                    |events
+        .row
+            .sixteen.wide.column
+                .ui.centered.cards
+                    each event_items
+                        +event_item
+template(name='event_item')
+    .ui.card
+        img(src="{{c.url image_id height=300 crop='lpad'}}")
+        .content
+            .header #{title}
+            |!{description}
+        .ui.green.button 
+            i.thumbs.up.icon
+            |interested
