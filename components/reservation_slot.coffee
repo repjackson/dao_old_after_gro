@@ -1,15 +1,12 @@
 if Meteor.isClient
-    Template.reservation.onCreated ->
+    Template.reservation_slot_view.onCreated ->
         @autorun => Meteor.subscribe 'doc', Router.current().params.doc_id
         @autorun => Meteor.subscribe 'reservation_slot_product', Router.current().params.doc_id
-        @autorun => Meteor.subscribe 'reservation_product', Router.current().params.doc_id
+        @autorun => Meteor.subscribe 'reservation_slot_reservation', Router.current().params.doc_id
 
-    Template.reservation.helpers
-        # next_availability:->
-        #     product = Docs.findOne model:'shop_item'
-        #     if
-        asset:->
-            Docs.findOne model:'shop_item'
+    Template.reservation_slot_view.helpers
+        reservation_slot:->
+            Docs.findOne Router.current().params.doc_id
         reservation:->
             Docs.findOne model:'reservation'
 
@@ -21,22 +18,27 @@ if Meteor.isClient
 
 
 
-    Template.reservation.events
-        # 'click .confirm_delivery': ->
-        #     if confirm 'confirm delivery?'
-        #         console.log 'your credits', Meteor.user().credits
-        #         console.log 'seller credits', Meteor.users.findOne(@_author_id)
-        #         Docs.update @_id,
-        #             $set:
-        #                 confirmed:true
+    Template.reservation_slot_view.events
+        'click .confirm_delivery': ->
+            if confirm 'confirm delivery?'
+                console.log 'your credits', Meteor.user().credits
+                console.log 'seller credits', Meteor.users.findOne(@_author_id)
+                Docs.update @_id,
+                    $set:
+                        confirmed:true
 
-        # 'click .cancel_reservation': ->
-        #     Docs.update @_id,
-        #         $set:
-        #             confirmed:false
+        'click .cancel_reservation': ->
+            Docs.update @_id,
+                $set:
+                    confirmed:false
 
-        'click .check_availability': ->
-            Meteor.call 'check_availability', Router.current().params.doc_id
+        'click .mark_delivery_started': ->
+            if confirm 'mark delivery started?'
+                Docs.update @_id,
+                    $set:
+                        delivery_started_timestamp:Date.now()
+                        status:'delivery started'
+                        delivery_started:true
 
         'click .new_reservation': ->
             slot = Docs.findOne model:'reservation_slot'
@@ -79,27 +81,12 @@ if Meteor.isServer
             model:'shop'
             _id:slot.product_id
 
-    Meteor.publish 'reservation_product', (reservation_id)->
-        reservation = Docs.findOne reservation_id
+    Meteor.publish 'reservation_slot_reservation', (slot_id)->
+        slot = Docs.findOne slot_id
+        console.log 'slot', slot
         res = Docs.find(
-            _id:reservation.product_id
+            model:'reservation'
+            parent_slot:slot._id
             )
-
-    Meteor.methods
-        check_availability: (doc_id)->
-            reservation = Docs.findOne doc_id
-            this_moment = moment(Date.now())
-
-            product = Docs.findOne _id:reservation.product_id
-            current_res = Docs.findOne
-                model:'reservation'
-                product_id:product._id
-                active:true
-            if current_res
-                Docs.update product._id,
-                    $set:
-                        available:false
-            else
-                Docs.update product._id,
-                    $set:
-                        available:true
+        console.log res.fetch()
+        return res

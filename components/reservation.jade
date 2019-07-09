@@ -1,2 +1,12 @@
 template(name='reservation')
     .ui.header reservation
+    with asset
+        a.ui.header(href="/shop/#{_id}/view") 
+            i.chevron.left.icon
+            |#{title}
+        .ui.small.header available #{available}
+        .ui.button.check_availability check availability
+        if available
+            .ui.button.now reserve now
+            
+    //- with reservation
