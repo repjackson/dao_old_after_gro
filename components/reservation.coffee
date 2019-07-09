@@ -13,12 +13,44 @@ if Meteor.isClient
         reservation:->
             Docs.findOne model:'reservation'
 
+        minute_duration:->
+            res = Docs.findOne model:'reservation'
+            res.reservation_duration
+            moment.duration(res.reservation_duration).as('minutes')
+        hour_duration:->
+            res = Docs.findOne model:'reservation'
+            res.reservation_duration
+            moment.duration(res.reservation_duration).as('hours')
+
+        reservation_cost:->
+            res = Docs.findOne model:'reservation'
+            res.reservation_duration
+            hour_duration = moment.duration(res.reservation_duration).as('hours')
+
+            res = Docs.findOne model:'reservation'
+            product = Docs.findOne res.product_id
+            console.log product
+            product.price*hour_duration
+
         reservation_product:->
             slot = Docs.findOne Router.current().params.doc_id
             Docs.findOne
                 model:'shop'
                 # _id:slot.product_id
 
+    Template.reservation_duration_preset.events
+        'click .set_reservation_duration': ->
+            # console.log Template.parentData().start_datetime
+            parent = Template.parentData()
+            new_end = moment(parent.start_datetime).add(@length, 'm').format("YYYY-MM-DD[T]HH:mm")
+            start = moment(parent.start_datetime)
+            end = moment(parent.end_datetime)
+            duration = end.diff(start)
+            # console.log duration
+            Docs.update parent._id,
+                $set:
+                    end_datetime:new_end
+                    reservation_duration:duration
 
 
     Template.reservation.events
@@ -34,7 +66,17 @@ if Meteor.isClient
         #     Docs.update @_id,
         #         $set:
         #             confirmed:false
-
+        'click .reserve_now': ->
+            console.log @
+            this_moment = moment(Date.now()).utcOffset(-6).format('YYYY-MM-DD[T]HH:mm')
+            # this_time =  this_moment.format('HH:mm')
+            # this_date =  this_moment.format('YYYY-MM-DD')
+                # format("YYYY-MM-DD[T]HH:mm
+            # console.log this_time
+            # console.log this_date
+            Docs.update @_id,
+                $set:
+                    start_datetime:this_moment
         'click .check_availability': ->
             Meteor.call 'check_availability', Router.current().params.doc_id
 
@@ -73,11 +115,11 @@ if Meteor.isClient
             Docs.findOne Router.current().params.doc_id
 
 if Meteor.isServer
-    Meteor.publish 'reservation_slot_product', (slot_id)->
-        slot = Docs.findOne slot_id
-        Docs.find
-            model:'shop'
-            _id:slot.product_id
+    # Meteor.publish 'reservation_slot_product', (slot_id)->
+    #     slot = Docs.findOne slot_id
+    #     Docs.find
+    #         model:'shop'
+    #         _id:slot.product_id
 
     Meteor.publish 'reservation_product', (reservation_id)->
         reservation = Docs.findOne reservation_id

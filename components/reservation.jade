@@ -1,12 +1,37 @@
 template(name='reservation')
-    .ui.header reservation
-    with asset
-        a.ui.header(href="/shop/#{_id}/view") 
-            i.chevron.left.icon
-            |#{title}
-        .ui.small.header available #{available}
-        .ui.button.check_availability check availability
-        if available
-            .ui.button.now reserve now
+    .ui.padded.stackable.grid
+        .sixteen.wide.column
+            .ui.header reservation
+            with asset
+                a.ui.header(href="/shop/#{_id}/view") 
+                    i.chevron.left.icon
+                    |#{title}
+                .ui.small.inline.header available
+                    if available
+                        i.green.check.icon
+                    else
+                        i.ban.icon
+                .ui.icon.button.check_availability
+                    i.refresh.icon
+                .ui.small.header $#{price}/hour
+                if available
+                    with reservation
+                        .ui.button.reserve_now reserve now
+                        +datetime_edit key='start_datetime' direct=true
+                        +datetime_edit key='end_datetime' direct=true
+                        //- +date_edit key='start_date' label='date' direct=true
+                        //- +time_edit key='start_time' label='time' direct=true
+                        //- +time_edit key='end_time' label='time' direct=true
+                        .ui.small.header duration #{minute_duration} minutes
+                        .ui.small.header duration #{hour_duration} hours
+                        .ui.small.header cost $#{reservation_cost}
+                        .ui.small.inline.header presets
+                        +reservation_duration_preset length=15 label='15'
+                        +reservation_duration_preset length=30 label='30 minutes'
+                        +reservation_duration_preset length=60 label='1 hour'
+                        +reservation_duration_preset length=120 label='2 hours'
             
-    //- with reservation
+template(name='reservation_duration_preset')
+    .ui.button.set_reservation_duration #{label}
+                
+            
