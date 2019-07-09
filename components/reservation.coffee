@@ -13,24 +13,24 @@ if Meteor.isClient
         reservation:->
             Docs.findOne model:'reservation'
 
-        minute_duration:->
-            res = Docs.findOne model:'reservation'
-            res.reservation_duration
-            moment.duration(res.reservation_duration).as('minutes')
-        hour_duration:->
-            res = Docs.findOne model:'reservation'
-            res.reservation_duration
-            moment.duration(res.reservation_duration).as('hours')
-
-        reservation_cost:->
-            res = Docs.findOne model:'reservation'
-            res.reservation_duration
-            hour_duration = moment.duration(res.reservation_duration).as('hours')
-
-            res = Docs.findOne model:'reservation'
-            product = Docs.findOne res.product_id
-            console.log product
-            product.price*hour_duration
+        # minute_duration:->
+        #     res = Docs.findOne model:'reservation'
+        #     res.reservation_duration
+        #     moment.duration(res.reservation_duration).as('minutes')
+        # hour_duration:->
+        #     res = Docs.findOne model:'reservation'
+        #     res.reservation_duration
+        #     moment.duration(res.reservation_duration).as('hours')
+        #
+        # reservation_cost:->
+        #     res = Docs.findOne model:'reservation'
+        #     res.reservation_duration
+        #     hour_duration = moment.duration(res.reservation_duration).as('hours')
+        #
+        #     res = Docs.findOne model:'reservation'
+        #     product = Docs.findOne res.product_id
+        #     # console.log product
+        #     product.price*hour_duration
 
         reservation_product:->
             slot = Docs.findOne Router.current().params.doc_id
@@ -47,10 +47,17 @@ if Meteor.isClient
             end = moment(parent.end_datetime)
             duration = end.diff(start)
             # console.log duration
+            hour_duration = moment.duration(duration).as('hours')
+            minute_duration = moment.duration(duration).as('minutes')
+            product = Docs.findOne parent.product_id
+            reservation_cost = product.price*hour_duration
             Docs.update parent._id,
                 $set:
                     end_datetime:new_end
                     reservation_duration:duration
+                    hour_duration:hour_duration
+                    minute_duration:minute_duration
+                    reservation_cost:reservation_cost
 
 
     Template.reservation.events
@@ -80,30 +87,43 @@ if Meteor.isClient
         'click .check_availability': ->
             Meteor.call 'check_availability', Router.current().params.doc_id
 
-        'click .new_reservation': ->
-            slot = Docs.findOne model:'reservation_slot'
-            Docs.insert
-                model:'reservation'
-                parent_slot:slot._id
-                date:slot.date
-            console.log Template.parentData()
+        # 'click .new_reservation': ->
+        #     slot = Docs.findOne model:'reservation_slot'
+        #     Docs.insert
+        #         model:'reservation'
+        #         parent_slot:slot._id
+        #         date:slot.date
+        #     console.log Template.parentData()
 
-        'click .mark_delivered': ->
+        # 'click .mark_delivered': ->
+        #     console.log @
+        #     if confirm 'mark delivery ended?'
+        #         Docs.update @_id,
+        #             $set:
+        #                 delivery_ended_timestamp:Date.now()
+        #                 status:'delivery ended'
+        #                 delivery_ended:true
+        #
+        # 'click .mark_complete': ->
+        #     if confirm 'mark reservation ended?'
+        #         Docs.update @_id,
+        #             $set:
+        #                 reservation_ended_timestamp:Date.now()
+        #                 status:'reservation marked complete'
+        #                 reservation_ended:true
+        'click .confirm': ->
             console.log @
-            if confirm 'mark delivery ended?'
-                Docs.update @_id,
-                    $set:
-                        delivery_ended_timestamp:Date.now()
-                        status:'delivery ended'
-                        delivery_ended:true
+            Docs.update @_id,
+                $set:
+                    confirmed:true
+                    active:true
 
-        'click .mark_complete': ->
-            if confirm 'mark reservation ended?'
-                Docs.update @_id,
-                    $set:
-                        reservation_ended_timestamp:Date.now()
-                        status:'reservation marked complete'
-                        reservation_ended:true
+        'click .unconfirm': ->
+            console.log @
+            Docs.update @_id,
+                $set:
+                    confirmed:false
+                    active:false
 
 
     Template.reservation_product_template.onCreated ->
@@ -138,10 +158,12 @@ if Meteor.isServer
                 product_id:product._id
                 active:true
             if current_res
+                console.log 'not available'
                 Docs.update product._id,
                     $set:
                         available:false
             else
+                console.log 'available!'
                 Docs.update product._id,
                     $set:
                         available:true

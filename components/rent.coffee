@@ -73,6 +73,12 @@ if Meteor.isClient
             },sort:
                 date:-1
                 hour:-1
+
+        active_reservation: ->
+            Docs.find
+                model:'reservation'
+                product_id:Router.current().params.doc_id
+                active:true
         month_day: ->
             [1..30]
 
@@ -227,8 +233,8 @@ if Meteor.isServer
             product_id:product_id
 
     Meteor.publish 'reservation_by_day', (product_id, month_day)->
-        console.log month_day
-        console.log product_id
+        # console.log month_day
+        # console.log product_id
         reservations = Docs.find(model:'reservation',product_id:product_id).fetch()
         # for reservation in reservations
             # console.log 'id', reservation._id

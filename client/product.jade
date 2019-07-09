@@ -143,19 +143,6 @@ template(name='shop_view_layout')
                         //- a.item(href="/shop/#{_id}/ads" class="{{isActiveRoute 'shop_ads'}}")
                         //-     |ads
                         //-     i.bullhorn.blue.icon
-                    .ui.header added by #{_author_username}
-                    |#{when}
-                    with _author_id
-                        +user_card
-                    +array_view key='tags' icon='tags' direct=true
-                    +array_view key='location_tags' label='location tags' icon='marker' direct=true
-                    //- +text_view key='location' icon='marker' label='location description' direct=true
-
-                    +number_view key='inventory' label='inventory' icon='move-by-trolley' direct=true
-                    //- +dollar_price_view key='dollar_price' icon='money' label='dollar price' direct=true
-                    .ui.header
-                        i.yellow.star.icon
-                        |reviews
                 .eight.wide.column
                     +yield
                 .four.wide.column
@@ -330,7 +317,20 @@ template(name='shop_tasks')
                     
 template(name='shop_info')  
     img.ui.centered.rounded.shadowed.image(src="{{c.url picture width=1000 height=400 crop='fit'}}")
-  
+    .ui.header added by #{_author_username}
+    |#{when}
+    with _author_id
+      +user_card
+    +array_view key='tags' icon='tags' direct=true
+    +array_view key='location_tags' label='location tags' icon='marker' direct=true
+    //- +text_view key='location' icon='marker' label='location description' direct=true
+
+    +number_view key='inventory' label='inventory' icon='move-by-trolley' direct=true
+    //- +dollar_price_view key='dollar_price' icon='money' label='dollar price' direct=true
+    .ui.header
+        i.yellow.star.icon
+        |reviews
+
     //- if rentable                    
     //-     +rentals    
     .ui.mini.statistic

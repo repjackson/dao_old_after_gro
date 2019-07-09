@@ -2,8 +2,13 @@ template(name='rentals')
     .ui.header 
         +i name='clock'
         |rentals
-    unless is_author
-        +view_rental
+    if active_reservation
+        with active_reservation
+            .ui.header active
+            .ui.header #{hour_duration} hrs
+            .ui.header $#{reservation_cost}
+    //- unless is_author
+    //-     +view_rental
     //- .ui.green.button.rent Rent
     .ui.celled.grid
         .seven.column.row
