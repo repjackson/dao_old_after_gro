@@ -26,7 +26,7 @@ Template.registerHelper 'is_grandparent_author', () ->
     grandparent = Template.parentData(2)
     grandparent._author_id is Meteor.userId()
 Template.registerHelper 'to_percent', (number) -> (number*100).toFixed()
-Template.registerHelper 'long_date', (input) -> moment(input).format("dddd, MMMM Do h:mm:ss a")
+Template.registerHelper 'long_date', (input) -> moment(input).format("dddd, MMMM Do h:mm a")
 Template.registerHelper 'short_date', (input) -> moment(input).format("h:mm a")
 Template.registerHelper 'when', () -> moment(@_timestamp).fromNow()
 Template.registerHelper 'from_now', (input) -> moment(input).fromNow()

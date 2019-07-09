@@ -58,7 +58,7 @@ if Meteor.isClient
             Docs.find (
                 model:'reservation'
                 product_id:Router.current().params.doc_id
-            ), sort:start_datetime:-1
+            ), sort:start_datetime:1
 
     Template.product_transactions.onRendered ->
         Template.children_view.onRendered ->

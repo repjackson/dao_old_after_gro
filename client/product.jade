@@ -88,6 +88,7 @@ template(name='shop_view_layout')
                         |#{title}
                 .four.wide.column
                     .ui.fluid.big.green.button.reserve
+                        +i name='ticket-purchase' classes='ui inline mini image'
                         |reserve
             if active_reservation
                 .row
@@ -106,17 +107,20 @@ template(name='shop_view_layout')
                                     |reserve after
             else
                 .ui.header no active res
-            .ui.header future reservations
-            each future_reservations
-                .ui.segment
-                    .ui.inline.header #{_author_username}
-                    .ui.inline.header starts {{to_now start_datetime}} ({{long_date start_datetime}})
-                    .ui.inline.header ends {{to_now end_datetime}} ({{short_date end_datetime}})
-                    if is_dev
-                        +remove_button
-                    .ui.button.reserve_after 
-                        +i name='waiting-room' classes='ui avatar image'
-                        |reserve after
+            .row
+                .sixteen.wide.column
+                    .ui.small.header future reservations
+                    each future_reservations
+                        .ui.fluid.segment
+                            .ui.inline.header #{_author_username}
+                            .ui.inline.small.header from {{short_date start_datetime}} to {{short_date end_datetime}} (#{hour_duration} hours)
+                            //- .ui.inline.header starts {{from_now start_datetime}} ({{long_date start_datetime}})
+                            //- .ui.inline.header ends {{from_now end_datetime}} ({{long_date end_datetime}})
+                            if is_dev
+                                +remove_button
+                            .ui.button.reserve_after 
+                                +i name='waiting-room' classes='ui avatar image'
+                                |reserve after
             .row
                 .four.wide.column
                     if can_edit
