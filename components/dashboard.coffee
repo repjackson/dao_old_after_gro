@@ -14,6 +14,15 @@ if Meteor.isClient
                 model:'shop'
                 _author_id:Meteor.userId()
 
+    Template.dashboard.events
+        'click .recheck_active_reservations': ->
+            Meteor.call 'recheck_active_reservations', Router.current().params.username
+
+        'click .refresh_current_hourly_wage': ->
+            Meteor.call 'refresh_current_hourly_wage', Router.current().params.username
+
+
+
 
     Template.product_viewing.helpers
         readers: ->
@@ -137,6 +146,24 @@ if Meteor.isServer
             )
 
     Meteor.methods
+        refresh_current_hourly_wage: (username)->
+            console.log username
+            user = Meteor.users.findOne username:username
+            current_active_reservations =
+                Docs.find(
+                    model:'reservation'
+                    seller_id:user._id
+                    ).count()
+            console.log current_active_reservations
+        recheck_active_reservations: (username)->
+            console.log username
+            user = Meteor.users.findOne username:username
+            current_active_reservations =
+                Docs.find(
+                    model:'reservation'
+                    seller_id:user._id
+                    ).count()
+            console.log current_active_reservations
         redraw_todays_stats: (user_id)->
             found_user = Meteor.users.findOne user_id
             # console.log found_user

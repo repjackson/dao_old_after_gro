@@ -14,6 +14,21 @@ if Meteor.isClient
         shop_items: ->
             Docs.find
                 model:'shop_item'
+    Template.shop.events
+        'click .new_item': ->
+            console.log @
+            new_id =
+                Docs.insert
+                    model:'shop_item'
+                    pickup_delivery:true
+                    home_dropoff_delivery:true
+                    building_dropoff_delivery:true
+                    cash_accepted:true
+                    venmo_accepted:true
+                    published:true
+            console.log new_id
+            Router.go "/shop/#{new_id}/edit"
+            # Router.go "/hi"
 
     Template.shop_item.events
         'click .goto_shop_item_page': ->

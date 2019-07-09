@@ -73,8 +73,8 @@ if Meteor.isServer
 
         if selected_tags.length > 0 then match.tags = $all: selected_tags
         if filter then match.model = filter
-        if filter and filter is 'shop'
-            match.active = true
+        # if filter and filter is 'shop'
+        #     match.active = true
         cloud = Docs.aggregate [
             { $match: match }
             { $project: tags: 1 }
@@ -82,7 +82,7 @@ if Meteor.isServer
             { $group: _id: '$tags', count: $sum: 1 }
             { $match: _id: $nin: selected_tags }
             { $sort: count: -1, _id: 1 }
-            { $limit: 42 }
+            { $limit: 8 }
             { $project: _id: 0, name: '$_id', count: 1 }
             ]
 

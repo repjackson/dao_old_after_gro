@@ -2,6 +2,12 @@ template(name='dashboard')
     .ui.stackable.padded.grid
         .row
             .four.wide.column
+                .ui.header current hourly wage #{current_hourly_wage}
+                .ui.header active reservations #{active_reservations}
+                .ui.icon.button.recheck_active_reservations
+                    i.refresh.icon
+                .ui.icon.button.refresh_current_hourly_wage
+                    i.refresh.icon
                 +todays_schedule
                 +product_stats
             .four.wide.column

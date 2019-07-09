@@ -2,7 +2,7 @@ template(name='shop_edit')
     with current_doc
         .ui.stackable.padded.grid
             .row
-                .four.wide.column
+                .five.wide.column
                     .ui.inline.header #{title}
                     a.ui.large.basic.icon.button(href="/shop/#{_id}/view")
                         i.big.green.checkmark.icon
@@ -12,13 +12,8 @@ template(name='shop_edit')
                     +array_edit key='tags' icon='tags' direct=true
                     +array_edit key='location_tags' label='location tags' icon='marker' direct=true
                     +text_edit key='delivery_instructions' icon='truck' label='delivery instructions' direct=true
-                    //- +boolean_edit key='active' icon='clock' label='active' direct=true
-                    //- +text_edit key='model' icon='cube' label='model' direct=true
                     +number_edit key='inventory' icon='move-by-trolley' label='inventory' direct=true
-                    //- +date_edit key='date_available' icon='calendar' label='date available' direct=true
-                    //- +time_edit key='time_available' icon='clock' label='time available' direct=true
                     +single_doc_edit key='shop_type' ref_model='shop_type' label='shop type' direct=true
-                    //- +omega_edit model='shop_type'
                     if is_event
                         .ui.header 
                             +i name='calendar'
@@ -43,10 +38,10 @@ template(name='shop_edit')
                         if rentable
                             +number_edit key='hourly_rate' label='hourly rate' icon='time-span' direct=true
                             +number_edit key='daily_rate' label='daily rate' icon='timetable' direct=true
-                .eight.wide.column
-                    +image_edit key='picture' direct=true
+                .six.wide.column
+                    +image_edit key='image_id' direct=true
                     +html_edit key='description' direct=true
-                .four.wide.column
+                .five.wide.column
                     .ui.header
                         +i name='truck'
                         |delivery
@@ -81,40 +76,47 @@ template(name='shop_view_layout')
     //-     i.shop.icon
     //-     | Shop
     with current_doc
-        .ui.stackable.padded.grid
+        .ui.hidden.divider
+        .ui.hidden.divider
+        .ui.hidden.divider
+        .ui.stackable.padded.grid.global_container
             //- img.ui.large.rounded.image(src="{{c.url image width=500 height=500 gravity='face' crop='fill'}}")
             .row
                 .twelve.wide.column
                     .ui.large.inline.header 
-                        img.ui.circular.medium.image(src="{{c.url picture width=400 height=400 crop='fit'}}")
+                        img.ui.circular.medium.image(src="{{c.url image_id width=400 height=400 crop='fit'}}")
                         |#{title}
-                    //- .ui.tiny.blue.statistic
-                    //-     .value #{views}
-                    //-     .label views
-                    //- .ui.tiny.blue.statistic
-                    //-     .value #{upvotes}
-                    //-     .label upvotes
-                    //- .ui.tiny.blue.statistic
-                    //-     .value #{downvotes}
-                    //-     .label downvotes
-                    //- .ui.tiny.blue.statistic
-                    //-     .value #{good_reviews}
-                    //-     .label good reviews
-                    //- .ui.tiny.blue.statistic
-                    //-     .value #{bad_reviews}
-                    //-     .label bad reviews
-                    //- .ui.tiny.blue.statistic
-                    //-     .value #{points}
-                    //-     .label points
-                    //- .ui.tiny.blue.statistic
-                    //-     .value #{transactions}
-                    //-     .label transactions
-                    //- .ui.tiny.blue.statistic
-                    //-     .value #{reservations}
-                    //-     .label future reservations
                 .four.wide.column
                     .ui.fluid.big.green.button.reserve
                         |reserve
+            if active_reservation
+                .row
+                    .sixteen.wide.column
+                        with active_reservation
+                            .ui.segment
+                                .ui.inline.header 
+                                    +i name='clock'
+                                    |active reservation
+                                .ui.inline.header #{_author_username}
+                                .ui.inline.header ends {{to_now end_datetime}} ({{short_date end_datetime}})
+                                if is_dev
+                                    +remove_button
+                                .ui.button.reserve_after 
+                                    +i name='waiting-room' classes='ui avatar image'
+                                    |reserve after
+            else
+                .ui.header no active res
+            .ui.header future reservations
+            each future_reservations
+                .ui.segment
+                    .ui.inline.header #{_author_username}
+                    .ui.inline.header starts {{to_now start_datetime}} ({{long_date start_datetime}})
+                    .ui.inline.header ends {{to_now end_datetime}} ({{short_date end_datetime}})
+                    if is_dev
+                        +remove_button
+                    .ui.button.reserve_after 
+                        +i name='waiting-room' classes='ui avatar image'
+                        |reserve after
             .row
                 .four.wide.column
                     if can_edit
@@ -143,6 +145,7 @@ template(name='shop_view_layout')
                         //- a.item(href="/shop/#{_id}/ads" class="{{isActiveRoute 'shop_ads'}}")
                         //-     |ads
                         //-     i.bullhorn.blue.icon
+                    +comments
                 .eight.wide.column
                     +yield
                 .four.wide.column
@@ -316,7 +319,7 @@ template(name='shop_tasks')
     |none
                     
 template(name='shop_info')  
-    img.ui.centered.rounded.shadowed.image(src="{{c.url picture width=1000 height=400 crop='fit'}}")
+    img.ui.centered.rounded.shadowed.image(src="{{c.url image_id width=1000 height=400 crop='fit'}}")
     .ui.header added by #{_author_username}
     |#{when}
     with _author_id

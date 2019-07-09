@@ -26,7 +26,7 @@ template(name='layout')
     //- img.ui.fluid.image(src="{{c.url 'stars_big' width=2000}}")
     +nav
     //- if currentUser
-    .ui.stackable.grid(class=invert_class)
+    .ui.stackable.global_container.grid(class=invert_class)
         .centered.row
             .sixteen.wide.column
                 //- if current_session_doc
@@ -34,8 +34,7 @@ template(name='layout')
                 //- else 
                 +yield
         //- if is_eric
-        unless is_frontdesk
-            +footer 
+        //- +footer 
 
     //- .context
     //-     +nav

@@ -2,8 +2,8 @@ template(name='comments')
     .ui.fluid.accordion
         .active.title
             .ui.grey.header
-                +i name='chat'
-                |comments
+                +i name='lock'
+                |private chat
         .active.content
             if currentUser
                 .ui.fluid.icon.input
@@ -188,10 +188,10 @@ template(name='voting_full')
         |voting
     if points
         strong #{points}
-    .ui.icon.button.upvote(class=upvote_class title='upvote')
-        +i name='thumb-up' classes='ui inline mini image'
-    .ui.icon.button.downvote(title='downvote' class=downvote_class)
-        +i name='thumbs-down' classes='ui inline mini image'
+    .ui.icon.compact.small.button.upvote(class=upvote_class title='upvote')
+        +i name='thumb-up' classes='ui avatar image'
+    .ui.icon.compact.small.button.downvote(title='downvote' class=downvote_class)
+        +i name='thumbs-down' classes='ui avatar image'
     if upvoter_ids
         .ui.small.header upvoters
         each upvoter_ids

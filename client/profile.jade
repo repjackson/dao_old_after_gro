@@ -83,11 +83,8 @@ template(name='user_products')
     
     
 template(name='user_about')
-    img.ui.fluid.rounded.image(src="{{c.url banner_image_id width=1000 height=200 crop='crop'}}")
-    .ui.stackable.grid
-        .row
-            .four.wide.column
-                
+    //- img.ui.fluid.rounded.image(src="{{c.url banner_image_id width=1000 height=200 crop='crop'}}")
+    +dashboard
             
 template(name='user_transactions')
     .ui.segment

@@ -6,6 +6,15 @@ if Meteor.isClient
                 Session.set 'logging_out', false
                 Router.go '/'
 
+        # 'click .new_item': ->
+        #     console.log @
+        #     new_id =
+        #         Docs.insert
+        #             model:'shop_item'
+        #     console.log new_id
+        #     # Router.go "/shop/#{new_id}/edit"
+        #     Router.go "/hi"
+
         'click .set_model': ->
             Session.set 'loading', true
             Meteor.call 'set_facets', 'model', ->

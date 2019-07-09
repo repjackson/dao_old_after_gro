@@ -79,7 +79,7 @@ if Meteor.isClient
         'click .delete_shop_item': ->
             if confirm 'delete shop item?'
                 Docs.remove @_id
-                Router.go "/m/shop"
+                Router.go "/"
 
 
     Template.product_location.onCreated ->
