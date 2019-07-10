@@ -6,7 +6,8 @@ if Meteor.isClient
 
     Template.cloud.helpers
         all_tags: ->
-            doc_count = Docs.find().count()
+            doc_count = Docs.find(model:'shop_item').count()
+            console.log doc_count
             if 0 < doc_count < 3 then Tags.find { count: $lt: doc_count } else Tags.find()
 
         cloud_tag_class: ->
@@ -30,8 +31,6 @@ if Meteor.isClient
                 }
                 ]
         }
-
-
 
     Template.cloud.events
         'click .select_tag': -> selected_tags.push @name
@@ -63,18 +62,10 @@ if Meteor.isClient
 
 if Meteor.isServer
     Meteor.publish 'tags', (selected_tags, filter)->
-        # user = Meteor.users.finPdOne @userId
-        # current_herd = user.profile.current_herd
-
         self = @
         match = {}
-
-        # selected_tags.push current_herd
-
         if selected_tags.length > 0 then match.tags = $all: selected_tags
         if filter then match.model = filter
-        # if filter and filter is 'shop'
-        #     match.active = true
         cloud = Docs.aggregate [
             { $match: match }
             { $project: tags: 1 }
@@ -82,14 +73,12 @@ if Meteor.isServer
             { $group: _id: '$tags', count: $sum: 1 }
             { $match: _id: $nin: selected_tags }
             { $sort: count: -1, _id: 1 }
-            { $limit: 8 }
+            { $limit: 20 }
             { $project: _id: 0, name: '$_id', count: 1 }
             ]
-
         cloud.forEach (tag, i) ->
             self.added 'tags', Random.id(),
                 name: tag.name
                 count: tag.count
                 index: i
-
         self.ready()

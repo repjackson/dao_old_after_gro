@@ -208,10 +208,18 @@ Router.route '/user/:username/transactions', (->
     @layout 'user_layout'
     @render 'user_transactions'
     ), name:'user_transactions'
+Router.route '/user/:username/gallery', (->
+    @layout 'user_layout'
+    @render 'user_gallery'
+    ), name:'user_gallery'
 Router.route '/user/:username/documents', (->
     @layout 'user_layout'
     @render 'user_documents'
     ), name:'user_documents'
+Router.route '/user/:username/events', (->
+    @layout 'user_layout'
+    @render 'user_events'
+    ), name:'user_events'
 Router.route '/user/:username/contact', (->
     @layout 'user_layout'
     @render 'user_contact'

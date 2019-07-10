@@ -36,20 +36,6 @@ if Meteor.isClient
         @autorun => Meteor.subscribe 'model', 'role'
 
 
-    Template.user_tribe_editor.onCreated ->
-        @autorun => Meteor.subscribe 'model_docs', 'tribe'
-    Template.user_tribe_editor.helpers
-        my_tribes: -> Docs.find model:'tribe'
-    Template.user_tribe_editor.events
-        'click .select_tribe': ->
-            console.log @
-
-
-
-
-
-
-
 
     Template.user_card.onCreated ->
         @autorun => Meteor.subscribe 'user_from_username', @data
@@ -70,6 +56,13 @@ if Meteor.isClient
         @autorun => Meteor.subscribe 'user_from_username', @data
     Template.username_info.helpers
         user: -> Meteor.users.findOne username:@valueOf()
+
+
+    Template.small_author_info.onCreated ->
+        console.log @data
+        @autorun => Meteor.subscribe 'author_from_doc', @data
+    Template.small_author_info.helpers
+        user: -> Meteor.users.findOne @data._author_id
 
 
 
@@ -350,21 +343,10 @@ if Meteor.isClient
 
 
 if Meteor.isServer
-    Meteor.publish 'rules_signed_username', (username)->
-        Docs.find
-            model:'rules_and_regs_signing'
-            resident:username
-            # agree:true
-
-    Meteor.publish 'member_guidelines_username', (username)->
-        Docs.find
-            model:'member_guidelines_signing'
-            # resident:username
-            # agree:true
-
-    Meteor.publish 'guests', ()->
+    Meteor.publish 'author_from_doc', (doc)->
+        console.log 'find author from ', doc
         Meteor.users.find
-            roles:$in:['guest']
+            _id: doc._author_id
 
 
     Meteor.publish 'children', (model, parent_id)->

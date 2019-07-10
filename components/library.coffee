@@ -32,9 +32,9 @@ if Meteor.isClient
 
     Template.shop_item.events
         'click .goto_shop_item_page': ->
-            console.log @
             Docs.update @_id,
                 $inc:views:1
+            Router.go "/shop/#{@_id}/view"
 
     Template.shop_item_page.onCreated ->
         @autorun => Meteor.subscribe 'doc', Router.current().params.doc_id

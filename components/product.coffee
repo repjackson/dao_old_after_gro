@@ -2,6 +2,11 @@ if Meteor.isClient
     Template.shop_view_layout.onCreated ->
         @autorun => Meteor.subscribe 'doc', Router.current().params.doc_id
         @autorun => Meteor.subscribe 'reservations_from_product_id', Router.current().params.doc_id
+    Template.shop_view_layout.onRendered ->
+        Meteor.setTimeout ->
+            $('.button').popup()
+        , 2000
+
     Template.shop_edit.onCreated ->
         @autorun => Meteor.subscribe 'doc', Router.current().params.doc_id
     Template.shop_edit.onDestroyed ->
@@ -47,6 +52,20 @@ if Meteor.isClient
 
 
     Template.shop_view_layout.helpers
+        active_reservation: ->
+            Docs.findOne
+                model:'reservation'
+                product_id:Router.current().params.doc_id
+                active:true
+
+        future_reservations: ->
+            now = moment(Date.now())
+            Docs.find (
+                model:'reservation'
+                product_id:Router.current().params.doc_id
+            ), sort:start_datetime:1
+
+    Template.rentals.helpers
         active_reservation: ->
             Docs.findOne
                 model:'reservation'

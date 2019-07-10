@@ -30,7 +30,7 @@ if Meteor.isClient
         #     res = Docs.findOne model:'reservation'
         #     product = Docs.findOne res.product_id
         #     # console.log product
-        #     product.price*hour_duration
+        #     product.hourly_rate*hour_duration
 
         reservation_product:->
             slot = Docs.findOne Router.current().params.doc_id
@@ -50,7 +50,7 @@ if Meteor.isClient
             hour_duration = moment.duration(duration).as('hours')
             minute_duration = moment.duration(duration).as('minutes')
             product = Docs.findOne parent.product_id
-            reservation_cost = product.price*hour_duration
+            reservation_cost = product.hourly_rate*hour_duration
             Docs.update parent._id,
                 $set:
                     end_datetime:new_end

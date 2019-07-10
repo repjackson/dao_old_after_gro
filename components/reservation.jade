@@ -15,7 +15,7 @@ template(name='reservation')
                         i.ban.icon
                 .ui.icon.button.check_availability
                     i.refresh.icon
-                .ui.small.inline.header $#{price}/hour
+                .ui.small.inline.header $#{hourly_rate}/hour
                 unless reservation.confirmed
                     if asset.available
                         with reservation

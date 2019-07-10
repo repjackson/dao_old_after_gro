@@ -206,12 +206,12 @@ if Meteor.isServer
             past_reservations = 0
             past_earnings = 0
             for reservation in reservations.fetch()
-                moment_date =  moment(reservation.date)
+                moment_date =  moment(reservation.start_datetime)
                 if moment_date.isBefore(Date.now())
                     past_earnings += product.hourly_rate
                     past_reservations++
             for reservation in reservations.fetch()
-                moment_date =  moment(reservation.date)
+                moment_date =  moment(reservation.start_datetime)
                 if moment_date.isAfter(Date.now())
                     future_earnings += product.hourly_rate
                     future_reservations++

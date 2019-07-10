@@ -1,7 +1,7 @@
 template(name='dashboard')
     .ui.stackable.padded.grid
-        .row
-            .four.wide.column
+        .three.column.row
+            .column
                 .ui.header current hourly wage #{current_hourly_wage}
                 .ui.header active reservations #{active_reservations}
                 .ui.icon.button.recheck_active_reservations
@@ -10,11 +10,11 @@ template(name='dashboard')
                     i.refresh.icon
                 +todays_schedule
                 +product_stats
-            .four.wide.column
+            .column
                 +most_frequent_buyers
                 +most_lucrative_buyers
                 +bookmarked_users
-            .four.wide.column
+            .column
                 +top_selling_products
                 .ui.header 
                     +i name='food' 
@@ -22,7 +22,6 @@ template(name='dashboard')
                 .ui.header 
                     +i name='tags' 
                     |top selling tags
-            .four.wide.column
                 +todays_stats
                 +weekly_stats
                 +monthly_stats

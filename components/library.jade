@@ -26,18 +26,9 @@ template(name='library_item')
 
 template(name='shop')
     .ui.padded.stackable.grid.header-wrapper
-        //- +Template.dynamic template=kiosk_view
         .row
             .sixteen.wide.column
-                //- a.ui.button(href='/healthclub')
-                //-     i.left.chevron.icon
-                //-     i.home.large.icon
-                //- h1.ui.massive.inline.center.aligned.header 
-                //-     //- i.shop.icon
-                //-     +i name='shop'
-                //-     |market
-                //- if is_dev
-                .ui.icon.button.new_item
+                .ui.icon.large.button.new_item
                     i.green.plus.icon
                 +cloud filter='shop_item'
                 .scrolling
@@ -46,19 +37,33 @@ template(name='shop')
                             +shop_item
 template(name='shop_item')
     //- .ui.card
-    a.ui.card.goto_shop_item_page(href="/shop/#{_id}/view")
+    .ui.link.card.goto_shop_item_page
         img.ui.image(src="{{c.url image_id height=200 width=300 crop='lpad'}}")
         .content
             .header #{title}
-            .ui.small.header $#{price}
-            .ui.small.header #{when}
-            +remove_button
-            //- .ui.list
-                //- .item #{views} views
-                //- .item #{sales} sales
-                //- .item #{positive_reviews} positive reviews
-                //- .item #{negative_reviews} negative reviews
-                //- 
+            .meta #{when}
+            
+        .content
+            .right.floated 
+                if for_sale
+                    span(title='for sale')
+                        i.grey.cart.icon
+                        $#{dollar_price}
+                if rentable
+                    div
+                    span(title='rentable')
+                        i.grey.clock.icon
+                        $#{hourly_rate}
+            +small_author_info
+            //- img.ui.avatar.image(src="{{c.url author.image_id height=200 width=200 crop='fit'}}")
+            //- |#{_author_username}
+        .extra.content
+            .right.floated 
+                |#{sales}
+                i.money.icon
+            i.eye.icon
+            |#{views}
+            
 template(name='shop_item_page')
     .ui.padded.stackable.grid.header-wrapper
         .row
@@ -99,6 +104,12 @@ template(name='event_item')
         .content
             .header #{title}
             |!{description}
-        .ui.green.button 
-            i.thumbs.up.icon
-            |interested
+            if currentUser
+                unless interested 
+                    .ui.green.basic.button.mark_interested
+                        i.thumbs.up.icon
+                        |mark interest
+                else
+                    .ui.green.button.mark_uninterested
+                        i.thumbs.up.icon
+                        |interested

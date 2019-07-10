@@ -1,10 +1,9 @@
 @selected_tags = new ReactiveArray []
+@selected_user_tags = new ReactiveArray []
 
 # Meteor.startup ->
 #     scheduler.init "scheduler_here", new Date()
 #     scheduler.meteor(Docs.find(model:'event'), Docs);
-
-
 
 $.cloudinary.config
     cloud_name:"facet"
@@ -149,8 +148,6 @@ Template.registerHelper 'is_user', () ->
 Template.registerHelper 'user_is_user', () -> if @roles and 'user' in @roles then true else false
 
 Template.registerHelper 'is_eric', () -> if Meteor.userId() and 'sxbqfr7tcn6MN3xtR' is Meteor.userId() then true else false
-Template.registerHelper 'is_alpha', () -> if Meteor.userId() and 'sxbqfr7tcn6MN3xtR' is Meteor.userId() then true else false
-
 
 Template.registerHelper 'current_user', () ->  Meteor.users.findOne username:Router.current().params.username
 Template.registerHelper 'is_current_user', () ->  Meteor.user().username is Router.current().params.username
@@ -201,7 +198,6 @@ Template.registerHelper 'field_value', () ->
 Template.registerHelper 'is_marketplace', () -> @model is 'marketplace'
 Template.registerHelper 'is_post', () -> @model is 'post'
 Template.registerHelper 'is_meal', () -> @model is 'meal'
-
 
 Template.registerHelper 'in_dev', () -> Meteor.isDevelopment
 

@@ -1,5 +1,6 @@
 @Docs = new Meteor.Collection 'docs'
 @Tags = new Meteor.Collection 'tags'
+@User_tags = new Meteor.Collection 'user_tags'
 
 # Meteor.users.helpers
 #     name: ->
@@ -64,7 +65,9 @@ if Meteor.isServer
 
 
 Docs.helpers
-    author: -> Meteor.users.findOne @_author_id
+    author: ->
+        console.log @
+        Meteor.users.findOne @_author_id
     when: -> moment(@_timestamp).fromNow()
     upvoters: ->
         if @upvoter_ids

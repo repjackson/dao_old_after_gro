@@ -844,7 +844,7 @@ template(name='youtube_view')
 
 template(name='boolean_edit')
     div
-    .ui.tiny.header
+    .ui.tiny.inline.header
         if icon
             //- i.icon(class=icon)
             +i name=icon classes='ui inline mini image'
@@ -873,7 +873,7 @@ template(name='boolean_edit')
 template(name='boolean_view')
     div
     if field_value
-        .ui.tiny.header
+        .ui.tiny.inline.header
             if icon
                 //- i.icon(class=icon)
                 +i name=icon classes='ui inline mini image'

@@ -1,7 +1,8 @@
 template(name='user_layout')
     +nav
     with user_from_username_param
-        .ui.padded.stackable.grid
+        .ui.padded.stackable.grid.global_container
+            .ui.hidden.divider
             .row
                 .four.wide.column
                     if image_id
@@ -17,47 +18,17 @@ template(name='user_layout')
                     .ui.center.aligned.small.grey.header
                         | @#{user.username}        
                     if is_dev
-                        a.ui.fluid.large.icon.basic.button.item(href="/user/#{user_from_username_param.username}/edit" title='settings')
-                            i.settings.large.icon
+                        a.ui.icon.button.item(href="/user/#{user_from_username_param.username}/edit" title='settings')
+                            +i name='settings'
                     else if is_current_user
-                        a.ui.fluid.large.icon.basic.button.item(href="/user/#{user_from_username_param.username}/edit" title='settings')
-                            i.settings.large.icon
-                    .ui.button.direct_message
-                        i.sent.icon
-                        |direct message
-                    .ui.vertical.fluid.menu
-                        a.item(href="/user/#{username}" class="{{isActiveRoute 'user_about'}}")
-                            i.info.icon
-                            |about
-                    .ui.vertical.fluid.menu
-                        a.item(href="/user/#{username}/documents" class="{{isActiveRoute 'user_documents'}}")
-                            i.handshake.icon
-                            |social
-                        a.item(href="/user/#{username}/products" class="{{isActiveRoute 'user_products'}}")
-                            i.shop.icon
-                            |products
-                        a.item(href="/user/#{username}/payment" class="{{isActiveRoute 'user_payment'}}")
-                             i.money.icon
-                             |payment
-                        a.item(href="/user/#{username}/contact" class="{{isActiveRoute 'user_contact'}}")
-                             i.phone.icon
-                             |contact
-                        a.item(href="/user/#{username}/comparison" class="{{isActiveRoute 'user_comparison'}}")
-                            i.fork.icon
-                            |comparison
-                        a.item(href="/user/#{username}/tags" class="{{isActiveRoute 'user_tags'}}")
-                            i.tags.icon
-                            |tags
-                        a.item(href="/user/#{username}/karma" class="{{isActiveRoute 'user_karma'}}")
-                             i.heart.icon
-                             |karma
-                        a.item(href="/user/#{username}/transactions" class="{{isActiveRoute 'user_transactions'}}")
-                             i.money.icon
-                             |transactions                            
+                        a.ui.icon.button.item(href="/user/#{user_from_username_param.username}/edit" title='settings')
+                            +i name='settings'
+                    .ui.icon.button.direct_message
+                        +i name='new-message'
+                        //- |direct message
                     if is_current_user
-                        a.ui.fluid.button.logout(href="#")
-                            i.sign.out.icon
-                            |log out
+                        .ui.icon.button.logout(title='log out')
+                            +i name='exit-sign'
                         a.ui.fluid.button.logout_other_clients(href="#")
                             |logout other clients
                     //- unless is_staff
@@ -71,15 +42,34 @@ template(name='user_layout')
                             each roles
                                 .ui.basic.label #{this}
                 .twelve.wide.column.shadowed-box
+                    a.ui.icon.button(href="/user/#{username}" class="{{isActiveRoute 'user_about'}}" title='info')
+                        +i name='info'
+                    a.ui.icon.button(href="/user/#{username}/documents" class="{{isActiveRoute 'user_documents'}}" title='social')
+                        +i name='documents'
+                    a.ui.icon.button(href="/user/#{username}/products" class="{{isActiveRoute 'user_products'}}" title='shop')
+                        +i name='shop'
+                    a.ui.icon.button(href="/user/#{username}/gallery" class="{{isActiveRoute 'user_gallery'}}" title='gallery')
+                        +i name='gallery'
+                    a.ui.icon.button(href="/user/#{username}/contact" class="{{isActiveRoute 'user_contact'}}" title='contact')
+                        +i name='phone'
+                    a.ui.icon.button(href="/user/#{username}/events" class="{{isActiveRoute 'user_events'}}" title='events')
+                        +i name='calendar'
+                    a.ui.icon.button(href="/user/#{username}/comparison" class="{{isActiveRoute 'user_comparison'}}" title='comparison')
+                        +i name='meeting'
+                    a.ui.icon.button(href="/user/#{username}/tags" class="{{isActiveRoute 'user_tags'}}" title='tags')
+                        +i name='tags'
+                    a.ui.icon.button(href="/user/#{username}/karma" class="{{isActiveRoute 'user_karma'}}" title='karma')
+                         +i name='heart-with-pulse'
+                    a.ui.icon.button(href="/user/#{username}/transactions" class="{{isActiveRoute 'user_transactions'}}" title='money')
+                         +i name='money'
                     +yield
     +footer 
 
 
 template(name='user_products')
-    .ui.segment
-        .ui.header 
-            i.shop.icon
-            |User Products
+    .ui.header 
+        +i name='shop'
+        |#{user_from_username_param.username}'s products
     
     
 template(name='user_about')
@@ -175,26 +165,23 @@ template(name='user_bookmarks')
             
             
 template(name='user_karma')
-    .ui.fluid.styled.accordion
-        .active.title
-            .ui.grey.inline.center.aligned.small.header 
-                i.heartbeat.icon
-                | Karma
-        .active.content
-            .ui.circular.button buy karma
-            with user_from_username_param
-                |karma #{karma}
-            .ui.circular.button.send_new
-                |send karma
-            if sending_karma
-                .ui.icon.circular.button.cancel_sending
-                    i.remove.icon
-                with send_karma_transaction
-                    +textarea_edit key='description' direct=true
-                    +array_edit key='tags' direct=true
-                    +number_edit key='karma_amount' direct=true
-                    .ui.green.circular.button.complete_sending
-                        |complete
+    .ui.header 
+        +i name='heart-with-pulse'
+        | karma
+    .ui.circular.button buy karma
+    with user_from_username_param
+        |karma #{karma}
+    .ui.circular.button.send_new
+        |send karma
+    if sending_karma
+        .ui.icon.circular.button.cancel_sending
+            i.remove.icon
+        with send_karma_transaction
+            +textarea_edit key='description' direct=true
+            +array_edit key='tags' direct=true
+            +number_edit key='karma_amount' direct=true
+            .ui.green.circular.button.complete_sending
+                |complete
 
 
             
