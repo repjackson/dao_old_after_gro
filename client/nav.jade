@@ -2,8 +2,8 @@ template(name='nav')
     unless is_frontdesk
         //- .ui.borderless.attached.big.inverted.menu.topnav
         .ui.borderless.inverted.big.menu.fixed.topnav.blue
-            //- a.toggle_sidebar.icon.item.sidebar_on
-            //-     i.large.sidebar.icon
+            a.toggle_sidebar.icon.item.sidebar_on
+                i.large.sidebar.icon
             if is_loading
                 .icon.item
                     i.big.loading.yin.yang.icon
@@ -155,22 +155,154 @@ template(name='role_switcher')
         //- +user_array_element_toggle key='roles' value='owner' user=currentUser
 
 
-template(name='tribe_switcher')
-    .ui.segment
-        .ui.grey.inline.center.aligned.small.header 
-            //- +i name='anonymous-mask'
-            i.fire.icon(title='role switcher')
-            |#{username} tribe switcher
-        //- if is_eric
-        //-     +user_array_element_toggle key='roles' value='dev' user=currentUser
-        //- if current_user
-        //-     with current_user
-        //-         +multi_doc_edit key='roles' label='roles' ref_model='role' direct=true
-        //- else if currentUser
-        //-     with currentUser
-        +single_doc_edit key='current_tribe' label='current tribe' ref_model='tribe' direct=true
-        //- +user_array_element_toggle key='roles' value='admin' user=currentUser
-        //- +user_array_element_toggle key='roles' value='user' user=currentUser
-        //- +user_array_element_toggle key='roles' value='staff' user=currentUser
-        //- +user_array_element_toggle key='roles' value='resident' user=currentUser
-        //- +user_array_element_toggle key='roles' value='owner' user=currentUser
+template(name='sidebar')
+    .ui.left.inline.vertical.sidebar.inverted.blue.fixed.menu
+        a.header.toggle_sidebar.item(href='/' class="{{isActivePath '/'}}") 
+            i.home.icon
+            | Gold Run
+        a.toggle_sidebar.item(href='/readings' class="{{isActivePath '/readings'}}")
+            i.theme.icon
+            | Readings
+        a.toggle_sidebar.item(href='/lostfound' class="{{isActivePath '/lostfound'}}")
+            i.random.icon
+            | Lost and Found
+        a.toggle_sidebar.item(href='/bikes' class="{{isActivePath '/bikes'}}")
+            i.bicycle.icon
+            | Bikes
+        a.toggle_sidebar.item(href='/frontdesk' class="{{isActivePath '/frontdesk'}}")
+            i.circle.info.icon
+            | Desk Staff
+        a.toggle_sidebar.item(href='/buildings' class="{{isActivePath '/buildings'}}")
+            i.building.icon
+            | Buildings
+        a.toggle_sidebar.item(href='/tasks' class="{{isActivePath '/tasks'}}")
+            i.edit.icon
+            | Tasks
+        a.toggle_sidebar.item(href='/keys' class="{{isActivePath '/keys'}}")
+            i.key.icon
+            | Keys
+        a.toggle_sidebar.item(href='/users' class="{{isActivePath '/users'}}")
+            i.users.icon
+            | People
+        if currentUser
+            unless logging_out
+                a.item(href='/dashboard' class="{{isActivePath '/dashboard'}}")
+                    i.dashboard.icon
+                    | Dashboard
+                .ui.simple.dropdown.icon.item
+                    i.alarm.icon
+                    | Alerts
+                a.item(href='/messages' class="{{isActivePath '/messages'}}")
+                    i.mail.icon
+                    | Mail
+                if is_admin
+                    a.icon.toggle_sidebar.item(href='/admin/members' class="{{isActivePath '/admin/members'}}")
+                        i.configure.icon
+                        | Admin
+                a.item(href="/user/#{currentUser.username}/edit" class="{{isActiveRoute regex='user_edit'}}")
+                    if currentUser.image_id
+                        img.ui.avatar.image(src="{{c.url currentUser.image_id width=50 height=50 gravity='face' crop='fill'}}")
+                    else
+                        i.user.icon
+                    | #{currentUser.username}
+            if logging_out
+                .item
+                    i.loading.refresh.icon
+                    |Logging Out...
+            else
+                a#logout.ui.mobile.hidden.icon.item(href='#' title='Log Out')
+                    i.sign.out.icon
+                    |Log Out
+        else
+            a.ui.item(href='/login') 
+                i.sign.in.icon
+                | Log In
+
+
+
+template(name='topbar')
+    .ui.top.sidebar.blue.segment.push.nav_bar.row.topbar
+        .ui.grid
+            .four.wide.column
+                +notifications
+            .four.wide.column
+                +messages
+            .four.wide.column
+                +tasks
+            .four.wide.column
+                +bookmarks
+
+
+template(name='notifications')
+    a.ui.inverted.header.set_notifications(href='#')
+        +i name='appointment-reminders' classes='mini spaced'
+        | Notifications
+
+template(name='messages')
+    a.ui.inverted.header.set_messages(href='#')
+        +i name='mailbox-with-letter' classes='mini spaced'
+        | Messages
+
+    +ismall name='compose' title='Compose' classes='pointer'
+
+
+template(name='tasks')
+    a.ui.inverted.header.set_tasks(href='#')
+        +i name='to-do' classes='mini spaced'
+        | Tasks
+    .ui.inverted.link.list
+        each todos
+            a.item.todo(class=item_class) #{title}
+
+
+template(name='bookmarks')
+    a.ui.inverted.header.set_bookmarks(href='#')
+        +i name='bookmark-ribbon' classes='mini spaced'
+        | Bookmarks
+
+
+
+
+
+
+template(name='rightbar')
+    .ui.right.vertical.sidebar.nav_bar.inverted.blue.menu.rightbar
+        a.item(href='#')
+            .ui.inverted.header
+                | #{currentUser.first_name} #{currentUser.last_name}
+                small @#{currentUser.username}
+        a.item.profile(href='#')
+            .ui.inverted.small.header
+                +i name='leaderboard' classes='mini centered'
+                | Leaderboard
+        a.item.profile(href='#')
+            .ui.inverted.small.header
+                +i name='contacts' classes='mini centered'
+                | Profile
+        a.item.settings(href='#')
+            .ui.inverted.small.header
+                +i name='settings' classes='mini centered'
+                | Settings
+        a.item.sla(href='#')
+            .ui.inverted.small.header
+                +i name='workflow' classes='mini centered'
+                | SLA Settings
+        a.item(href='#')
+            .ui.compact.icon.button.delete_delta(title='Clear Session')
+                i.remove.icon
+                |Clear
+            .ui.compact.icon.button.run_fo(title='Reload Session')
+                i.refresh.icon
+                // |Reset
+            if is_dev
+                .ui.icon.compact.button.show_delta
+                    i.code.icon
+        a.item(href='#')
+            #logout.sixteen.wide.column
+                .ui.inverted.small.header
+                    // +i name='exit' classes='mini centered'
+                    if signing_out
+                        i.notched.circle.loading.big.icon
+                    else
+                        +i name='exit' classes='mini'
+                    | Log Out

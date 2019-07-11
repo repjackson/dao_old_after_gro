@@ -23,28 +23,22 @@ head
 
 template(name='layout')
     //- img.ui.fluid.image.banner_image(src="{{c.url 'stars_big' width=1000 height=cal500 crop='crop'}}")
-    //- img.ui.fluid.image(src="{{c.url 'stars_big' width=2000}}")
     +nav
-    //- if currentUser
-    .global_container
-        +yield
+    .context
+        +nav
+        .ui.attached.basic.segment.pushable.global_container
+            +topbar
+            +sidebar
+            +rightbar
+            .pusher
+                #main
+                    //- .ui.basic.fluid.segment
+                    +yield
     //- .ui.stackable.global_container.grid(class=invert_class)
     //-     .centered.row
-    //-         .sixteen.wide.column
-                //- if current_session_doc
-                //-     +checkin_card current_session_doc
-                //- else 
-        //- if is_eric
-    +footer 
+    if is_eric
+        +footer 
 
-    //- .context
-    //-     +nav
-    //-     .ui.attached.basic.segment.pushable
-    //-         +sidebar
-    //-         .pusher
-    //-             #main
-    //-                 //- .ui.basic.fluid.segment
-    //-                 +yield
         //- +footer
 
 
@@ -54,6 +48,6 @@ template(name='mlayout')
 
 
 template(name='not_found')
-    .ui.text.container
+    .ui.text.container.global_container
         .ui.center.aligned.header not found
         a.ui.button(href="/") home
