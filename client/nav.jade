@@ -1,42 +1,28 @@
 template(name='nav')
     unless is_frontdesk
         //- .ui.borderless.attached.big.inverted.menu.topnav
-        .ui.borderless.inverted.big.menu.fixed.topnav.teal
+        .ui.borderless.inverted.big.menu.fixed.topnav.blue
             //- a.toggle_sidebar.icon.item.sidebar_on
             //-     i.large.sidebar.icon
             if is_loading
                 .icon.item
                     i.big.loading.yin.yang.icon
             else
-                //- with current_tribe
-                //-     .item.header #{title}
                 a.header.icon.item(href='/' class="{{isActivePath '/'}}")
-                    //- i.home.large.large.icon
                     +i name='shop' classes='ui avatar image'
-                //- a.icon.item(href='/dashboard' class="{{isActivePath '/dashboard'}}")
-                //-     //- i.dashboard.icon
-                //-     +i name='dashboard'
                 a.icon.item(href='/users' class="{{isActivePath '/users'}}")
-                    +i name='groups' classes='ui avatar image'
-                    //- .mobile.hidden &nbsp; users
-                    //- .mobile.hidden &nbsp; dashboard
+                    +i name='user-group-man-woman' classes='ui avatar image'
+                a.icon.item(href='/gallery' class="{{isActivePath '/gallery'}}")
+                    +i name='gallery' classes='ui avatar image'
                 //- if is_admin
                 //-     a.icon.item.set_shop(href='/m/shop' class="{{isActivePath '/m/shop'}}")
                 //-         +i name='shop'
                 //-         //- i.shop.icon
                 //-         //- .mobile.hidden &nbsp; market
-                //-     //- a.icon.item.set_library(href='/m/library' class="{{isActivePath '/m/library'}}" title='library')
-                //-     //-     //- +i name='library'
-                //-     //-     i.library.icon
-                //-     //-     .mobile.hidden &nbsp; Library
                 a.icon.item(href='/events' class="{{isActivePath '/events'}}" title='events')
                     +i name='calendar'
-                    //- i.calendar.icon
-                    //- .mobile.hidden &nbsp; events
-                    //- a.icon.item.set_meal(href='/m/meal' class="{{isActivePath '/m/meal'}}" title='food')
-                    //-     //- +i name='food'
-                    //-     i.food.icon
-                    //-     .mobile.hidden &nbsp; Food
+                //- a.icon.item.set_meal(href='/m/meal' class="{{isActivePath '/m/meal'}}" title='food')
+                //-     +i name='food'
                 //- a.item.set_marketplace(href='/m/marketplace' class="{{isActivePath '/m/marketplace'}}")
                 //-     +i name='shop'
             .right.menu
@@ -53,15 +39,8 @@ template(name='nav')
                             //- a.icon.item(href="/user/#{currentUser.username}" class="{{isActiveRoute regex='profile'}}")
                             //-     +i name='new-post'
                             //-     //- i.big.mail.icon(class=mail_icon_class title="#{unread_count} Unread")
-                            //- a.icon.item(href="/chat" class="{{isActivePath '/chat'}}" title='chat')
-                            //-     +i name='chat'
-                            //- a.icon.item(href="/my_transactions" class="{{isActivePath '/my_transactions'}}" title='my transactions')
-                            //-     +i name='ledger'
-                                //- i.list.icon
-                            //- if is_admin
-                            //-     a.icon.item(href="/transactions" class="{{isActivePath '/transactions'}}" title='transactions')
-                            //-         +i name='cashbook'
-                                    //- i.user.sheild.icon
+                            a.icon.item(href="/chat" class="{{isActivePath '/chat'}}" title='chat')
+                                +i name='chat'
                             //- a.item(href="/credit" class="{{isActivePath '/credit'}}" title="#{currentUser.credit} credit")
                             //-      +i name='wallet'
                             //-      |#{currentUser.credit}
@@ -91,13 +70,13 @@ template(name='nav')
                 else
                     a.item(href='/login' title='login') 
                         +i name='enter-2' classes='ui avatar image'
-        if currentUser.show_bookmarked_model_bar
-            .ui.inverted.attached.borderless.menu.topnav.grblue
-                each bookmarked_models
-                    a.item.set_bookmarked_model(href="/m/#{slug}" class="{{isActivePath '/m/#{slug}'}}")
-                        i.large.icon(class=icon)
-                        //- +i name=icon classes='ui avatar image'
-                        |#{title}
+        //- if currentUser.show_bookmarked_model_bar
+        //-     .ui.inverted.attached.borderless.menu.topnav.grblue
+        //-         each bookmarked_models
+        //-             a.item.set_bookmarked_model(href="/m/#{slug}" class="{{isActivePath '/m/#{slug}'}}")
+        //-                 i.large.icon(class=icon)
+        //-                 //- +i name=icon classes='ui avatar image'
+        //-                 |#{title}
 
 
 

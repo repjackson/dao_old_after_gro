@@ -23,9 +23,9 @@ template(name='user_item')
                     each emails
                         .ui.basic.label #{address}
             .ui.hidden.divider
-            // if currentUser
-            //     +toggle_friend
-            //- +user_connect_button        
+            if currentUser
+                +toggle_friend
+            +user_connect_button        
             a.ui.circular.button(href="/user/#{username}")
                 |view #{username}
                 i.right.chevron.icon

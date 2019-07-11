@@ -9,7 +9,6 @@ template(name='user_edit')
                     //- +i name='pencil'
                     .ui.small.inline.header @#{user_from_username_param.username}
                     a.ui.large.fluid.icon.basic.button(href="/user/#{user_from_username_param.username}/" title='save') 
-                        //- strong save
                         i.checkmark.large.green.icon
                     .ui.hidden.divider
                     +image_edit key='image_id' icon='picture' title='profile image' direct=true

@@ -102,25 +102,25 @@ if Meteor.isClient
 
 
 
-    # Template.user_connections.onCreated ->
-    #     @autorun => Meteor.subscribe 'all_users', Router.current().params.username
-    #
-    # Template.user_connections.helpers
-    #     connections: ->
-    #         Meteor.users.find {}
-    #
-    # Template.user_connections.events
-    #     'keyup .assign_task': (e,t)->
-    #         if e.which is 13
-    #             post = t.$('.assign_task').val().trim()
-    #             current_user = Meteor.users.findOne username:Router.current().params.username
-    #             Docs.insert
-    #                 body:post
-    #                 model:'task'
-    #                 assigned_user_id:current_user._id
-    #                 assigned_username:current_user.username
-    #
-    #             t.$('.assign_task').val('')
+    Template.user_connections.onCreated ->
+        @autorun => Meteor.subscribe 'all_users', Router.current().params.username
+
+    Template.user_connections.helpers
+        connections: ->
+            Meteor.users.find {}
+
+    Template.user_connections.events
+        'keyup .assign_task': (e,t)->
+            if e.which is 13
+                post = t.$('.assign_task').val().trim()
+                current_user = Meteor.users.findOne username:Router.current().params.username
+                Docs.insert
+                    body:post
+                    model:'task'
+                    assigned_user_id:current_user._id
+                    assigned_username:current_user.username
+
+                t.$('.assign_task').val('')
 
 
 
@@ -170,6 +170,8 @@ if Meteor.isClient
                 recipient:Router.current().params.username
                 # confirmed:true
 
+
+
     Template.received_karma.onCreated ->
         @autorun => Meteor.subscribe 'user_confirmed_transactions', Router.current().params.username
     Template.received_karma.helpers
@@ -202,36 +204,30 @@ if Meteor.isClient
 
 
 
+    Template.user_products.onCreated ->
+        @autorun => Meteor.subscribe 'user_products', Router.current().params.username
+    Template.user_products.helpers
+        products: ->
+            current_user = Meteor.users.findOne username:Router.current().params.username
+            Docs.find {
+                model:'shop_item'
+                _author_id:current_user._id
+            }, sort:_timestamp:-1
+
+
+
+
 if Meteor.isServer
     Meteor.publish 'wall_posts', (username)->
         Docs.find
             model:'wall_post'
             # parent_username:username
 
-    Meteor.publish 'healthclub_checkins', (username)->
-        Docs.find
-            model:'healthclub_checkin'
-            resident_username:username
-
-
-    Meteor.publish 'user_unit', (username)->
-        user = Meteor.users.findOne username:username
-        Docs.find
-            model:'unit'
-            building_code:user.building_code
-            unit_number:user.unit_number
-
-
     Meteor.publish 'user_bookmarks', (username)->
         user = Meteor.users.findOne username:username
         Docs.find
             bookmark_ids:$in:[user._id]
 
-
-    Meteor.publish 'violations', (username)->
-        Docs.find
-            model:'violation'
-            username:username
 
     Meteor.publish 'user_confirmed_transactions', (username)->
         Docs.find
@@ -240,11 +236,11 @@ if Meteor.isServer
             # confirmed:true
 
 
-    Meteor.publish 'user_guests', (username)->
+    Meteor.publish 'user_products', (username)->
         user = Meteor.users.findOne username:username
         Docs.find
-            model:'guest'
-            _id:$in:user.guest_ids
+            model:'shop_item'
+            _author_id:user._id
 
 
     Meteor.publish 'user_log', (username)->

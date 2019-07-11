@@ -13,7 +13,7 @@ force_loggedin =  ()->
 Router.onBeforeAction(force_loggedin, {
   # only: ['admin']
   # except: ['register', 'forgot_password','reset_password','front','delta','doc_view','verify-email']
-  except: ['register','forgot_password','reset_password','delta','doc_view','verify-email','front']
+  except: ['register','forgot_password','reset_password','delta','doc_view','verify-email','front','shop','events']
 });
 
 Router.route '/add_karma', -> @render 'add_karma'
@@ -39,6 +39,22 @@ Router.route '/food', (->
     @layout 'layout'
     @render 'food'
     ), name:'food'
+
+Router.route '/gallery', (->
+    @layout 'layout'
+    @render 'gallery'
+    ), name:'gallery'
+Router.route "/image/:doc_id", (->
+    @render 'image_page'
+    ), name:'image_page'
+Router.route "/image/:doc_id/edit", (->
+    @render 'image_edit_page'
+    ), name:'image_edit_page'
+
+
+
+
+
 
 Router.route '/events', (->
     @layout 'layout'
@@ -104,21 +120,20 @@ Router.route '/forgot_password', -> @render 'forgot_password'
 Router.route '/user/:username/edit', -> @render 'user_edit'
 Router.route '/p/:slug', -> @render 'page'
 Router.route '/settings', -> @render 'settings'
-# Router.route '/users', -> @render 'people'
+Router.route '/users', -> @render 'users'
 # Router.route "/meal/:meal_id", -> @render 'meal_doc'
 
 Router.route "/meal/:doc_id/view", (->
     @render 'meal_view'
     ), name:'meal_view'
+Router.route "/meal/:doc_id/edit", (->
+    @render 'meal_edit'
+    ), name:'meal_edit'
+
 
 Router.route '/reset_password/:token', (->
     @render 'reset_password'
     ), name:'reset_password'
-
-
-Router.route "/meal/:doc_id/edit", (->
-    @render 'meal_edit'
-    ), name:'meal_edit'
 
 Router.route "/reservation/:doc_id/", (->
     @render 'reservation'
@@ -128,6 +143,14 @@ Router.route "/reservation/:doc_id/", (->
 # Router.route "/shop", (->
 #     @render 'shop'
 #     ), name:'shop'
+Router.route "/event/:doc_id", (->
+    @render 'event_page'
+    ), name:'event_page'
+Router.route "/event/:doc_id/edit", (->
+    @render 'event_edit'
+    ), name:'event_edit'
+
+
 Router.route "/shop/:doc_id/view", (->
     @layout 'shop_view_layout'
     @render 'shop_info'
@@ -189,17 +212,14 @@ Router.route '/user/:username', (->
     @layout 'user_layout'
     @render 'user_about'
     ), name:'user_about'
-
 Router.route '/user/:username/karma', (->
     @layout 'user_layout'
     @render 'user_karma'
     ), name:'user_karma'
-
-Router.route '/user/:username/healthclub', (->
+Router.route '/user/:username/dashboard', (->
     @layout 'user_layout'
-    @render 'user_healthclub'
-    ), name:'user_healthclub'
-
+    @render 'user_dashboard'
+    ), name:'user_dashboard'
 Router.route '/user/:username/tags', (->
     @layout 'user_layout'
     @render 'user_tags'

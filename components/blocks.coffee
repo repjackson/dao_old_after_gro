@@ -59,7 +59,6 @@ if Meteor.isClient
 
 
     Template.small_author_info.onCreated ->
-        console.log @data
         @autorun => Meteor.subscribe 'author_from_doc', @data
     Template.small_author_info.helpers
         user: -> Meteor.users.findOne @data._author_id

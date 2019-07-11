@@ -101,8 +101,8 @@ if Meteor.isClient
         'click .make_author_owner': ->
             Meteor.call 'make_author_owner', Router.current().params.doc_id
     Template.product_ownership.helpers
-        ownership: ->
-            console.log @
+        # ownership: ->
+        #     console.log @
         stock_certificates: ->
             Docs.find
                 model:'stock_certificate'

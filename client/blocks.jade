@@ -2,8 +2,10 @@ template(name='comments')
     .ui.fluid.accordion
         .active.title
             .ui.grey.header
-                +i name='lock'
-                |private chat
+                +i name='chat'
+                |comments
+                //- +i name='lock'
+                //- |private chat
         .active.content
             if currentUser
                 .ui.fluid.icon.input

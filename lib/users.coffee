@@ -1,11 +1,7 @@
 if Meteor.isClient
-    Router.route '/users', -> @render 'users'
-
-
     Template.users.onCreated ->
         # @autorun -> Meteor.subscribe('users')
         @autorun => Meteor.subscribe 'user_search', Session.get('username_query')
-
 
     Template.users.helpers
         users: ->

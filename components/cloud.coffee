@@ -7,7 +7,6 @@ if Meteor.isClient
     Template.cloud.helpers
         all_tags: ->
             doc_count = Docs.find(model:'shop_item').count()
-            console.log doc_count
             if 0 < doc_count < 3 then Tags.find { count: $lt: doc_count } else Tags.find()
 
         cloud_tag_class: ->
