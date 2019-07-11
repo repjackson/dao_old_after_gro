@@ -1,10 +1,17 @@
 template(name='user_about')
-    +text_view key='first_name' label='first name' icon='header' direct=true
-    +text_view key='last_name' label='last name' icon='text' direct=true
-    +text_view key='address' label='address' icon='marker' direct=true
-    +phone_view key='phone' label='phone' icon='phone' direct=true
+    //- +text_view key='address' label='address' icon='marker' direct=true
+    //- +phone_view key='phone' label='phone' icon='phone' direct=true
     +text_view key='tagline' label='tag line' icon='signature' direct=true
     +array_view key='tags' label='tags' icon='tags' direct=true
     +array_view key='location_tags' label='location tags' icon='location' direct=true
     +text_view key='spirit_animal' label='spirit animal' icon='vominitg-unicorn' direct=true
     +link_view key='link' label='link' icon='link' direct=true
+
+
+
+template(name='user_payment')
+    +text_view key='payment_preferences' label='payment preferences' icon='online-payment-with-a-credit-card' direct=true
+    +boolean_view key='accepts_venmo' label='accepts venmo' icon='online-payment-with-a-credit-card' direct=true
+    +boolean_view key='accepts_cash' label='accepts cash' icon='cash' direct=true
+    +boolean_view key='accepts_paypal' label='accepts paypal' icon='cash' direct=true
+    +image_view key='venmo_qr' label='venmo qr code' direct=true

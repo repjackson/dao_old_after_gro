@@ -216,6 +216,10 @@ Router.route '/user/:username/karma', (->
     @layout 'user_layout'
     @render 'user_karma'
     ), name:'user_karma'
+Router.route '/user/:username/payment', (->
+    @layout 'user_layout'
+    @render 'user_payment'
+    ), name:'user_payment'
 Router.route '/user/:username/dashboard', (->
     @layout 'user_layout'
     @render 'user_dashboard'

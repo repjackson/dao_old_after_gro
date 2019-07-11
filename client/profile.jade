@@ -60,6 +60,8 @@ template(name='user_layout')
                         +i name='tags'
                     a.ui.icon.button(href="/user/#{username}/karma" class="{{isActiveRoute 'user_karma'}}" title='karma')
                          +i name='heart-with-pulse'
+                    a.ui.icon.button(href="/user/#{username}/payment" class="{{isActiveRoute 'user_payment'}}" title='payment options')
+                         +i name='online-payment-with-a-credit-card'
                     a.ui.icon.button(href="/user/#{username}/transactions" class="{{isActiveRoute 'user_transactions'}}" title='money')
                          +i name='money'
                     +yield

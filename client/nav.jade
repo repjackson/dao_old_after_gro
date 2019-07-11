@@ -9,11 +9,11 @@ template(name='nav')
                     i.big.loading.yin.yang.icon
             else
                 a.header.icon.item(href='/' class="{{isActivePath '/'}}")
-                    +i name='shop' classes='ui avatar image'
+                    +i name='shop'
                 a.icon.item(href='/users' class="{{isActivePath '/users'}}")
-                    +i name='user-group-man-woman' classes='ui avatar image'
+                    +i name='user-group-man-woman'
                 a.icon.item(href='/gallery' class="{{isActivePath '/gallery'}}")
-                    +i name='gallery' classes='ui avatar image'
+                    +i name='gallery'
                 //- if is_admin
                 //-     a.icon.item.set_shop(href='/m/shop' class="{{isActivePath '/m/shop'}}")
                 //-         +i name='shop'
