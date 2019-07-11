@@ -330,7 +330,7 @@ template(name='shop_info')
         .eight.wide.column
             img.ui.centered.rounded.shadowed.image(src="{{c.url image_id width=1000 height=400 crop='fit'}}")
         .eight.wide.column
-            .ui.header added by #{_author_username}
+            a.ui.header(href="/user/#{_author_username}") added by #{_author_username}
             |#{when}
             with _author_id
               +user_card

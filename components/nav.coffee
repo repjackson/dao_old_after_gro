@@ -52,11 +52,11 @@ if Meteor.isClient
                 Session.set 'loading', false
 
     Template.nav.onRendered ->
-        # @autorun =>
-        #     if @subscriptionsReady()
-        #         Meteor.setTimeout ->
-        #             $('.dropdown').dropdown()
-        #         , 3000
+        @autorun =>
+            if @subscriptionsReady()
+                Meteor.setTimeout ->
+                    $('.dropdown').dropdown()
+                , 3000
 
         Meteor.setTimeout ->
             $('.item').popup(

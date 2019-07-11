@@ -110,7 +110,7 @@ template(name='link_edit')
 template(name='link_view')
     if field_value
         div
-        .ui.tiny.header 
+        .ui.tiny.inline.header 
             if icon
                 +i name=icon
                 //- i.grey.icon(class=icon)
@@ -209,7 +209,7 @@ template(name='image_edit')
                 //-     input.cloudinary_id(type='text' value=field_value placeholder='cloudinary_id' autocomplete="off")
                 // else
                 //     label Upload Image
-                input(type='file' name='upload_image' accept='image/*' capture='user')
+                input(type='file' name='upload_image' accept='image/*')
 
 
 template(name='image_link_edit')

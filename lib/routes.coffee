@@ -56,10 +56,6 @@ Router.route "/image/:doc_id/edit", (->
 
 
 
-Router.route '/events', (->
-    @layout 'layout'
-    @render 'events'
-    ), name:'events'
 
 Router.route "/shop", (->
     @layout 'layout'
@@ -140,15 +136,72 @@ Router.route "/reservation/:doc_id/", (->
     ), name:'reservation'
 
 
-# Router.route "/shop", (->
-#     @render 'shop'
-#     ), name:'shop'
+Router.route '/events', (->
+    @layout 'layout'
+    @render 'events'
+    ), name:'events'
 Router.route "/event/:doc_id", (->
     @render 'event_page'
     ), name:'event_page'
 Router.route "/event/:doc_id/edit", (->
     @render 'event_edit'
     ), name:'event_edit'
+
+
+Router.route '/notifications', (->
+    @layout 'layout'
+    @render 'notifications'
+    ), name:'notifications'
+
+
+
+
+Router.route '/votes', (->
+    @layout 'layout'
+    @render 'votes'
+    ), name:'votes'
+Router.route "/vote/:doc_id", (->
+    @render 'vote_page'
+    ), name:'vote_page'
+Router.route "/vote/:doc_id/edit", (->
+    @render 'vote_edit'
+    ), name:'vote_edit'
+
+
+Router.route '/documents', (->
+    @layout 'layout'
+    @render 'documents'
+    ), name:'documents'
+Router.route "/document/:doc_id", (->
+    @render 'document_page'
+    ), name:'document_page'
+Router.route "/document/:doc_id/edit", (->
+    @render 'document_page_edit'
+    ), name:'document_page_edit'
+
+
+Router.route '/groups', (->
+    @layout 'layout'
+    @render 'groups'
+    ), name:'groups'
+Router.route "/group/:doc_id", (->
+    @render 'group_page'
+    ), name:'group_page'
+Router.route "/group/:doc_id/edit", (->
+    @render 'group_edit'
+    ), name:'group_edit'
+
+
+Router.route '/videos', (->
+    @layout 'layout'
+    @render 'videos'
+    ), name:'videos'
+Router.route "/video/:doc_id", (->
+    @render 'video_page'
+    ), name:'video_page'
+Router.route "/video/:doc_id/edit", (->
+    @render 'video_edit'
+    ), name:'video_edit'
 
 
 Router.route "/shop/:doc_id/view", (->
@@ -220,10 +273,18 @@ Router.route '/user/:username/payment', (->
     @layout 'user_layout'
     @render 'user_payment'
     ), name:'user_payment'
+Router.route '/user/:username/votes', (->
+    @layout 'user_layout'
+    @render 'user_votes'
+    ), name:'user_votes'
 Router.route '/user/:username/dashboard', (->
     @layout 'user_layout'
     @render 'user_dashboard'
     ), name:'user_dashboard'
+Router.route '/user/:username/requests', (->
+    @layout 'user_layout'
+    @render 'user_requests'
+    ), name:'user_requests'
 Router.route '/user/:username/tags', (->
     @layout 'user_layout'
     @render 'user_tags'
@@ -236,10 +297,18 @@ Router.route '/user/:username/gallery', (->
     @layout 'user_layout'
     @render 'user_gallery'
     ), name:'user_gallery'
+Router.route '/user/:username/bookmarks', (->
+    @layout 'user_layout'
+    @render 'user_bookmarks'
+    ), name:'user_bookmarks'
 Router.route '/user/:username/documents', (->
     @layout 'user_layout'
     @render 'user_documents'
     ), name:'user_documents'
+Router.route '/user/:username/social', (->
+    @layout 'user_layout'
+    @render 'user_social'
+    ), name:'user_social'
 Router.route '/user/:username/events', (->
     @layout 'user_layout'
     @render 'user_events'
@@ -256,3 +325,7 @@ Router.route '/user/:username/comparison', (->
     @layout 'user_layout'
     @render 'user_comparison'
     ), name:'user_comparison'
+Router.route '/user/:username/notifications', (->
+    @layout 'user_layout'
+    @render 'user_notifications'
+    ), name:'user_notifications'

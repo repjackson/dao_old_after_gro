@@ -44,12 +44,16 @@ template(name='user_layout')
                         +i name='info'
                     a.ui.icon.button(href="/user/#{username}/dashboard" class="{{isActiveRoute 'user_dashboard'}}" title='info')
                         +i name='dashboard'
-                    a.ui.icon.button(href="/user/#{username}/documents" class="{{isActiveRoute 'user_documents'}}" title='social')
+                    a.ui.icon.button(href="/user/#{username}/social" class="{{isActiveRoute 'user_social'}}" title='social')
+                        +i name='collaboration'
+                    a.ui.icon.button(href="/user/#{username}/documents" class="{{isActiveRoute 'user_documents'}}" title='documents')
                         +i name='documents'
                     a.ui.icon.button(href="/user/#{username}/products" class="{{isActiveRoute 'user_products'}}" title='shop')
                         +i name='shop'
                     a.ui.icon.button(href="/user/#{username}/gallery" class="{{isActiveRoute 'user_gallery'}}" title='gallery')
                         +i name='gallery'
+                    a.ui.icon.button(href="/user/#{username}/bookmarks" class="{{isActiveRoute 'user_bookmarks'}}" title='bookmarks')
+                        +i name='star'
                     a.ui.icon.button(href="/user/#{username}/contact" class="{{isActiveRoute 'user_contact'}}" title='contact')
                         +i name='phone'
                     a.ui.icon.button(href="/user/#{username}/events" class="{{isActiveRoute 'user_events'}}" title='events')
@@ -58,12 +62,18 @@ template(name='user_layout')
                         +i name='meeting'
                     a.ui.icon.button(href="/user/#{username}/tags" class="{{isActiveRoute 'user_tags'}}" title='tags')
                         +i name='tags'
+                    a.ui.icon.button(href="/user/#{username}/requests" class="{{isActiveRoute 'user_requests'}}" title='requests')
+                        +i name='request-service'
+                    a.ui.icon.button(href="/user/#{username}/votes" class="{{isActiveRoute 'user_votes'}}" title='votes')
+                        +i name='elections'
                     a.ui.icon.button(href="/user/#{username}/karma" class="{{isActiveRoute 'user_karma'}}" title='karma')
                          +i name='heart-with-pulse'
                     a.ui.icon.button(href="/user/#{username}/payment" class="{{isActiveRoute 'user_payment'}}" title='payment options')
                          +i name='online-payment-with-a-credit-card'
                     a.ui.icon.button(href="/user/#{username}/transactions" class="{{isActiveRoute 'user_transactions'}}" title='money')
                          +i name='money'
+                    a.ui.icon.button(href="/user/#{username}/notifications" class="{{isActiveRoute 'user_notifications'}}" title='money')
+                         +i name='appointment-reminders'
                     +yield
     +footer 
 
@@ -160,7 +170,7 @@ template(name='user_log')
         .ui.grey.inline.center.aligned.small.header 
             //- +i name='overview-pages-4'
             i.list.icon
-            |Log
+            |log
         .smallscroll
             .ui.list
                 each user_log_events
@@ -179,7 +189,7 @@ template(name='user_feed')
     .ui.cloud.segment
         .ui.grey.inline.header 
             +i name='feed'
-            |Feed
+            |feed
         //- if current_user
         //-     .ui.fluid.input
         //-         input(type='text' placeholder='Share something...')
@@ -188,17 +198,15 @@ template(name='user_feed')
                 
                 
 template(name='user_bookmarks')
-    .ui.segment
-        .ui.grey.inline.center.aligned.small.header 
-            //- +i name='bookmark'
-            i.bookmark.icon
-            |Bookmarks
-        .ui.list.smallscroll
-            each bookmarks
-                .item
-                    .content
-                        a.header(href="/m/#{model}/#{_id}/view") #{title} [#{model}]
-                        .description #{when}
+    .ui.header 
+        +i name='star'
+        |bookmarks
+    .ui.list
+        each bookmarks
+            .item
+                .content
+                    a.header(href="/m/#{model}/#{_id}/view") #{title} [#{model}]
+                    .description #{when}
 
             
             
@@ -284,7 +292,7 @@ template(name='user_following')
     .ui.cloud.segment
         .ui.grey.header 
             i.bell.icon
-            |Following
+            |following
         +user_array_list user=user_from_username_param array='following_ids'
           
 
@@ -296,7 +304,7 @@ template(name='follow_user')
                     i.renew.icon
             else
                 i.bell.icon
-            |Followed by
+            |followed by
         +user_array_list user=user_from_username_param array='followed_by_ids'
                 
 
@@ -305,7 +313,7 @@ template(name='user_wall')
         .active.title
             .ui.grey.inline.center.aligned.small.header 
                 i.edit.icon
-                |Wall
+                |wall
         .active.content
             if currentUser
                 .ui.fluid.icon.input

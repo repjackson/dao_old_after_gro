@@ -1,7 +1,7 @@
 template(name='user_messages')
     .ui.segment
         .ui.inline.grey.header 
-            i.mail.icon
+            +i name='new-message'
             |mail
         if currentUser
             .ui.icon.fluid.input
@@ -11,11 +11,11 @@ template(name='user_messages')
             each user_messages
                 .ui.segment
                     .ui.small.header #{body}
-                    //- each tags
-                    //-     .ui.label #{this}
-                    //- div
-                    //- +notify_message
-                    //- +user_list_toggle key='read_by_ids' label='Mark Read' icon='eye'
+                    each tags
+                        .ui.label #{this}
+                    div
+                    +notify_message
+                    +user_list_toggle key='read_by_ids' label='Mark Read' icon='eye'
                     div
                     |by
                     +author_info

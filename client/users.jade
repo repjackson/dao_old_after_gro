@@ -47,8 +47,8 @@ template(name='user_gallery')
             
             
 template(name='user_events')
-    .ui.center.aligned.white.header 
-        i.calendar.icon
+    .ui.header 
+        +i name='calendar'
         |#{user_from_username_param.username} events
     .add_event.ui.button
         i.plus.icon

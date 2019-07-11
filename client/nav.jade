@@ -14,6 +14,8 @@ template(name='nav')
                     +i name='user-group-man-woman'
                 a.icon.item(href='/gallery' class="{{isActivePath '/gallery'}}")
                     +i name='gallery'
+                a.icon.item(href='/groups' class="{{isActivePath '/groups'}}")
+                    +i name='groups'
                 //- if is_admin
                 //-     a.icon.item.set_shop(href='/m/shop' class="{{isActivePath '/m/shop'}}")
                 //-         +i name='shop'
@@ -21,6 +23,15 @@ template(name='nav')
                 //-         //- .mobile.hidden &nbsp; market
                 a.icon.item(href='/events' class="{{isActivePath '/events'}}" title='events')
                     +i name='calendar'
+                a.icon.item(href='/documents' class="{{isActivePath '/documents'}}" title='documents')
+                    +i name='documents'
+                a.icon.item(href='/votes' class="{{isActivePath '/votes'}}" title='votes')
+                    +i name='elections'
+                a.icon.item(href='/qa' class="{{isActivePath '/qa'}}" title='qa')
+                    +i name='faq'
+                a.icon.item(href='/videos' class="{{isActivePath '/videos'}}" title='video')
+                    +i name='video'
+                
                 //- a.icon.item.set_meal(href='/m/meal' class="{{isActivePath '/m/meal'}}" title='food')
                 //-     +i name='food'
                 //- a.item.set_marketplace(href='/m/marketplace' class="{{isActivePath '/m/marketplace'}}")
@@ -30,11 +41,14 @@ template(name='nav')
                     //- .item
                     //-     .ui.header(title='your karma') #{currentUser.karma}
                     unless logging_out
-                        //- .ui.simple.dropdown.item(href="/user/#{currentUser.username}/notifications" class="{{isActivePath '/messages'}}")
-                        //-     i.alarm.icon
-                        //-     .menu
-                        //-         each notifications
-                        //-             .ui.button #{text}
+                        a.ui.icon.item(href="/user/#{currentUser.username}/notifications" class="{{isActiveRoute regex='notifications'}}")
+                            i.large.alarm.icon
+                            //- .menu
+                            //-     if notifications
+                            //-         each notifications
+                            //-             .ui.button #{text}
+                            //-     else 
+                            //-         |no notifications
                         if is_user
                             //- a.icon.item(href="/user/#{currentUser.username}" class="{{isActiveRoute regex='profile'}}")
                             //-     +i name='new-post'
