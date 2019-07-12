@@ -501,7 +501,7 @@ Template.dollar_price_view.events
                 description: 'gold run market'
                 amount: value*100
 
-    'click .add_to_tab': ->
+    # 'click .add_to_tab': ->
     # 'blur .edit_price': (e,t)->
     #     if @direct
     #         parent = Template.parentData()
@@ -724,6 +724,9 @@ Template.single_doc_view.helpers
 
 Template.single_doc_edit.onCreated ->
     @autorun => Meteor.subscribe 'model_docs', @data.ref_model
+    @doc_results = new ReactiveVar
+Template.single_doc_edit.helpers
+    doc_results: ->Template.instance().doc_results.get()
 
 Template.single_doc_edit.helpers
     choices: ->
@@ -756,6 +759,58 @@ Template.single_doc_edit.helpers
 
 
 Template.single_doc_edit.events
+    'click .clear_results': (e,t)->
+        t.user_results.set null
+
+    'keyup #single_doc_input': (e,t)->
+        console.log @
+        search_value = $(e.currentTarget).closest('#single_doc_input').val().trim()
+        console.log search_value
+        if search_value.length > 1
+            Meteor.call 'lookup_doc', @lookup_field, search_value, @ref_model, (err,res)=>
+                if err then console.error err
+                else
+                    t.doc_results.set res
+
+    'click .select_doc': (e,t) ->
+        # page_doc = Docs.findOne Router.current().params.id
+        field = Template.currentData()
+        console.log field
+        console.log @
+        if field.direct
+            parent = Template.parentData()
+        else
+            parent = Template.parentData(5)
+
+
+        doc = Docs.findOne parent._id
+        user = Meteor.users.findOne parent._id
+        if doc
+            Docs.update parent._id,
+                $set:"#{field.key}":@_id
+        else if user
+            Meteor.users.update parent._id,
+                $set:"#{field.key}":@_id
+
+        t.doc_results.set null
+        $('#single_doc_input').val ''
+        # Docs.update page_doc._id,
+        #     $set: assignment_timestamp:Date.now()
+
+
+
+    'click .pull_doc': ->
+        parent = Template.parentData(5)
+        field = Template.currentData()
+        Docs.update parent._id,
+            $unset:"#{field.key}":1
+
+        # if confirm "Remove #{@username}?"
+        #     page_doc = Docs.findOne Router.current().params.id
+            # Meteor.call 'unassign_user', page_doc._id, @
+
+
+
     'click .select_choice': ->
         selection = @
         ref_field = Template.currentData()

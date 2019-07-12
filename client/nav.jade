@@ -1,16 +1,18 @@
 template(name='nav')
     unless is_frontdesk
         //- .ui.borderless.attached.big.inverted.menu.topnav
-        .ui.borderless.big.menu.fixed.topnav
+        .ui.borderless.attached.menu.topnav
             //- a.toggle_sidebar.icon.item.sidebar_on
             //-     i.large.sidebar.icon
             if is_loading
                 .icon.item
                     i.big.loading.yin.yang.icon
             else
-                a.icon.item(href='/home' class="{{isActivePath '/home'}}")
+                a.item.set_model(href='/m/model' class="{{isActivePath '/m/model'}}")
                     +i name='home'
-                    //- i.th.large.icon
+                    //- i.sitemap.large.icon
+                //- a.item(href='/home' class="{{isActivePath '/home'}}")
+                //-     //- i.th.large.icon
                 each bookmarked_models
                     a.item.set_bookmarked_model(href="/m/#{slug}" class="{{isActivePath '/m/#{slug}'}}")
                         +i name=icon
@@ -76,14 +78,10 @@ template(name='nav')
                             //-     i.circular.plus.icon
                             //- a.item(href="/cart" class="{{isActivePath '/cart'}}" title='cart')
                             //-     |#{cart_amount}
-                        if is_admin
-                            a.icon.item(href='/admin' class="{{isActivePath '/admin'}}")
-                                +i name='user shield'
-                                //- i.user.shield.icon
-                        if is_dev
-                            a.item.set_model(href='/m/model' class="{{isActivePath '/m/model'}}")
-                                +i name='active directory'
-                                //- i.sitemap.large.icon
+                        //- if is_admin
+                        //-     a.icon.item(href='/admin' class="{{isActivePath '/admin'}}")
+                        //-         +i name='user shield'
+                        //-         //- i.user.shield.icon
                         a.item(href="/user/#{currentUser.username}" class="{{isActiveRoute regex='user_chat'}}")
                             if currentUser.image_id
                                 img.ui.avatar.image(src="{{c.url currentUser.image_id width=100 height=100 gravity='face' crop='fill'}}")
@@ -108,9 +106,9 @@ template(name='footer')
     .ui.fluid.basic.attached.segment.footer
         .ui.container.stackable.grid
             .eight.wide.column
-                with currentUser
-                    if is_dev
-                        +textarea_edit key='notes' direct=true
+                //- with currentUser
+                    //- if is_dev
+                    //-     +textarea_edit key='notes' direct=true
                     //- form(action='https://www.paypal.com/cgi-bin/webscr', method='post', target='_top')
                     //-     input(type='hidden', name='cmd', value='_s-xclick')
                     //-     input(type='hidden', name='hosted_button_id', value='AUVHGYNUW5LVE')
@@ -163,138 +161,3 @@ template(name='role_switcher')
         //- +user_array_element_toggle key='roles' value='staff' user=currentUser
         //- +user_array_element_toggle key='roles' value='resident' user=currentUser
         //- +user_array_element_toggle key='roles' value='owner' user=currentUser
-
-
-template(name='sidebar')
-    .ui.left.inline.vertical.sidebar.inverted.blue.fixed.menu
-        a.toggle_sidebar.item(href='/shop' class="{{isActivePath '/users'}}")
-            i.users.icon
-            | people
-        a.toggle_sidebar.item(href='/users' class="{{isActivePath '/users'}}")
-            i.users.icon
-            | people
-        a.toggle_sidebar.item(href='/users' class="{{isActivePath '/users'}}")
-            i.users.icon
-            | people
-        if currentUser
-            unless logging_out
-                a.item(href='/dashboard' class="{{isActivePath '/dashboard'}}")
-                    i.dashboard.icon
-                    | Dashboard
-                .ui.simple.dropdown.icon.item
-                    i.alarm.icon
-                    | Alerts
-                a.item(href='/messages' class="{{isActivePath '/messages'}}")
-                    i.mail.icon
-                    | Mail
-                if is_admin
-                    a.icon.toggle_sidebar.item(href='/admin/members' class="{{isActivePath '/admin/members'}}")
-                        i.configure.icon
-                        | Admin
-                a.item(href="/user/#{currentUser.username}/edit" class="{{isActiveRoute regex='user_edit'}}")
-                    if currentUser.image_id
-                        img.ui.avatar.image(src="{{c.url currentUser.image_id width=50 height=50 gravity='face' crop='fill'}}")
-                    else
-                        i.user.icon
-                    | #{currentUser.username}
-            if logging_out
-                .item
-                    i.loading.refresh.icon
-                    |Logging Out...
-            else
-                a#logout.ui.mobile.hidden.icon.item(href='#' title='Log Out')
-                    i.sign.out.icon
-                    |Log Out
-        else
-            a.ui.item(href='/login') 
-                i.sign.in.icon
-                | Log In
-
-
-
-template(name='topbar')
-    .ui.top.sidebar.blue.segment.push.nav_bar.row.topbar
-        .ui.grid
-            .four.wide.column
-                +notifications
-            .four.wide.column
-                +messages
-            .four.wide.column
-                +tasks
-            .four.wide.column
-                +bookmarks
-
-
-template(name='notifications')
-    a.ui.inverted.header.set_notifications(href='#')
-        +i name='appointment-reminders' classes='mini spaced'
-        | Notifications
-
-template(name='messages')
-    a.ui.inverted.header.set_messages(href='#')
-        +i name='mailbox-with-letter' classes='mini spaced'
-        | Messages
-
-    +ismall name='compose' title='Compose' classes='pointer'
-
-
-template(name='tasks')
-    a.ui.inverted.header.set_tasks(href='#')
-        +i name='to-do' classes='mini spaced'
-        | Tasks
-    .ui.inverted.link.list
-        each todos
-            a.item.todo(class=item_class) #{title}
-
-
-template(name='bookmarks')
-    a.ui.inverted.header.set_bookmarks(href='#')
-        +i name='bookmark-ribbon' classes='mini spaced'
-        | Bookmarks
-
-
-
-
-
-
-template(name='rightbar')
-    .ui.right.vertical.sidebar.nav_bar.inverted.blue.menu.rightbar
-        a.item(href='#')
-            .ui.inverted.header
-                | #{currentUser.first_name} #{currentUser.last_name}
-                small @#{currentUser.username}
-        a.item.profile(href='#')
-            .ui.inverted.small.header
-                +i name='leaderboard' classes='mini centered'
-                | Leaderboard
-        a.item.profile(href='#')
-            .ui.inverted.small.header
-                +i name='contacts' classes='mini centered'
-                | Profile
-        a.item.settings(href='#')
-            .ui.inverted.small.header
-                +i name='settings' classes='mini centered'
-                | Settings
-        a.item.sla(href='#')
-            .ui.inverted.small.header
-                +i name='workflow' classes='mini centered'
-                | SLA Settings
-        a.item(href='#')
-            .ui.compact.icon.button.delete_delta(title='Clear Session')
-                i.remove.icon
-                |Clear
-            .ui.compact.icon.button.run_fo(title='Reload Session')
-                i.refresh.icon
-                // |Reset
-            if is_dev
-                .ui.icon.compact.button.show_delta
-                    i.code.icon
-        a.item(href='#')
-            #logout.sixteen.wide.column
-                .ui.inverted.small.header
-                    // +i name='exit' classes='mini centered'
-                    if signing_out
-                        i.notched.circle.loading.big.icon
-                    else
-                        +i name='exit' classes='mini'
-                    | Log Out

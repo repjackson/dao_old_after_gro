@@ -18,7 +18,7 @@ if Meteor.isClient
                 model:'image'
             Router.go "/image/#{new_id}/edit"
 
-    Template.image_item.events
+    Template.image_card_template.events
         'click .image_item': ->
             Docs.update @_id,
                 $inc:views:1

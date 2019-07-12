@@ -2,30 +2,9 @@ body {
     /* font-family: 'Ubuntu', sans-serif !important; */
     font-size: 110% !important;
     /*line-height: 200% !important;*/
+    /* filter: invert(100%) !important; */
     /*background: #3d3d3d !important;*/
-    background: rgba(0, 0, 0, .02) !important
-    /* background: #0e0e44 !important; */
-}
-
-.checkin_header {
-    font-size: 4em !important;
-}
-
-.midgard {
-    vertical-align: middle !important;
-}
-
-/* .menu .item {
-    font-family: 'Abril Fatface', serif !important;
-    font-size: 130% !important;
-} */
-
-.home_segment{
-    -webkit-transition: all 0.25s ease;
-    -moz-transition: all 0.25s ease;
-    -o-transition: all 0.25s ease;
-    transition: all 0.25s ease;
-    border-radius: 10px !important;
+    /* background: rgba(0, 0, 0, .8) !important */
 }
 
 .invert {
@@ -34,50 +13,11 @@ body {
     /* height: 100%; */
 }
 
-.red_flagged {
-  border: 5px solid red !important;
-  /* border-radius: 5px !important; */
-  box-shadow: 0 4px 8px 0 rgb(220,20,60, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19) !important;
-}
-
-.yellow_flagged {
-  border: 5px solid orange !important;
-  /* border-radius: 5px !important; */
-}
-
-.green_flagged {
-  border: 5px solid green;
-  /* border-radius: 5px; */
-}
-
 .pointer:hover{
     cursor: pointer !important;
     /* -webkit-filter: drop-shadow(5px 5px 5px #222);
     filter:         drop-shadow(5px 5px 5px #222); */
 }
-
-.profile_grid {
-    position: absolute !important;
-    top:0px;
-    width:100%;
-}
-.checkin_page {
-    position: absolute !important;
-    top:50px;
-    width:100%;
-}
-.checkin_banner {
-    position: absolute !important;
-    top:0px;
-    opacity: 0.4;
-    -webkit-mask-image:-webkit-gradient(linear, left top, left bottom, from(rgba(0,0,0,1)), to(rgba(0,0,0,0)));
-    mask-image: linear-gradient(to bottom, rgba(0,0,0,1), rgba(0,0,0,0));
-}
-
-.grgold {
-    background-color: #2b2100 !important;
-}
-
 
 input{
     -webkit-border-radius: 7px !important; */
@@ -91,25 +31,6 @@ input{
     background: rgba(250, 250, 250, 0.9) !important;
     opacity: 1;
 }
-
-input.username_search{
-    -webkit-border-radius: 10px !important; */
-    border-radius: 10px !important;
-    /* margin-bottom: 5px !important;
-    margin-top: 5px !important; */
-    background: rgba(250, 250, 250, 0.9) !important;
-    opacity: 1;
-    border-width: 1px !important;
-    border-color: #a67c00 !important;
-    box-shadow: 0 2px 5px 2px rgba(50, 50, 100, 0.1) !important;
-}
-
-/* input:focus, textarea:focus {
-    background: rgba(250, 250, 250, 0.8) !important;
-    font-size:110% !important;
-    border-width: medium !important;
-    box-shadow: 0 2px 5px 2px rgba(50, 50, 100, 0.1) !important;
-} */
 
 
 .shadowed{
@@ -173,25 +94,6 @@ input.username_search{
 
 
 
-.cloud {
-    opacity: 0.9;
-    /* -webkit-border-radius: 20px !important; */
-    /* -moz-border-radius: 20px !important; */
-    /* border-radius: 20px !important; */
-}
-.global_container{
-    margin-top: 50px !important;
-}
-
-.banner_image {
-    /* opacity: 0.9; */
-    -webkit-mask-image:-webkit-gradient(linear, left top, left bottom, from(rgba(0,0,0,1)), to(rgba(0,0,0,0)));
-    mask-image: linear-gradient(to bottom, rgba(0,0,0,1), rgba(0,0,0,0));
-    background-repeat: no-repeat;
-    background-attachment: fixed
-}
-
-
 .button, .selector, .card{
   animation: fadein .75s;
 }
@@ -204,26 +106,6 @@ input.username_search{
 .inline {
   display:inline !important;
   margin: .5em !important;2
-}
-
-.ui.header{
-    /* font-family: 'Lusitana', sans-serif !important; */
-    /* font-family: 'Ubuntu', sans-serif !important; */
-}
-h1.ui.header{
-    /* font-family: 'Ubuntu', sans-serif !important; */
-    /* font-family: 'Lusitana', serif !important; */
-    /* font-size: 300% !important; */
-    /* color: #5a4400 !important; */
-
-    /* font-weight: lighter !important; */
-}
-.checkin_button{
-    /* font-family: 'Ubuntu', sans-serif !important; */
-    font-family: 'Abril Fatface', serif !important;
-    font-size: 300% !important;
-    color: #5a4400 !important;
-    font-weight: 200px !important;
 }
 a {
   font-family: 'Ubuntu', sans-serif !important;
@@ -239,7 +121,7 @@ a {
   animation: fadein .25s;
 }
 .segment{
-  animation: fadein .5s;
+  animation: fadein .25s;
 }
 
 .icon.item {
@@ -347,68 +229,6 @@ a {
   left: 0px;
   font-size: 225%;
 }
-.footer {
-    /* position: absolute; */
-    height: auto;
-    /* bottom: 0; */
-}
-
-
-.slider-header {
-  color: #fff;
-  padding: 10px;
-  font-size: 3em !important;
-}
-.slider-subheader {
-  color: #fff;
-  padding: 10px;
-}
-@font-face {
-  font-family: imogen;
-  src: url("/fonts/ImogenAgnes.ttf");
-}
-@font-face {
-  font-family: imogen_swash;
-  src: url("/fonts/ImogenAgnesSwash.ttf");
-}
-@font-face {
-  font-family: bat_white;
-  src: url("/bat_white.ttf");
-}
-@font-face {
-  font-family: bat_black;
-  src: url("/bat_black.ttf");
-}
-.big-header {
-  font-size: 800% !important;
-  padding: 20px;
-}
-.large {
-  font-size: 130%;
-  line-height: 130%;
-}
-.big {
-  font-size: 200%;
-  line-height: 120%;
-}
-.center {
-  text-align: center;
-}
-.big-text {
-  font-size: 500% !important;
-  padding-bottom: 0.25em;
-}
-.large-text {
-  font-size: 300% !important;
-  padding-bottom: 0.25em;
-}
-.slider_header {
-  font-size: 20em !important;
-  color: #fff;
-}
-.uppercase {
-  text-transform: uppercase;
-}
 /* Mobile */
 @media only screen and (max-width: 767px) {
   .mobile.hidden,
@@ -461,7 +281,7 @@ a {
 }
 #main {
     /* margin-top:20px; */
-    min-height: 120vh;
+    /* min-height: 120vh; */
     height: 100%;
     /* min-height: 500px; */
     /* bottom: 0; */
@@ -469,7 +289,7 @@ a {
 .scrolling{
 	overflow-y:scroll;
 	overflow-x:hidden;
-	max-height:80vh;
+	max-height:90vh;
 	/*max-height:85vh;*/
 	/* padding-top: 1em; */
 	/*padding-left: 1em;*/
@@ -546,51 +366,3 @@ a {
   font-size: 50%;
   line-height: 50%; }
 .f0 { display:none; }
-
-
-.scanning:after {
-  content: '';
-  /* make the element cover the whole thing */
-  display: block;
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
-  /* and sit in front */
-  z-index: 1;
-  /* gradient with a radar like fade */
-  background:
-    linear-gradient(90deg,
-      rgba(0,0,0,.01),
-      rgba(0,0,0,.01) 50%,
-      rgba(0,0,255,.5) 55%,
-      rgba(0,0,255,1) 56%,
-      rgba(0,0,0,.01) 56%,
-      rgba(0,0,0,.01)
-    );
-  /* make it big enough so when we slide it around still covers whole image */
-  background-size:     300% 100%;
-  background-repeat:   no-repeat;
-  /* start with the scan bar just off the left side */
-  background-position: 84% center;
-  -webkit-animation:   scan 5s infinite ease;
-}
-
-@-webkit-keyframes scan {
-  /* finish with the scan bar just off the right side */
-  100% { background-position: 25% center; }
-}
-
-#vid-container {
-	margin: 0px auto;
-	width: 500px;
-	height: 375px;
-}
-#videoElement {
-	/* width: 500px; */
-	width: 100%;
-	/* height: 375px; */
-	height: 100%;
-	/* background-color: #666; */
-}

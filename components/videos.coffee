@@ -13,7 +13,7 @@ if Meteor.isClient
                 model:'video'
             Router.go "/video/#{new_id}/edit"
 
-    Template.video_item.events
+    Template.video_card_template.events
         'click .video_card': ->
             Docs.update @_id,
                 $inc:views:1

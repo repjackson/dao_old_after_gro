@@ -16,21 +16,20 @@ template(name='documents')
                         
                         
                         
-template(name='document_item')
-    .ui.link.card.document_card
-        .image
-            img(src="{{c.url image_id height=300 crop='lpad'}}")
-        .content
-            .header #{title}
-            |!{description}
-        .content
-            i.small.documents.icon
-            each date_tags
-                .ui.small.basic.label #{this}
-        .content
-            |#{attending_usernames.length} members
-            each members
-                .ui.basic.label #{this}
+template(name='document_card_template')
+    .ui.segment.grid.document_card
+        .sixteen.wide.column
+            .content
+                .header #{title}
+                |!{description}
+            .content
+                i.small.documents.icon
+                each date_tags
+                    .ui.small.basic.label #{this}
+            .content
+                |#{attending_usernames.length} members
+                each members
+                    .ui.basic.label #{this}
 
 template(name='document_page')
     with current_doc

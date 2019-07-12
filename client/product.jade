@@ -110,11 +110,11 @@ template(name='shop_view_layout')
                                 
                                 .six.wide.column
                                     if rentable
-                                        .ui.fluid.large.green.button.reserve
+                                        .ui.fluid.large.button.reserve
                                             +i name='ticket-purchase' classes='ui inline mini image'
                                             |reserve for $#{hourly_rate}/hr
                                     if for_sale
-                                        .ui.fluid.large.green.button.reserve
+                                        .ui.fluid.large.button.reserve
                                             +i name='shopping-cart' classes='ui inline mini image'
                                             |buy for $#{dollar_price}
                             .row

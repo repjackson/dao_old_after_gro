@@ -74,6 +74,7 @@ if Meteor.isServer
         model = Docs.findOne
             model:'model'
             slug:slug
-        Docs.find
-            model:'field'
-            parent_id:model._id
+        if model
+            Docs.find
+                model:'field'
+                parent_id:model._id

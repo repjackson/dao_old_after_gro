@@ -16,7 +16,33 @@ template(name='events')
                         +event_item
                         
                         
-                        
+template(name='event_card_template')
+    .ui.result.stackable.grid.segment(class=loading_class)
+        if image_id
+            .four.wide.column
+                img.ui.rounded.image.invert(src="{{c.url image_id width=400 height=400 gravity='face' crop='fill'}}")
+        else
+            .four.wide.column
+                i.massive.user.calendar.icon
+        .twelve.wide.column
+            .content
+                .ui.header #{title}
+                .ui.small.header #{start_datetime}
+                .ui.small.header #{end_datetime}
+                .extra
+                    a.ui.icon.large.basic.button(href="/event/#{_id}" title='view')
+                        i.right.chevron.large.icon
+                    each tags
+                        .ui.basic.label #{this}
+                    each date_tags
+                        .ui.basic.label #{this}
+            .content
+                |#{attending_usernames.length} attendees
+                each attending_usernames
+                    .ui.basic.label #{this}
+        
+            
+            
 template(name='event_item')
     .ui.link.card.event_card
         .image
@@ -37,8 +63,8 @@ template(name='event_page')
     with current_doc
         .ui.padded.stackable.grid.header-wrapper
             .row
-                .twelve.wide.column
-                    h1.ui.header #{title}
+                .sixteen.wide.column
+                    h1.ui.center.aligned.header #{title}
             .row
                 .four.wide.column
                     if can_edit
@@ -56,9 +82,9 @@ template(name='event_page')
                     +datetime_view key='end_datetime' label='end date/time' direct=true
                     .ui.header attendees
                     if attending 
-                        .ui.button.mark_unattending 
-                            i.ban.grey.icon
-                            |mark unattending
+                        .ui.green.button.mark_unattending 
+                            i.checkmark.icon
+                            |attending
                     else
                         .ui.button.mark_attending
                             i.green.checkmark.icon

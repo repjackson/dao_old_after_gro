@@ -20,32 +20,6 @@ if Meteor.isClient
             Meteor.call 'set_facets', 'model', ->
                 Session.set 'loading', false
 
-        'click .set_note': ->
-            Session.set 'loading', true
-            Meteor.call 'set_facets', 'note', ->
-                Session.set 'loading', false
-
-        'click .set_meal': ->
-            Session.set 'loading', true
-            Meteor.call 'set_facets', 'meal', ->
-                Session.set 'loading', false
-
-        'click .set_shop': ->
-            Session.set 'loading', true
-            Meteor.call 'set_facets', 'shop', ->
-                Session.set 'loading', false
-
-        'click .set_event': ->
-            Session.set 'loading', true
-            Meteor.call 'set_facets', 'event', ->
-                Session.set 'loading', false
-
-        'click .set_task': ->
-            Session.set 'loading', true
-            Meteor.call 'set_facets', 'task', ->
-                Session.set 'loading', false
-
-
         'click .set_bookmarked_model': ->
             Session.set 'loading', true
             Meteor.call 'set_facets', @slug, ->
@@ -66,34 +40,18 @@ if Meteor.isClient
         , 3000
 
 
-    Template.sidebar.events
-        'click #logout': ->
-            Session.set 'logging_out', true
-            Meteor.logout ->
-                Session.set 'logging_out', false
-                Router.go '/'
-
-
     Template.nav.onCreated ->
         @autorun -> Meteor.subscribe 'me'
         # @autorun -> Meteor.subscribe 'current_session'
         # @autorun -> Meteor.subscribe 'my_cart'
 
-        # @autorun -> Meteor.subscribe 'bookmarked_models'
+        @autorun -> Meteor.subscribe 'bookmarked_models'
         # @autorun -> Meteor.subscribe 'unread_messages'
 
     Template.nav.helpers
         notifications: ->
             Docs.find
                 model:'notification'
-
-        current_tribe: () ->
-            user = Meteor.user()
-            if user
-                Docs.findOne
-                    model:'tribe'
-                    slug:user.current_tribe
-
 
         models: ->
             Docs.find
@@ -139,47 +97,6 @@ if Meteor.isClient
         # , 1000
 
     Template.nav.events
-        # 'click .sidebar_on': ->
-        #     $('.context .ui.sidebar')
-        #         .sidebar({
-        #             context: $('.context .segment')
-        #             dimPage: false
-        #             transition:  'push'
-        #         })
-        #         .sidebar('attach events', '.context .menu .toggle_sidebar.item')
-
-
-    # Template.topbar.onRendered ->
-    #     @autorun =>
-    #         if @subscriptionsReady()
-    #             Meteor.setTimeout ->
-    #                 $('.context.example .ui.top.sidebar')
-    #                     .sidebar({
-    #                         context: $('.context.example .segment')
-    #                         dimPage: false
-    #                         transition:  'overlay'
-    #                         scrollLock: false
-    #                         exclusive: true
-    #                     })
-    #                     .sidebar('attach events', '.context.example .menu .toggle_topbar')
-    #             , 750
-    #
-    # Template.rightbar.onRendered ->
-    #     if @subscriptionsReady()
-    #             Meteor.setTimeout ->
-    #                 $('.context.example .ui.right.sidebar')
-    #                     .sidebar({
-    #                         context: $('.context.example .segment')
-    #                         dimPage: false
-    #                         transition:  'overlay'
-    #                         scrollLock: false
-    #                         exclusive: true
-    #                     })
-    #                     .sidebar('attach events', '.context.example .menu .toggle_rightbar')
-    #             , 750
-
-
-
 
 
 

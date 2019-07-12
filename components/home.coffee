@@ -22,7 +22,7 @@ if Meteor.isClient
             # console.log Meteor.user().roles
             Docs.find {
                 model:'model'
-                # view_roles:$in:Meteor.user().roles
+                view_roles:$in:Meteor.user().roles
             }, sort:title:1
 
         marketplace_items: ->

@@ -91,17 +91,28 @@ Meteor.methods
             roles:$in:[role_filter]
             }).fetch()
 
+    lookup_doc: (lookup_field, lookup_value, model_filter)->
+        console.log lookup_field
+        console.log lookup_value
+        console.log model_filter
+        res = Docs.find({
+            "#{lookup_field}": {$regex:"#{lookup_value}", $options: 'i'}
+            model:model_filter
+            }).fetch()
+        console.log res
+        res
+
     lookup_user_by_code: (healthclub_code)->
         unless isNaN(healthclub_code)
             Meteor.users.findOne({
                 healthclub_code:healthclub_code
                 })
 
-    lookup_doc: (first_name, model_filter)->
-        Docs.find({
-            model:model_filter
-            first_name: {$regex:"#{first_name}", $options: 'i'}
-            }).fetch()
+    # lookup_doc: (first_name, model_filter)->
+    #     Docs.find({
+    #         model:model_filter
+    #         first_name: {$regex:"#{first_name}", $options: 'i'}
+    #         }).fetch()
 
     # lookup_username: (username_query)->
     #     found_users =

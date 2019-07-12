@@ -56,12 +56,11 @@ Meteor.methods
         if model.collection and model.collection is 'users'
             built_query.roles = $in:[delta.model_filter]
         else
-            unless delta.model_filter is 'post'
-                built_query.model = delta.model_filter
+            built_query.model = delta.model_filter
 
         if delta.model_filter is 'model'
-            # unless 'dev' in Meteor.user().roles
-            built_query.view_roles = $in:Meteor.user().roles
+            unless 'dev' in Meteor.user().roles
+                built_query.view_roles = $in:Meteor.user().roles
 
         for facet in delta.facets
             if facet.filters.length > 0
@@ -87,7 +86,7 @@ Meteor.methods
         modifier =
             {
                 fields:_id:1
-                limit:20
+                limit:10
                 sort:_timestamp:-1
             }
 
@@ -120,7 +119,7 @@ Meteor.methods
         # delta = Docs.findOne delta_id
 
     agg: (query, key, collection)->
-        limit=42
+        limit=10
         options = { explain:false }
         pipe =  [
             { $match: query }

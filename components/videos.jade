@@ -16,7 +16,7 @@ template(name='videos')
                         
                         
                         
-template(name='video_item')
+template(name='video_card_template')
     .ui.link.card.video_card
         .image
             +youtube_view key='youtube_id' label='youtube id' direct=true
@@ -25,6 +25,8 @@ template(name='video_item')
         .content
             each tags
                 .ui.basic.label #{this}
+                
+                
 template(name='video_page')
     with current_doc
         .ui.padded.stackable.grid.header-wrapper

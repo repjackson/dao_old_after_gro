@@ -13,7 +13,7 @@ if Meteor.isClient
                 model:'document'
             Router.go "/document/#{new_id}/edit"
 
-    Template.document_item.events
+    Template.document_card_template.events
         'click .document_card': ->
             Docs.update @_id,
                 $inc:views:1
