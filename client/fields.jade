@@ -918,13 +918,15 @@ template(name='single_doc_edit')
         each selections
             .ui.large.label
                 |#{first_name} #{last_name}
+    if single_doc_value
+        .ui.header #{single_doc_value}
     if doc_results
         .ui.attached.smoothed.segment
             .ui.middle.aligned.selection.animated.list
                 each doc_results
                     .select_doc.item
                         h4.ui.header
-                            |#{first_name} #{last_name} #{username}
+                            |#{first_name} #{last_name}
     //- each choices
     //-     .ui.small.circular.compact.button.select_choice(class=choice_class)
     //-         if icon
