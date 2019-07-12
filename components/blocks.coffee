@@ -319,16 +319,16 @@ if Meteor.isClient
 
     Template.remove_button.events
         'click .remove_doc': (e,t)->
-            if confirm "Remove #{@model}?"
-                $(e.currentTarget).closest('.segment').transition('fly right')
-                $(e.currentTarget).closest('tr').transition('fly right')
-                Meteor.setTimeout =>
-                    user = Meteor.users.findOne @_id
-                    if user
-                        Meteor.users.remove @_id
-                    else
-                        Docs.remove @_id
-                , 1000
+            # if confirm "Remove #{@model}?"
+            #     $(e.currentTarget).closest('.segment').transition('fly right')
+            #     $(e.currentTarget).closest('tr').transition('fly right')
+            #     Meteor.setTimeout =>
+            user = Meteor.users.findOne @_id
+            if user
+                Meteor.users.remove @_id
+            else
+                Docs.remove @_id
+                # , 1000
 
 
     Template.add_model_button.events
@@ -343,7 +343,7 @@ if Meteor.isClient
 
 if Meteor.isServer
     Meteor.publish 'author_from_doc', (doc)->
-        console.log 'find author from ', doc
+        # console.log 'find author from ', doc
         Meteor.users.find
             _id: doc._author_id
 

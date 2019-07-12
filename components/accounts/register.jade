@@ -11,27 +11,27 @@ template(name='register')
                     h4.ui.center.aligned.header #{message}
                 .ui.fluid.labeled.input(class=login_class)
                     .ui.small.inline.header 
-                        //- i.user.grey.icon
-                        +i name='user-male'
+                        i.user.grey.icon
+                        //- +i name='user-male'
                         |username
                     input.username(type='text')
                 .ui.fluid.labeled.input(class=login_class)
                     .ui.small.inline.header 
-                        +i name='password'
-                        //- i.lock.grey.icon
+                        //- +i name='password'
+                        i.lock.grey.icon
                         | password
                     input.password(type='password')
                 .ui.fluid.labeled.input(class=login_class)
                     .ui.small.inline.header 
-                        +i name='password'
-                        //- i.lock.grey.icon
+                        //- +i name='password'
+                        i.lock.grey.icon
                         | password again
                     input.password2(type='password')
                 if username
                     if registering
                         .ui.fluid.large.circular.button.enter(class=enter_class)
-                            //- i.user.plus.icon
-                            +i name='add-user-male' classes='ui inline mini image'
+                            i.user.plus.icon
+                            //- +i name='add-user-male' classes='ui inline mini image'
                             |register '#{username}'
                     else
                         .ui.small.header username "#{username}" found
@@ -43,6 +43,7 @@ template(name='register')
                     //-     a(href='https://henry-health.com/privacy-policy/' target="_window") Privacy Policy
                     .ui.small.header or
                         a.ui.large.button(href='/login') 
-                            +i name='enter-2' classes='ui inline mini image'
+                            i.sign.in.alternate.icon
+                            //- +i name='enter-2' classes='ui inline mini image'
                             |login
                     

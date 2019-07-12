@@ -191,8 +191,8 @@ if Meteor.isServer
 
     Meteor.publish 'docs', (selected_tags, filter)->
         # user = Meteor.users.findOne @userId
-        console.log selected_tags
-        console.log filter
+        # console.log selected_tags
+        # console.log filter
         self = @
         match = {}
         # if filter is 'shop'

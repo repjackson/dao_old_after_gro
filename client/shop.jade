@@ -218,7 +218,7 @@ template(name='add_to_tab')
 template(name='shop_card_template')
     .ui.card
         a.pointer(href="/shop/#{_id}/view")
-            img.ui.centered.rounded.image(src="{{c.url picture width=300 height=200 crop='fill'}}")
+            img.ui.centered.rounded.image(src="{{c.url image_id width=300 height=200 crop='lpad'}}")
         .content
             a.ui.grey.small.header(href="/shop/#{_id}/view") #{title}
             //- div

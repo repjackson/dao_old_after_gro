@@ -35,14 +35,6 @@ Meteor.methods
         Accounts.removeEmail user_id, email
 
 
-    check_lease_status: ->
-        residents =
-            Meteor.users.find(
-                roles:$in:['resident']
-            ).fetch()
-
-
-
     verify_email: (user_id)->
         Accounts.sendVerificationEmail(user_id)
 
@@ -61,7 +53,7 @@ Meteor.methods
         	Email.send({
                 to:["<#{to_user.emails[0].address}>"]
                 from:"relay@goldrun.online"
-                subject:"Gold Run Message Notification from #{message._author_username}"
+                subject:"GRO Message Notification from #{message._author_username}"
                 html: "<h3> #{message._author_username} sent you the message:</h3>"+"<h2> #{message.body}.</h2>"+
                     "<br><h4>View your messages here:<a href=#{message_link}>#{message_link}</a>.</h4>"
             })
@@ -90,30 +82,6 @@ Meteor.methods
 
     check_resident_status: (user_id)->
         user = Meteor.users.findOne user_id
-
-
-
-    checkout_user: (user_id)->
-        Meteor.users.update user_id,
-            $set:
-                healthclub_checkedin:false
-        checkedin_doc =
-            Docs.findOne
-                user_id:user_id
-                model:'healthclub_checkin'
-                active:true
-        if checkedin_doc
-            Docs.update checkedin_doc._id,
-                $set:
-                    active:false
-                    logout_timestamp:Date.now()
-
-        Docs.insert
-            model:'log_event'
-            parent_id:user_id
-            object_id:user_id
-            user_id:user_id
-            body: "#{@first_name} #{@last_name} checked out."
 
 
 

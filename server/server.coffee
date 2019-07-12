@@ -13,9 +13,6 @@ Cloudinary.config
     api_secret: Meteor.settings.private.cloudinary_secret
 
 
-if Meteor.isProduction
-    SyncedCron.start()
-
 Meteor.publish 'model_docs', (model,limit)->
     if limit
         Docs.find {

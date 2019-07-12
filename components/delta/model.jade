@@ -6,13 +6,12 @@ template(name='model_edit')
                     .ui.header(title="model: #{model}")
                         |#{title}
                     +creation_info
-                    h1.ui.header edit model
-                    .ui.center.aligned.basic.segment
-                        a.ui.huge.icon.basic.button(href="/m/#{slug}")
-                            i.big.checkmark.icon
-                        #delete_model.ui.icon.basic.button
-                            i.trash.icon
-                    
+                    h1.ui.inline.header edit model
+                    a.ui.huge.icon.basic.button(href="/m/#{slug}")
+                        i.big.checkmark.icon
+                    #delete_model.ui.icon.basic.button
+                        i.trash.icon
+                    +user_list_toggle key='bookmark_ids' add_icon='bookmark' remove_icon='bookmark' add_label='Bookmark' remove_label='Unbookmark' color='red' big=true
                     .ui.form
                         +text_edit key='title' label='title' direct=true
                         +text_edit key='slug' label='slug' direct=true
@@ -32,10 +31,10 @@ template(name='model_edit')
                         i.plus.green.icon
                     .ui.styled.fluid.accordion
                         each fields
-                            .active.title 
+                            .title 
                                 |#{rank}
-                                //- +i name=icon classes='ui avatar image'
-                                i.icon(class=icon)
+                                +i name=icon classes='ui avatar image'
+                                //- i.icon(class=icon)
                                 |#{title} 
                                 i.dropdown.icon
                             +field_edit
@@ -121,7 +120,7 @@ template(name='model_view')
 
 
 template(name='field_edit')
-    .active.content
+    .content
         +text_edit key='title' direct=true label='title'        
         +text_edit key='key'  direct=true label='key'           
         //- +text_edit key='field_type' direct=true label='Field Type'              

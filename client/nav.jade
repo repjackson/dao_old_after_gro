@@ -1,36 +1,49 @@
 template(name='nav')
     unless is_frontdesk
         //- .ui.borderless.attached.big.inverted.menu.topnav
-        .ui.borderless.inverted.big.menu.fixed.topnav.blue
-            a.toggle_sidebar.icon.item.sidebar_on
-                i.large.sidebar.icon
+        .ui.borderless.big.menu.fixed.topnav
+            //- a.toggle_sidebar.icon.item.sidebar_on
+            //-     i.large.sidebar.icon
             if is_loading
                 .icon.item
                     i.big.loading.yin.yang.icon
             else
-                a.header.icon.item(href='/' class="{{isActivePath '/'}}")
-                    +i name='shop'
-                a.icon.item(href='/users' class="{{isActivePath '/users'}}")
-                    +i name='user-group-man-woman'
-                a.icon.item(href='/gallery' class="{{isActivePath '/gallery'}}")
-                    +i name='gallery'
-                a.icon.item(href='/groups' class="{{isActivePath '/groups'}}")
-                    +i name='groups'
+                a.icon.item(href='/home' class="{{isActivePath '/home'}}")
+                    +i name='home'
+                    //- i.th.large.icon
+                each bookmarked_models
+                    a.item.set_bookmarked_model(href="/m/#{slug}" class="{{isActivePath '/m/#{slug}'}}")
+                        +i name=icon
+                        //- i.large.icon(class=icon)
+                            |#{title}
+    
+                //- a.icon.item(href='/' class="{{isActivePath '/'}}")
+                //-     +i name='shop'
+                //-     //- i.cart.large.icon
+                //- a.icon.item(href='/users' class="{{isActivePath '/users'}}")
+                //-     +i name='conference-foreground-selected'
+                //-     //- i.users.icon
+                //- a.icon.item(href='/gallery' class="{{isActivePath '/gallery'}}")
+                //-     +i name='gallery'
+                //- a.icon.item(href='/groups' class="{{isActivePath '/groups'}}")
+                //-     +i name='groups'
+                //-     //- i.users.large.icon
                 //- if is_admin
                 //-     a.icon.item.set_shop(href='/m/shop' class="{{isActivePath '/m/shop'}}")
                 //-         +i name='shop'
                 //-         //- i.shop.icon
                 //-         //- .mobile.hidden &nbsp; market
-                a.icon.item(href='/events' class="{{isActivePath '/events'}}" title='events')
-                    +i name='calendar'
-                a.icon.item(href='/documents' class="{{isActivePath '/documents'}}" title='documents')
-                    +i name='documents'
-                a.icon.item(href='/votes' class="{{isActivePath '/votes'}}" title='votes')
-                    +i name='elections'
-                a.icon.item(href='/qa' class="{{isActivePath '/qa'}}" title='qa')
-                    +i name='faq'
-                a.icon.item(href='/videos' class="{{isActivePath '/videos'}}" title='video')
-                    +i name='video'
+                //- a.icon.item(href='/events' class="{{isActivePath '/events'}}" title='events')
+                //-     +i name='calendar'
+                    //- i.calendar.large.icon
+                //- a.icon.item(href='/documents' class="{{isActivePath '/documents'}}" title='documents')
+                //-     +i name='documents'
+                //- a.icon.item(href='/votes' class="{{isActivePath '/votes'}}" title='votes')
+                //-     +i name='elections'
+                //- a.icon.item(href='/qa' class="{{isActivePath '/qa'}}" title='qa')
+                //-     +i name='faq'
+                //- a.icon.item(href='/videos' class="{{isActivePath '/videos'}}" title='video')
+                //-     +i name='video'
                 
                 //- a.icon.item.set_meal(href='/m/meal' class="{{isActivePath '/m/meal'}}" title='food')
                 //-     +i name='food'
@@ -41,8 +54,8 @@ template(name='nav')
                     //- .item
                     //-     .ui.header(title='your karma') #{currentUser.karma}
                     unless logging_out
-                        a.ui.icon.item(href="/user/#{currentUser.username}/notifications" class="{{isActiveRoute regex='notifications'}}")
-                            i.large.alarm.icon
+                        //- a.ui.icon.item(href="/user/#{currentUser.username}/notifications" class="{{isActiveRoute regex='notifications'}}")
+                        //-     i.large.alarm.icon
                             //- .menu
                             //-     if notifications
                             //-         each notifications
@@ -55,6 +68,7 @@ template(name='nav')
                             //-     //- i.big.mail.icon(class=mail_icon_class title="#{unread_count} Unread")
                             a.icon.item(href="/chat" class="{{isActivePath '/chat'}}" title='chat')
                                 +i name='chat'
+                                //- i.chat.large.icon
                             //- a.item(href="/credit" class="{{isActivePath '/credit'}}" title="#{currentUser.credit} credit")
                             //-      +i name='wallet'
                             //-      |#{currentUser.credit}
@@ -65,6 +79,7 @@ template(name='nav')
                         if is_admin
                             a.icon.item(href='/admin' class="{{isActivePath '/admin'}}")
                                 +i name='user shield'
+                                //- i.user.shield.icon
                         if is_dev
                             a.item.set_model(href='/m/model' class="{{isActivePath '/m/model'}}")
                                 +i name='active directory'
@@ -74,6 +89,7 @@ template(name='nav')
                                 img.ui.avatar.image(src="{{c.url currentUser.image_id width=100 height=100 gravity='face' crop='fill'}}")
                             else
                                 +i name='user'
+                                //- i.user.icon
                                 | #{currentUser.username}
                     if logging_out
                         .item
@@ -83,14 +99,8 @@ template(name='nav')
                     //-         i.sign.out.large.icon
                 else
                     a.item(href='/login' title='login') 
+                        //- i.sign.in.large.icon
                         +i name='enter-2' classes='ui avatar image'
-        //- if currentUser.show_bookmarked_model_bar
-        //-     .ui.inverted.attached.borderless.menu.topnav.grblue
-        //-         each bookmarked_models
-        //-             a.item.set_bookmarked_model(href="/m/#{slug}" class="{{isActivePath '/m/#{slug}'}}")
-        //-                 i.large.icon(class=icon)
-        //-                 //- +i name=icon classes='ui avatar image'
-        //-                 |#{title}
 
 
 
@@ -101,16 +111,16 @@ template(name='footer')
                 with currentUser
                     if is_dev
                         +textarea_edit key='notes' direct=true
-                    form(action='https://www.paypal.com/cgi-bin/webscr', method='post', target='_top')
-                        input(type='hidden', name='cmd', value='_s-xclick')
-                        input(type='hidden', name='hosted_button_id', value='AUVHGYNUW5LVE')
-                        <input type="hidden" name="hosted_button_id" value="7SENHECABERS6" />
-                        // input(type='image', src='https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif', border='0', name='submit')
-                        //- <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Donate with PayPal button" />
-                        img(alt='', border='0', src='https://www.paypal.com/en_US/i/scr/pixel.gif', width='1', height='1')
-                        button.ui.large.icon.button(type='submit')
-                            //- i.pied.piper.alternate.large.icon
-                            +i name='donate'
+                    //- form(action='https://www.paypal.com/cgi-bin/webscr', method='post', target='_top')
+                    //-     input(type='hidden', name='cmd', value='_s-xclick')
+                    //-     input(type='hidden', name='hosted_button_id', value='AUVHGYNUW5LVE')
+                    //-     <input type="hidden" name="hosted_button_id" value="7SENHECABERS6" />
+                    //-     // input(type='image', src='https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif', border='0', name='submit')
+                    //-     //- <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Donate with PayPal button" />
+                    //-     img(alt='', border='0', src='https://www.paypal.com/en_US/i/scr/pixel.gif', width='1', height='1')
+                    //-     button.ui.large.icon.button(type='submit')
+                    //-         //- i.pied.piper.alternate.large.icon
+                    //-         +i name='donate'
                 
                 if is_dev    
                     with current_user
@@ -157,33 +167,15 @@ template(name='role_switcher')
 
 template(name='sidebar')
     .ui.left.inline.vertical.sidebar.inverted.blue.fixed.menu
-        a.header.toggle_sidebar.item(href='/' class="{{isActivePath '/'}}") 
-            i.home.icon
-            | Gold Run
-        a.toggle_sidebar.item(href='/readings' class="{{isActivePath '/readings'}}")
-            i.theme.icon
-            | Readings
-        a.toggle_sidebar.item(href='/lostfound' class="{{isActivePath '/lostfound'}}")
-            i.random.icon
-            | Lost and Found
-        a.toggle_sidebar.item(href='/bikes' class="{{isActivePath '/bikes'}}")
-            i.bicycle.icon
-            | Bikes
-        a.toggle_sidebar.item(href='/frontdesk' class="{{isActivePath '/frontdesk'}}")
-            i.circle.info.icon
-            | Desk Staff
-        a.toggle_sidebar.item(href='/buildings' class="{{isActivePath '/buildings'}}")
-            i.building.icon
-            | Buildings
-        a.toggle_sidebar.item(href='/tasks' class="{{isActivePath '/tasks'}}")
-            i.edit.icon
-            | Tasks
-        a.toggle_sidebar.item(href='/keys' class="{{isActivePath '/keys'}}")
-            i.key.icon
-            | Keys
+        a.toggle_sidebar.item(href='/shop' class="{{isActivePath '/users'}}")
+            i.users.icon
+            | people
         a.toggle_sidebar.item(href='/users' class="{{isActivePath '/users'}}")
             i.users.icon
-            | People
+            | people
+        a.toggle_sidebar.item(href='/users' class="{{isActivePath '/users'}}")
+            i.users.icon
+            | people
         if currentUser
             unless logging_out
                 a.item(href='/dashboard' class="{{isActivePath '/dashboard'}}")

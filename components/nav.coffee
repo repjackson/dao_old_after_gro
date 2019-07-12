@@ -52,11 +52,11 @@ if Meteor.isClient
                 Session.set 'loading', false
 
     Template.nav.onRendered ->
-        @autorun =>
-            if @subscriptionsReady()
-                Meteor.setTimeout ->
-                    $('.dropdown').dropdown()
-                , 3000
+        # @autorun =>
+        #     if @subscriptionsReady()
+        #         Meteor.setTimeout ->
+        #             $('.dropdown').dropdown()
+        #         , 3000
 
         Meteor.setTimeout ->
             $('.item').popup(
@@ -128,56 +128,55 @@ if Meteor.isClient
                     bookmark_ids:$in:[Meteor.userId()]
 
     Template.nav.onRendered ->
-        Meteor.setTimeout ->
-            $('.context .ui.sidebar')
-                .sidebar({
-                    context: $('.context .segment')
-                    dimPage: false
-                    transition:  'push'
-                })
-                .sidebar('attach events', '.context .menu .toggle_sidebar.item')
-        , 1000
+        # Meteor.setTimeout ->
+        #     $('.context .ui.sidebar')
+        #         .sidebar({
+        #             context: $('.context .segment')
+        #             dimPage: false
+        #             transition:  'push'
+        #         })
+        #         .sidebar('attach events', '.context .menu .toggle_sidebar.item')
+        # , 1000
 
     Template.nav.events
-        'click .sidebar_on': ->
-            console.log 'hi'
-            $('.context .ui.sidebar')
-                .sidebar({
-                    context: $('.context .segment')
-                    dimPage: false
-                    transition:  'push'
-                })
-                .sidebar('attach events', '.context .menu .toggle_sidebar.item')
+        # 'click .sidebar_on': ->
+        #     $('.context .ui.sidebar')
+        #         .sidebar({
+        #             context: $('.context .segment')
+        #             dimPage: false
+        #             transition:  'push'
+        #         })
+        #         .sidebar('attach events', '.context .menu .toggle_sidebar.item')
 
 
-    Template.topbar.onRendered ->
-        @autorun =>
-            if @subscriptionsReady()
-                Meteor.setTimeout ->
-                    $('.context.example .ui.top.sidebar')
-                        .sidebar({
-                            context: $('.context.example .segment')
-                            dimPage: false
-                            transition:  'overlay'
-                            scrollLock: false
-                            exclusive: true
-                        })
-                        .sidebar('attach events', '.context.example .menu .toggle_topbar')
-                , 750
-
-    Template.rightbar.onRendered ->
-        if @subscriptionsReady()
-                Meteor.setTimeout ->
-                    $('.context.example .ui.right.sidebar')
-                        .sidebar({
-                            context: $('.context.example .segment')
-                            dimPage: false
-                            transition:  'overlay'
-                            scrollLock: false
-                            exclusive: true
-                        })
-                        .sidebar('attach events', '.context.example .menu .toggle_rightbar')
-                , 750
+    # Template.topbar.onRendered ->
+    #     @autorun =>
+    #         if @subscriptionsReady()
+    #             Meteor.setTimeout ->
+    #                 $('.context.example .ui.top.sidebar')
+    #                     .sidebar({
+    #                         context: $('.context.example .segment')
+    #                         dimPage: false
+    #                         transition:  'overlay'
+    #                         scrollLock: false
+    #                         exclusive: true
+    #                     })
+    #                     .sidebar('attach events', '.context.example .menu .toggle_topbar')
+    #             , 750
+    #
+    # Template.rightbar.onRendered ->
+    #     if @subscriptionsReady()
+    #             Meteor.setTimeout ->
+    #                 $('.context.example .ui.right.sidebar')
+    #                     .sidebar({
+    #                         context: $('.context.example .segment')
+    #                         dimPage: false
+    #                         transition:  'overlay'
+    #                         scrollLock: false
+    #                         exclusive: true
+    #                     })
+    #                     .sidebar('attach events', '.context.example .menu .toggle_rightbar')
+    #             , 750
 
 
 

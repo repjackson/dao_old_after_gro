@@ -463,35 +463,6 @@ Template.number_edit.events
                 $set:"#{@key}":val
 
 
-# Template.dollar_price_view.onCreated ->
-# 	# Session.set 'giveAmount', ''
-#     if Meteor.isDevelopment
-#         pub_key = Meteor.settings.public.stripe_test_publishable
-#     else if Meteor.isProduction
-#         pub_key = Meteor.settings.public.stripe_live_publishable
-#     Template.instance().checkout = StripeCheckout.configure(
-#         key: pub_key
-#         image: 'http://res.cloudinary.com/facet/image/upload/c_fill,g_face,h_300,w_300/k2zt563boyiahhjb0run'
-#         locale: 'auto'
-#         # zipCode: true
-#         token: (token) ->
-#             product = Docs.findOne Router.current().params.doc_id
-#             charge =
-#                 amount: product.dollar_price*100
-#                 currency: 'usd'
-#                 source: token.id
-#                 description: token.description
-#                 # receipt_email: token.email
-#             Meteor.call 'STRIPE_single_charge', charge, product, (error, response) =>
-#                 if error then alert error.reason, 'danger'
-#                 else
-#                     alert 'Payment received.', 'success'
-#                     Docs.insert
-#                         model:'transaction'
-#                         product_id:product._id
-# 	)
-
-
 
 Template.dollar_price_edit.events
     'blur .edit_price': (e,t)->
