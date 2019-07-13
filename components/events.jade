@@ -20,7 +20,7 @@ template(name='event_card_template')
     .ui.result.stackable.grid.segment(class=loading_class)
         if image_id
             .four.wide.column
-                img.ui.rounded.image.invert(src="{{c.url image_id width=400 height=400 gravity='face' crop='fill'}}")
+                img.ui.rounded.image(src="{{c.url image_id width=400 height=400 gravity='face' crop='fill'}}")
         else
             .four.wide.column
                 i.massive.user.calendar.icon

@@ -19,17 +19,15 @@ template(name='documents')
 template(name='document_card_template')
     .ui.segment.grid.document_card
         .sixteen.wide.column
+            .ui.header #{title}
             .content
-                .header #{title}
                 |!{description}
             .content
                 i.small.documents.icon
                 each date_tags
                     .ui.small.basic.label #{this}
             .content
-                |#{attending_usernames.length} members
-                each members
-                    .ui.basic.label #{this}
+                |#{views} views
 
 template(name='document_page')
     with current_doc
@@ -45,29 +43,18 @@ template(name='document_page')
                     +array_view key='tags' icon='tags' direct=true
                     +array_view key='location_tags' label='location tags' icon='marker' direct=true
                     +array_view key='date_tags' label='date tags' icon='documents' direct=true
-                .six.wide.column
-                    +image_view key='image_id' direct=true
+                    +voting_full
+                    +comments
+                .twelve.wide.column
                     +html_view key='description' direct=true
-                .five.wide.column
-                    .ui.header members
-                    if is_member 
-                        .ui.button.leave 
-                            i.ban.grey.icon
-                            |leave
-                    else
-                        .ui.button.join
-                            i.green.checkmark.icon
-                            |join
-                    each members 
-                        .ui.large.basic.label #{this}
-
+                    
 
 
 template(name='document_page_edit')
     with current_doc
         .ui.padded.stackable.grid.header-wrapper
             .row
-                .five.wide.column
+                .four.wide.column
                     .ui.inline.header #{title}
                     a.ui.large.basic.icon.button(href="/document/#{_id}")
                         i.big.green.checkmark.icon
@@ -76,6 +63,5 @@ template(name='document_page_edit')
                     +text_edit key='title' icon='header' direct=true
                     +array_edit key='tags' icon='tags' direct=true
                     +array_edit key='location_tags' label='location tags' icon='marker' direct=true
-                .six.wide.column
-                    +image_edit key='image_id' direct=true
+                .twelve.wide.column
                     +html_edit key='description' direct=true

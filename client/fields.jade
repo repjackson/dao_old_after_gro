@@ -132,6 +132,7 @@ template(name='image_view')
         //- else
         //-     |#{this}
         img.ui.centered.rounded.image.invert(src="{{c.url field_value gravity='face' crop='fit'}}" class=classes)
+        //- img.ui.centered.rounded.image(src="{{c.url field_value gravity='face' crop='fit'}}" class=classes)
         //- a(href="{{c.url field_value gravity='face' crop='fit'}}")
         //-     |download
     //- +call_visual
@@ -302,7 +303,8 @@ template(name='html_view')
         |!{field_value}
     //- +call_watson mode='html'
     if parent.watson
-        +watson_view
+        with parent
+            +watson_view
 
 
 template(name='document_edit')
@@ -400,7 +402,7 @@ template(name='text_view')
     if field_value
         unless header
             div
-            .ui.tiny.header
+            .ui.tiny.inline.header
                 if icon
                     //- i.grey.icon(class=icon)
                     +i name=icon
@@ -897,7 +899,7 @@ template(name='single_doc_view')
         if icon
             +i name=icon
             //- i.icon(class=icon)
-        .ui.tiny.header(title=key)
+        .ui.tiny.inline.header(title=key)
             |#{title}
         .ui.basic.label
             if icon

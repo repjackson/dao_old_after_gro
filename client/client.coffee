@@ -9,8 +9,8 @@ $.cloudinary.config
     cloud_name:"facet"
 # Router.notFound =
     # action: 'not_found'
+Meteor.subscribe 'me'
 
-# Stripe.setPublishableKey Meteor.settings.public.stripe_publishable
 
 Session.setDefault 'invert', false
 Template.registerHelper 'dark_mode', () -> Session.equals('dark_mode',true)
@@ -103,7 +103,7 @@ Template.registerHelper 'edit_fields', () ->
         Docs.find {
             model:'field'
             parent_id:model._id
-            edit_roles:$in:Meteor.user().roles
+            # edit_roles:$in:Meteor.user().roles
         }, sort:rank:1
 
 Template.registerHelper 'current_user', (input) ->

@@ -2,7 +2,9 @@ template(name='delta')
     with current_model
         .ui.stackable.padded.grid
             .row
-                .five.wide.column
+                .eight.wide.right.aligned.column.scrolling
+                    +nav
+                    
                     .ui.inline.header
                         //- i.icon(class=icon)
                         +i name=icon
@@ -35,7 +37,7 @@ template(name='delta')
                             .ui.delete_delta.icon.basic.button(title='delete session')
                                 i.trash.icon
                         else
-                            .create_delta.ui.large.blue.button(title='new session')
+                            .create_delta.ui.large.button(title='new session')
                                 i.plus.icon
                                 |session
                         if description
@@ -48,7 +50,7 @@ template(name='delta')
                     div
                     each sorted_facets
                         +facet
-                .eleven.wide.column
+                .eight.wide.column.scrolling
                     //- .ui.inline.header
                     //-     |sort by
                     //- .ui.button
@@ -84,8 +86,8 @@ template(name='facet')
             if name
                 .selector.ui.compact.button.toggle_selection(class=toggle_value_class)
                     strong #{name}
-                    if is_admin
-                        small #{cal_count} #{count}
+                    small #{cal_count} #{count}
+                    //- if is_admin
             else
                 .selector.ui.compact.button.toggle_selection(class=toggle_value_class)
                     strong [null]
@@ -111,10 +113,10 @@ template(name='delta_result')
         else
             //- .ui.result.cloud.fluid.card(class=loading_class)
             .ui.result.stackable.grid.segment(class=loading_class)
-                if image_id
-                    .four.wide.column
-                        img.ui.image(src="{{c.url image_id width=400 height=400 gravity='face' crop='fill'}}")
-                .twelve.wide.column
+                //- if image_id
+                //-     .four.wide.column
+                //-         img.ui.image(src="{{c.url image_id width=400 height=400 gravity='face' crop='fill'}}")
+                .sixteen.wide.column
                     .content
                         each fields
                             +Template.dynamic template=view_template 

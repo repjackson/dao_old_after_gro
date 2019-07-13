@@ -20,6 +20,11 @@ if Meteor.isClient
             Meteor.call 'set_facets', 'model', ->
                 Session.set 'loading', false
 
+        'click .set_all': ->
+            Session.set 'loading', true
+            Meteor.call 'set_facets', 'all', ->
+                Session.set 'loading', false
+
         'click .set_bookmarked_model': ->
             Session.set 'loading', true
             Meteor.call 'set_facets', @slug, ->
@@ -32,12 +37,12 @@ if Meteor.isClient
         #             $('.dropdown').dropdown()
         #         , 3000
 
-        Meteor.setTimeout ->
-            $('.item').popup(
-                preserve:true;
-                hoverable:true;
-            )
-        , 3000
+        # Meteor.setTimeout ->
+        #     $('.item').popup(
+        #         preserve:true;
+        #         hoverable:true;
+        #     )
+        # , 3000
 
 
     Template.nav.onCreated ->

@@ -71,84 +71,76 @@ template(name='shop_edit')
                         
 template(name='shop_view_layout')
     +nav
-    .context
-        +nav
-        .ui.attached.basic.segment.pushable
-            //- +topbar
-            +sidebar
-            //- +rightbar
-            .pusher.global_container
-                #main
-                    with current_doc
-                        .ui.stackable.padded.grid.global_container
-                            //- img.ui.large.rounded.image(src="{{c.url image width=500 height=500 gravity='face' crop='fill'}}")
-                            .middle.aligned.row
-                                .three.wide.column
-                                    img.ui.rounded.small.inline.image(src="{{c.url image_id width=400 height=400 crop='fit'}}")
-                                .seven.wide.column
-                                    .ui.large.inline.header 
-                                        |#{title}
-                                    .ui.small.inline.header by #{author.first_name} #{_author_username}
-                                    div
-                                    if active_reservation
-                                        with active_reservation
-                                            .ui.segment
-                                                .ui.inline.header 
-                                                    +i name='clock'
-                                                    |active reservation
-                                                .ui.inline.header #{_author_username}
-                                                .ui.inline.header ends at {{short_date end_datetime}}
-                                                if is_author
-                                                    +remove_button
-                                                .ui.button.reserve_after 
-                                                    +i name='waiting-room' classes='ui avatar image'
-                                                    |reserve after
-                                    else
-                                        .ui.inline.header 
-                                            i.green.checkmark.icon
-                                            |available
-                                
-                                .six.wide.column
-                                    if rentable
-                                        .ui.fluid.large.button.reserve
-                                            +i name='ticket-purchase' classes='ui inline mini image'
-                                            |reserve for $#{hourly_rate}/hr
-                                    if for_sale
-                                        .ui.fluid.large.button.reserve
-                                            +i name='shopping-cart' classes='ui inline mini image'
-                                            |buy for $#{dollar_price}
-                            .row
-                                .sixteen.wide.center.aligned.column
-                                    if can_edit
-                                        a.ui.icon.button(href="/shop/#{_id}/edit" title='edit')
-                                            +i name='settings'
-                                    a.ui.icon.massive.button(href="/shop/#{_id}/info" class="{{isActiveRoute 'shop_info'}}" title='info')
-                                        +i name='info'
-                                        //- i.info.icon
-                                    if rentable
-                                        a.ui.icon.massive.button(href="/shop/#{_id}/rentals" class="{{isActiveRoute 'shop_rentals'}}" title='rentals')
-                                            +i name='clock'
-                                            //- i.clock.icon
-                                    a.ui.icon.massive.button(href="/shop/#{_id}/chat" class="{{isActiveRoute 'shop_chat'}}" title='chat')
-                                        +i name='chat'
-                                        //- i.chat.icon
-                                    //- a.ui.icon.massive.button(href="/shop/#{_id}/tasks" class="{{isActiveRoute 'shop_tasks'}}" title='tasks')
-                                    //-     +i name='tasks'
-                                    a.ui.icon.massive.button(href="/shop/#{_id}/earnings" class="{{isActiveRoute 'shop_earnings'}}" title='earnings')
-                                        +i name='money'
-                                        //- i.dollar.icon
-                                    a.ui.icon.massive.button(href="/shop/#{_id}/stats" class="{{isActiveRoute 'shop_stats'}}" title='stats')
-                                        +i name='line-chart'
-                                        //- i.line.chart.icon
-                                    //- a.ui.icon.button(href="/shop/#{_id}/ownership" class="{{isActiveRoute 'product_ownership'}}" title='ownership')
-                                    //-     +i name='pie-chart'
-                                    //- a.ui.icon.button(href="/shop/#{_id}/projections" class="{{isActiveRoute 'shop_projections'}}" title='projections')
-                                    //-     +i name='roulette-chips'
-                                    //- a.ui.icon.button(href="/shop/#{_id}/ads" class="{{isActiveRoute 'shop_ads'}}" title='ads')
-                                    //-     +i name='billboard'
-                            .row
-                                .sixteen.wide.column
-                                    +yield
+    with current_doc
+        .ui.stackable.padded.grid.global_container
+            //- img.ui.large.rounded.image(src="{{c.url image width=500 height=500 gravity='face' crop='fill'}}")
+            .middle.aligned.row
+                .three.wide.column
+                    img.ui.rounded.small.inline.image(src="{{c.url image_id width=400 height=400 crop='fit'}}")
+                .seven.wide.column
+                    .ui.large.inline.header 
+                        |#{title}
+                    .ui.small.inline.header by #{author.first_name} #{_author_username}
+                    div
+                    if active_reservation
+                        with active_reservation
+                            .ui.segment
+                                .ui.inline.header 
+                                    +i name='clock'
+                                    |active reservation
+                                .ui.inline.header #{_author_username}
+                                .ui.inline.header ends at {{short_date end_datetime}}
+                                if is_author
+                                    +remove_button
+                                .ui.button.reserve_after 
+                                    +i name='waiting-room' classes='ui avatar image'
+                                    |reserve after
+                    else
+                        .ui.inline.header 
+                            i.green.checkmark.icon
+                            |available
+                
+                .six.wide.column
+                    if rentable
+                        .ui.fluid.large.button.reserve
+                            +i name='ticket-purchase' classes='ui inline mini image'
+                            |reserve for $#{hourly_rate}/hr
+                    if for_sale
+                        .ui.fluid.large.button.reserve
+                            +i name='shopping-cart' classes='ui inline mini image'
+                            |buy for $#{dollar_price}
+            .row
+                .sixteen.wide.center.aligned.column
+                    if can_edit
+                        a.ui.icon.button(href="/shop/#{_id}/edit" title='edit')
+                            +i name='settings'
+                    a.ui.icon.massive.button(href="/shop/#{_id}/info" class="{{isActiveRoute 'shop_info'}}" title='info')
+                        +i name='info'
+                        //- i.info.icon
+                    if rentable
+                        a.ui.icon.massive.button(href="/shop/#{_id}/rentals" class="{{isActiveRoute 'shop_rentals'}}" title='rentals')
+                            +i name='clock'
+                            //- i.clock.icon
+                    a.ui.icon.massive.button(href="/shop/#{_id}/chat" class="{{isActiveRoute 'shop_chat'}}" title='chat')
+                        +i name='chat'
+                        //- i.chat.icon
+                    //- a.ui.icon.massive.button(href="/shop/#{_id}/tasks" class="{{isActiveRoute 'shop_tasks'}}" title='tasks')
+                    //-     +i name='tasks'
+                    a.ui.icon.massive.button(href="/shop/#{_id}/earnings" class="{{isActiveRoute 'shop_earnings'}}" title='earnings')
+                        +i name='money'
+                        //- i.dollar.icon
+                    a.ui.icon.massive.button(href="/shop/#{_id}/stats" class="{{isActiveRoute 'shop_stats'}}" title='stats')
+                        +i name='line-chart'
+                        //- i.line.chart.icon
+                    //- a.ui.icon.button(href="/shop/#{_id}/ownership" class="{{isActiveRoute 'product_ownership'}}" title='ownership')
+                    //-     +i name='pie-chart'
+                    //- a.ui.icon.button(href="/shop/#{_id}/projections" class="{{isActiveRoute 'shop_projections'}}" title='projections')
+                    //-     +i name='roulette-chips'
+                    //- a.ui.icon.button(href="/shop/#{_id}/ads" class="{{isActiveRoute 'shop_ads'}}" title='ads')
+                    //-     +i name='billboard'
+            .row
+                .sixteen.wide.column
+                    +yield
     +footer
     
     

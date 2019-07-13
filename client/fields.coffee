@@ -723,7 +723,10 @@ Template.single_doc_view.helpers
 
 
 Template.single_doc_edit.onCreated ->
-    parent = Template.parentData(5)
+    if @data.direct = true
+        parent = Template.parentData()
+    else
+        parent = Template.parentData(5)
     @autorun => Meteor.subscribe 'doc', parent["#{@data.key}"]
     console.log @
     @autorun => Meteor.subscribe 'model_docs', @data.ref_model
@@ -738,10 +741,10 @@ Template.single_doc_edit.helpers
         parent = Template.parentData(5)
         referenced_doc = Docs.findOne(parent["#{@key}"])
         if Template.instance().subscriptionsReady()
-            console.log 'hi'
+            # console.log 'hi'
             if referenced_doc
-                console.log @key
-                console.log referenced_doc
+                # console.log @key
+                # console.log referenced_doc
                 referenced_doc["#{@lookup_field}"]
 
 

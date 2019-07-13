@@ -174,7 +174,7 @@ Meteor.methods
 
         Docs.update doc._id,
             $set:_keys:light_fields
-
+        console.log 'found key for', doc._id
 
     global_remove: (keyname)->
         result = Docs.update({"#{keyname}":$exists:true}, {

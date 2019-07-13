@@ -56,7 +56,8 @@ Meteor.methods
         if model.collection and model.collection is 'users'
             built_query.roles = $in:[delta.model_filter]
         else
-            built_query.model = delta.model_filter
+            unless delta.model_filter is 'all'
+                built_query.model = delta.model_filter
 
         if delta.model_filter is 'model'
             unless 'dev' in Meteor.user().roles
@@ -114,12 +115,10 @@ Meteor.methods
                 result_ids:result_ids
             }, ->
         return true
-
-
         # delta = Docs.findOne delta_id
 
     agg: (query, key, collection)->
-        limit=10
+        limit=20
         options = { explain:false }
         pipe =  [
             { $match: query }

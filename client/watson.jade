@@ -132,7 +132,7 @@ template(name='keyword_list')
     .ui.small.grey.header 
         |#{watson_keywords.length} keywords
     each watson_keywords
-        .ui.large.label #{this}
+        .ui.large.basic.label #{this}
         //- span(class="{{calculated_size 'relevance'}}") #{this}
 
 
@@ -141,7 +141,7 @@ template(name='concept_list')
     .ui.small.grey.header 
         |#{watson_concepts.length} concepts
     each watson_concepts
-        .ui.large.label #{this}
+        .ui.large.basic.label #{this}
 
 
 
